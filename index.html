@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ConnectGo — Operating System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green:#11302A; --green-2:#1a4a40; --olive:#858755; --amber:#CD8028; --amber-2:#e8a040;
+  --coral:#EE5C5F; --plum:#511433; --yellow:#F0C71D; --white:#ffffff;
+  --off:#f7f5f0; --paper:#f0ede6; --rule:#ddd9d0;
+  --ink:#1a1a16; --ink-2:#3d3c35; --ink-3:#6b6a60; --ink-4:#9d9c8f;
+  --display:'Rajdhani',sans-serif; --body:'Work Sans',sans-serif;
+  --sidebar:220px; --header:52px;
+}
+html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);background:var(--off);}
+.app{display:grid;grid-template-columns:var(--sidebar) 1fr;grid-template-rows:var(--header) 1fr;height:100vh;overflow:hidden;}
+
+/* TOPBAR */
+.topbar{grid-column:1/-1;background:var(--green);display:flex;align-items:center;padding:0 1.25rem;gap:.75rem;border-bottom:2px solid var(--amber);z-index:100;}
+.topbar-logo{font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:.12em;text-transform:uppercase;color:var(--white);}
+.topbar-logo span{color:var(--amber);}
+.topbar-divider{width:1px;height:20px;background:rgba(255,255,255,.15);margin:0 .25rem;}
+.topbar-title{font-family:var(--display);font-size:.68rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:.75rem;}
+.topbar-date{font-family:var(--display);font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);}
+.sync-btn{font-family:var(--display);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--amber);color:var(--green);border:none;padding:4px 12px;cursor:pointer;}
+
+/* SIDEBAR */
+.sidebar{background:var(--green);overflow-y:auto;padding:1.25rem 0;border-right:1px solid rgba(255,255,255,.06);}
+.nav-label{font-family:var(--display);font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.22);padding:.5rem 1.1rem .2rem;}
+.nav-item{display:flex;align-items:center;gap:.6rem;padding:.5rem 1.1rem;cursor:pointer;border-left:2px solid transparent;font-family:var(--display);font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);user-select:none;transition:all .1s;}
+.nav-item:hover{background:rgba(255,255,255,.05);color:rgba(255,255,255,.7);}
+.nav-item.active{background:rgba(205,128,40,.12);border-left-color:var(--amber);color:var(--amber);}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.7;flex-shrink:0;}
+.nav-badge{margin-left:auto;font-size:.58rem;font-weight:700;background:var(--coral);color:var(--white);padding:1px 5px;border-radius:2px;}
+
+/* MAIN */
+.main{overflow-y:auto;background:var(--off);}
+.tab-panel{display:none;padding:1.5rem;}
+.tab-panel.active{display:block;}
+
+/* PAGE HEADER */
+.page-header{margin-bottom:1.5rem;padding-bottom:.875rem;border-bottom:1px solid var(--rule);display:flex;align-items:flex-end;justify-content:space-between;}
+.page-title{font-family:var(--display);font-weight:700;font-size:1.4rem;letter-spacing:.04em;text-transform:uppercase;color:var(--green);}
+.page-sub{font-size:.75rem;color:var(--ink-3);font-weight:300;margin-top:2px;}
+
+/* STAT GRID */
+.stat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:3px;margin-bottom:1.5rem;background:var(--rule);}
+.stat-card{background:var(--white);padding:1rem;position:relative;overflow:hidden;}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.stat-card.c-green::before{background:var(--green);}
+.stat-card.c-amber::before{background:var(--amber);}
+.stat-card.c-olive::before{background:var(--olive);}
+.stat-card.c-coral::before{background:var(--coral);}
+.stat-card.c-plum::before{background:var(--plum);}
+.stat-label{font-family:var(--display);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);margin-bottom:.3rem;}
+.stat-value{font-family:var(--display);font-weight:700;font-size:2rem;line-height:1;color:var(--green);margin-bottom:.2rem;}
+.stat-sub{font-size:.68rem;color:var(--ink-3);font-weight:300;}
+
+/* SECTION GRID */
+.section-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.section-block{background:var(--white);border:1px solid var(--rule);}
+.section-block.full{grid-column:1/-1;}
+.block-header{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;border-bottom:1px solid var(--rule);background:var(--paper);}
+.block-title{font-family:var(--display);font-weight:700;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);}
+.block-action{font-family:var(--display);font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);cursor:pointer;border:none;background:none;}
+
+/* ACTION ROW */
+.action-row{display:grid;grid-template-columns:1fr auto auto;gap:.6rem;align-items:center;padding:.55rem 1rem;border-bottom:1px solid var(--rule);transition:background .1s;}
+.action-row:last-child{border-bottom:none;}
+.action-row:hover{background:var(--off);}
+.action-task{font-size:.8rem;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.action-owner{font-family:var(--display);font-size:.6rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-4);white-space:nowrap;}
+.action-due{font-family:var(--display);font-size:.62rem;font-weight:600;letter-spacing:.06em;padding:2px 6px;white-space:nowrap;}
+.due-overdue{background:rgba(238,92,95,.12);color:var(--coral);}
+.due-soon{background:rgba(240,199,29,.15);color:#7a6200;}
+.due-ok{background:rgba(17,48,42,.07);color:var(--green);}
+.blocked-tag{display:inline-block;font-family:var(--display);font-size:.56rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(238,92,95,.1);color:var(--coral);padding:1px 4px;margin-left:3px;vertical-align:middle;}
+
+/* DECISION ROW */
+.decision-row{padding:.7rem 1rem;border-bottom:1px solid var(--rule);}
+.decision-row:last-child{border-bottom:none;}
+.decision-row:hover{background:var(--off);}
+.decision-text{font-size:.8rem;color:var(--ink);margin-bottom:3px;}
+.decision-meta{display:flex;gap:.4rem;flex-wrap:wrap;}
+.dtag{font-family:var(--display);font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:1px 5px;}
+.dtag-strategic{background:rgba(81,20,51,.1);color:var(--plum);}
+.dtag-operational{background:rgba(133,135,85,.12);color:var(--olive);}
+.dtag-product{background:rgba(17,48,42,.08);color:var(--green);}
+.dtag-commercials{background:rgba(205,128,40,.12);color:#7a5010;}
+.dtag-compliance{background:rgba(238,92,95,.1);color:var(--coral);}
+.dtag-marketing{background:rgba(240,199,29,.15);color:#7a6200;}
+
+/* FILTER SECTIONS */
+.filter-section{display:flex;flex-direction:column;gap:4px;margin-bottom:1rem;}
+.filter-row{display:flex;align-items:center;gap:.5rem;}
+.filter-row-label{font-family:var(--display);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);width:72px;flex-shrink:0;}
+.filter-row-btns{display:flex;gap:.35rem;flex-wrap:wrap;}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:.78rem;}
+.data-table th{font-family:var(--display);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);background:var(--paper);padding:.55rem .875rem;text-align:left;border-bottom:1px solid var(--rule);white-space:nowrap;}
+.data-table td{padding:.55rem .875rem;border-bottom:1px solid var(--rule);color:var(--ink-2);vertical-align:middle;}
+.data-table tr:hover td{background:var(--off);}
+.data-table tr:last-child td{border-bottom:none;}
+
+/* STATUS */
+.status-pill{display:inline-block;font-family:var(--display);font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:1px 6px;}
+.sp-thisweek{background:rgba(205,128,40,.15);color:#7a5010;}
+.sp-inbox{background:rgba(133,135,85,.1);color:var(--olive);}
+.sp-done{background:rgba(17,48,42,.08);color:var(--green);}
+.sp-carried{background:rgba(240,199,29,.12);color:#7a6200;}
+.sp-onhold{background:rgba(238,92,95,.1);color:var(--coral);}
+
+/* URGENCY */
+.urg-high{color:var(--coral);font-weight:600;}
+.urg-normal{color:var(--ink-3);}
+.urg-low{color:var(--ink-4);}
+
+/* FILTER BAR */
+.filter-bar{display:flex;gap:.4rem;margin-bottom:1rem;flex-wrap:wrap;}
+.filter-btn{font-family:var(--display);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--rule);background:var(--white);color:var(--ink-3);cursor:pointer;transition:all .1s;}
+.filter-btn:hover{border-color:var(--amber);color:var(--amber);}
+.filter-btn.active{background:var(--green);color:var(--white);border-color:var(--green);}
+
+/* CALENDAR */
+.calendar-week{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;background:var(--rule);margin-bottom:1rem;}
+.cal-day{background:var(--white);min-height:120px;padding:.625rem;}
+.cal-day-header{font-family:var(--display);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:1px solid var(--rule);}
+.cal-day.today .cal-day-header{color:var(--amber);border-bottom-color:var(--amber);}
+.cal-event{font-size:.68rem;color:var(--ink-2);padding:2px 5px;margin-bottom:2px;border-left:2px solid var(--green);background:rgba(17,48,42,.05);font-weight:300;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cal-event.meeting{border-color:var(--olive);background:rgba(133,135,85,.06);}
+.cal-event.due{border-color:var(--amber);background:rgba(205,128,40,.06);}
+
+/* LEARNINGS */
+.type-pill{display:inline-block;font-family:var(--display);font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:1px 6px;}
+.type-tech{background:rgba(17,48,42,.08);color:var(--green);}
+.type-product{background:rgba(240,199,29,.15);color:#7a6200;}
+.type-commercial{background:rgba(205,128,40,.12);color:#7a5010;}
+.type-operational{background:rgba(133,135,85,.1);color:var(--olive);}
+.type-team{background:rgba(81,20,51,.08);color:var(--plum);}
+.status-resolved{font-family:var(--display);font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);}
+.status-active{font-family:var(--display);font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);}
+
+/* PIPELINE */
+.stage-pill{display:inline-block;font-family:var(--display);font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;}
+.stage-committed{background:rgba(17,48,42,.08);color:var(--green);}
+.stage-exploring{background:rgba(205,128,40,.12);color:#7a5010;}
+.stage-idea{background:rgba(133,135,85,.1);color:var(--olive);}
+.stage-stalled{background:rgba(238,92,95,.1);color:var(--coral);}
+
+/* BOULDERS */
+.boulder-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:3px;background:var(--rule);}
+.boulder-card{background:var(--white);padding:.875rem;}
+.boulder-person{font-family:var(--display);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.5rem;}
+.boulder-item{font-size:.75rem;color:var(--ink-2);padding:.25rem 0;border-bottom:1px solid var(--rule);display:flex;gap:.4rem;align-items:flex-start;font-weight:300;}
+.boulder-item:last-child{border-bottom:none;}
+.boulder-num{font-family:var(--display);font-weight:700;font-size:.65rem;color:var(--olive);flex-shrink:0;}
+
+/* PIPELINE ROW (investor view) */
+.pipeline-row{display:flex;align-items:center;gap:.75rem;padding:.55rem 1rem;border-bottom:1px solid var(--rule);}
+.pipeline-row:last-child{border-bottom:none;}
+.pipeline-name{flex:1;font-size:.8rem;color:var(--ink);}
+.pipeline-owner{font-family:var(--display);font-size:.62rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-4);white-space:nowrap;}
+
+/* INVESTOR */
+.investor-header{background:var(--green);padding:1.5rem;margin:-1.5rem -1.5rem 1.5rem;display:flex;justify-content:space-between;align-items:flex-end;}
+.investor-logo{font-family:var(--display);font-weight:700;font-size:1.3rem;letter-spacing:.08em;text-transform:uppercase;color:var(--white);}
+.investor-logo span{color:var(--amber);}
+.investor-period{font-family:var(--display);font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);}
+.inv-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;background:var(--rule);margin-bottom:1.25rem;}
+.inv-kpi{background:var(--white);padding:1rem;text-align:center;}
+.inv-kpi-val{font-family:var(--display);font-weight:700;font-size:1.8rem;color:var(--green);line-height:1;margin-bottom:.2rem;}
+.inv-kpi-label{font-family:var(--display);font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);}
+</style>
+</head>
+<body>
+<div class="app">
+
+<header class="topbar">
+  <div class="topbar-logo">Connect<span>Go</span></div>
+  <div class="topbar-divider"></div>
+  <div class="topbar-title">Operating System</div>
+  <div class="topbar-right">
+    <div class="topbar-date" id="currentDate"></div>
+    <button class="sync-btn" id="syncBtn">↻ Live Data</button>
+  </div>
+</header>
+
+<nav class="sidebar">
+  <div class="nav-label">Dashboard</div>
+  <div class="nav-item active" onclick="showTab('overview',this)"><div class="nav-dot"></div><span>Overview</span><span class="nav-badge" id="badge-blocked"></span></div>
+  <div class="nav-label" style="margin-top:.5rem">Operations</div>
+  <div class="nav-item" onclick="showTab('actions',this)"><div class="nav-dot"></div><span>Actions</span></div>
+  <div class="nav-item" onclick="showTab('decisions',this)"><div class="nav-dot"></div><span>Decisions</span></div>
+  <div class="nav-item" onclick="showTab('pipeline',this)"><div class="nav-dot"></div><span>Pipeline</span></div>
+  <div class="nav-label" style="margin-top:.5rem">Intelligence</div>
+  <div class="nav-item" onclick="showTab('learnings',this)"><div class="nav-dot"></div><span>Learnings</span></div>
+  <div class="nav-item" onclick="showTab('calendar',this)"><div class="nav-dot"></div><span>Calendar</span></div>
+  <div class="nav-item" onclick="showTab('boulders',this)"><div class="nav-dot"></div><span>Boulders</span></div>
+  <div class="nav-label" style="margin-top:.5rem">External</div>
+  <div class="nav-item" onclick="showTab('investor',this)"><div class="nav-dot"></div><span>Investor View</span></div>
+</nav>
+
+<main class="main">
+
+<!-- OVERVIEW -->
+<div id="tab-overview" class="tab-panel active">
+  <div class="page-header">
+    <div><div class="page-title">Overview</div><div class="page-sub" id="overview-sub">Loading from Notion…</div></div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-card c-amber"><div class="stat-label">This Week</div><div class="stat-value" id="s-thisweek">18</div><div class="stat-sub">actions in sprint</div></div>
+    <div class="stat-card c-coral"><div class="stat-label">Blocked</div><div class="stat-value" id="s-blocked">8</div><div class="stat-sub">need attention</div></div>
+    <div class="stat-card c-olive"><div class="stat-label">Inbox</div><div class="stat-value" id="s-inbox">24</div><div class="stat-sub">unscheduled</div></div>
+    <div class="stat-card c-green"><div class="stat-label">Done</div><div class="stat-value" id="s-done">34</div><div class="stat-sub">completed to date</div></div>
+    <div class="stat-card c-plum"><div class="stat-label">Decisions</div><div class="stat-value" id="s-decisions">28</div><div class="stat-sub">logged total</div></div>
+    <div class="stat-card c-amber"><div class="stat-label">Decisions</div><div class="stat-value" id="s-decisions-month">—</div><div class="stat-sub">this month</div></div>
+  </div>
+  <div class="section-grid">
+    <div class="section-block">
+      <div class="block-header"><div class="block-title">🚧 Blocked Actions</div><button class="block-action" onclick="showTab('actions',document.querySelector('[onclick*=actions]'))">View all →</button></div>
+      <div id="blocked-list"></div>
+    </div>
+    <div class="section-block">
+      <div class="block-header"><div class="block-title">⚡ This Week</div><button class="block-action" onclick="showTab('actions',document.querySelector('[onclick*=actions]'))">View all →</button></div>
+      <div id="thisweek-list"></div>
+    </div>
+    <div class="section-block">
+      <div class="block-header"><div class="block-title">✅ Recent Decisions</div><button class="block-action" onclick="showTab('decisions',document.querySelector('[onclick*=decisions]'))">View all →</button></div>
+      <div id="recent-decisions"></div>
+    </div>
+    <div class="section-block">
+      <div class="block-header"><div class="block-title">✅ Recently Completed</div></div>
+      <div id="recent-done"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIONS -->
+<div id="tab-actions" class="tab-panel">
+  <div class="page-header">
+    <div><div class="page-title">Actions</div><div class="page-sub">All active actions — sorted by due date</div></div>
+  </div>
+  <div class="filter-section">
+    <div class="filter-row">
+      <div class="filter-row-label">Status</div>
+      <div class="filter-row-btns" data-group="status">
+        <button class="filter-btn active" onclick="filterActions('all',this,'status')">All active</button>
+        <button class="filter-btn" onclick="filterActions('thisweek',this,'status')">This Week</button>
+        <button class="filter-btn" onclick="filterActions('inbox',this,'status')">Inbox</button>
+        <button class="filter-btn" onclick="filterActions('blocked',this,'status')">Blocked</button>
+      </div>
+    </div>
+    <div class="filter-row">
+      <div class="filter-row-label">Owner</div>
+      <div class="filter-row-btns" data-group="owner">
+        <button class="filter-btn" onclick="filterActions('kate',this,'owner')">Kate</button>
+        <button class="filter-btn" onclick="filterActions('sam',this,'owner')">Sam</button>
+        <button class="filter-btn" onclick="filterActions('hannah',this,'owner')">Hannah</button>
+        <button class="filter-btn" onclick="filterActions('belinda',this,'owner')">Belinda</button>
+        <button class="filter-btn" onclick="filterActions('sumaya',this,'owner')">Sumaya</button>
+        <button class="filter-btn" onclick="filterActions('emma',this,'owner')">Emma</button>
+        <button class="filter-btn" onclick="filterActions('hope',this,'owner')">Hope</button>
+      </div>
+    </div>
+    <div class="filter-row">
+      <div class="filter-row-label">Function</div>
+      <div class="filter-row-btns" data-group="function">
+        <button class="filter-btn" onclick="filterActions('product',this,'function')">Product Dev</button>
+        <button class="filter-btn" onclick="filterActions('compliance',this,'function')">Compliance</button>
+        <button class="filter-btn" onclick="filterActions('marketing',this,'function')">Marketing & Sales</button>
+        <button class="filter-btn" onclick="filterActions('commercials',this,'function')">Commercials</button>
+        <button class="filter-btn" onclick="filterActions('knowledge',this,'function')">Knowledge Base</button>
+      </div>
+    </div>
+    <div class="filter-row">
+      <div class="filter-row-label">Vertical</div>
+      <div class="filter-row-btns" data-group="vertical">
+        <button class="filter-btn" onclick="filterActions('reflect-carbon',this,'vertical')">Reflect Carbon</button>
+        <button class="filter-btn" onclick="filterActions('reflect-nature',this,'vertical')">Reflect Nature</button>
+        <button class="filter-btn" onclick="filterActions('c4c',this,'vertical')">Citizens for Change</button>
+        <button class="filter-btn" onclick="filterActions('cross',this,'vertical')">Cross-cutting</button>
+      </div>
+    </div>
+  </div>
+  <div class="section-block full">
+    <table class="data-table" id="actions-table">
+      <thead><tr><th>Task</th><th>Owner</th><th>Status</th><th>Urgency</th><th>Function</th><th>Vertical</th><th>Due Date</th></tr></thead>
+      <tbody id="actions-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- DECISIONS -->
+<div id="tab-decisions" class="tab-panel">
+  <div class="page-header">
+    <div><div class="page-title">Decisions</div><div class="page-sub">Permanent record of what was decided and why</div></div>
+  </div>
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterDecisions('all',this)">All</button>
+    <button class="filter-btn" onclick="filterDecisions('Strategic commitment',this)">Strategic</button>
+    <button class="filter-btn" onclick="filterDecisions('Operational decision',this)">Operational</button>
+    <button class="filter-btn" onclick="filterDecisions('Product Development',this)">Product Dev</button>
+    <button class="filter-btn" onclick="filterDecisions('Commercials',this)">Commercials</button>
+    <button class="filter-btn" onclick="filterDecisions('Marketing & Sales',this)">Marketing</button>
+    <button class="filter-btn" onclick="filterDecisions('Compliance',this)">Compliance</button>
+  </div>
+  <div class="section-block full" id="decisions-container"></div>
+</div>
+
+<!-- PIPELINE -->
+<div id="tab-pipeline" class="tab-panel">
+  <div class="page-header">
+    <div><div class="page-title">Pipeline</div><div class="page-sub">Initiatives and opportunities in motion <span style="color:var(--ink-4);font-style:italic;">· static snapshot — live DB pending</span></div></div>
+  </div>
+  <div class="filter-section">
+    <div class="filter-row">
+      <div class="filter-row-label">Stage</div>
+      <div class="filter-row-btns" data-group="p-stage">
+        <button class="filter-btn active" onclick="filterPipeline('stage','all',this)">All</button>
+        <button class="filter-btn" onclick="filterPipeline('stage','Committed',this)">Committed</button>
+        <button class="filter-btn" onclick="filterPipeline('stage','Exploring',this)">Exploring</button>
+        <button class="filter-btn" onclick="filterPipeline('stage','Idea',this)">Idea</button>
+        <button class="filter-btn" onclick="filterPipeline('stage','Parked',this)">Parked</button>
+      </div>
+    </div>
+    <div class="filter-row">
+      <div class="filter-row-label">Type</div>
+      <div class="filter-row-btns" data-group="p-type">
+        <button class="filter-btn" onclick="filterPipeline('type','Product Feature',this)">Product Feature</button>
+        <button class="filter-btn" onclick="filterPipeline('type','Commercial Opportunity',this)">Commercial</button>
+        <button class="filter-btn" onclick="filterPipeline('type','Marketing Opportunity',this)">Marketing</button>
+        <button class="filter-btn" onclick="filterPipeline('type','Growth & Strategy',this)">Growth & Strategy</button>
+      </div>
+    </div>
+    <div class="filter-row">
+      <div class="filter-row-label">Quarter</div>
+      <div class="filter-row-btns" data-group="p-quarter">
+        <button class="filter-btn" onclick="filterPipeline('quarter','Q2 2026',this)">Q2 2026</button>
+        <button class="filter-btn" onclick="filterPipeline('quarter','Q3 2026',this)">Q3 2026</button>
+        <button class="filter-btn" onclick="filterPipeline('quarter','Q4 2026',this)">Q4 2026</button>
+      </div>
+    </div>
+  </div>
+  <div class="section-block full">
+    <table class="data-table">
+      <thead><tr><th>Initiative</th><th>Type</th><th>Stage</th><th>Owner</th><th>Vertical</th><th>Quarter</th><th>Investor</th></tr></thead>
+      <tbody id="pipeline-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- LEARNINGS -->
+<div id="tab-learnings" class="tab-panel">
+  <div class="page-header">
+    <div><div class="page-title">Learnings</div><div class="page-sub">Organisational knowledge log — including R&D evidence</div></div>
+  </div>
+  <div style="background:rgba(17,48,42,.05);border:1px solid rgba(17,48,42,.1);padding:.75rem 1rem;margin-bottom:1rem;font-size:.78rem;color:var(--ink-2);font-weight:300;">
+    <strong style="font-family:var(--display);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);">R&D Evidence Log</strong> — The Technological filter surfaces entries eligible for R&D tax credit claims. TRL, hypothesis and approach are required fields for R&D evidence. Expanded from the Technological Uncertainties Log.
+  </div>
+  <div class="filter-section">
+    <div class="filter-row">
+      <div class="filter-row-label">Type</div>
+      <div class="filter-row-btns" data-group="l-type">
+        <button class="filter-btn active" onclick="filterLearnings('all',this)">All</button>
+        <button class="filter-btn" onclick="filterLearnings('Technological',this)">🔬 Technological (R&D)</button>
+        <button class="filter-btn" onclick="filterLearnings('Product',this)">Product</button>
+        <button class="filter-btn" onclick="filterLearnings('Commercial',this)">Commercial</button>
+        <button class="filter-btn" onclick="filterLearnings('Operational',this)">Operational</button>
+      </div>
+    </div>
+    <div class="filter-row">
+      <div class="filter-row-label">Status</div>
+      <div class="filter-row-btns" data-group="l-status">
+        <button class="filter-btn" onclick="filterLearningsByStatus('Resolved',this)">Resolved</button>
+        <button class="filter-btn" onclick="filterLearningsByStatus('Active uncertainty',this)">Active</button>
+        <button class="filter-btn" onclick="filterLearningsByStatus('Hypothesis not yet tested',this)">Not yet tested</button>
+      </div>
+    </div>
+  </div>
+  <div class="section-block full">
+    <table class="data-table">
+      <thead><tr><th>Learning / Uncertainty</th><th>Type</th><th>Status</th><th>TRL</th><th>Outcome / Learning</th><th>Quarter</th></tr></thead>
+      <tbody id="learnings-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- CALENDAR -->
+<div id="tab-calendar" class="tab-panel">
+  <div class="page-header">
+    <div><div class="page-title">Calendar</div><div class="page-sub">Team week — actions due and meetings scheduled</div></div>
+  </div>
+  <div class="calendar-week" id="week-grid"></div>
+</div>
+
+<!-- BOULDERS -->
+<div id="tab-boulders" class="tab-panel">
+  <div class="page-header">
+    <div><div class="page-title">Boulder System</div><div class="page-sub">Quarterly priorities — opt-in for all team members</div></div>
+  </div>
+  <div class="section-block full">
+    <div class="block-header"><div class="block-title">Q2 2026</div></div>
+    <div class="boulder-grid">
+      <div class="boulder-card">
+        <div class="boulder-person">Kate</div>
+        <div class="boulder-item"><span class="boulder-num">1</span><span>Team operates at optimal capacity — OS build</span></div>
+        <div class="boulder-item"><span class="boulder-num">2</span><span>Reflect spinout operational by August</span></div>
+        <div class="boulder-item"><span class="boulder-num">3</span><span>C4C platform launch-ready</span></div>
+      </div>
+      <div class="boulder-card"><div class="boulder-person">Hannah</div><div class="boulder-item"><span class="boulder-num">—</span><span>Q3 boulder session to be scheduled</span></div></div>
+      <div class="boulder-card"><div class="boulder-person">Sam</div><div class="boulder-item"><span class="boulder-num">—</span><span>Q3 boulder session to be scheduled</span></div></div>
+      <div class="boulder-card"><div class="boulder-person">Belinda</div><div class="boulder-item"><span class="boulder-num">—</span><span>Q3 boulder session to be scheduled</span></div></div>
+      <div class="boulder-card"><div class="boulder-person">Sumaya</div><div class="boulder-item"><span class="boulder-num">—</span><span>Q3 boulder session to be scheduled</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- INVESTOR VIEW -->
+<div id="tab-investor" class="tab-panel">
+  <div class="investor-header">
+    <div>
+      <div class="investor-logo">Connect<span>Go</span></div>
+      <div style="font-family:var(--display);font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:3px;">Operational Update · Q2 2026</div>
+    </div>
+    <div>
+      <div class="investor-period" id="investor-date">8 June 2026</div>
+      <div style="font-family:var(--display);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:4px;">For investor & commercial partner use</div>
+    </div>
+  </div>
+
+  <div style="background:rgba(205,128,40,.08);border:1px solid rgba(205,128,40,.2);padding:.75rem 1rem;margin-bottom:1.25rem;font-size:.78rem;color:var(--ink-2);font-weight:300;">
+    <strong style="font-family:var(--display);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);">About this view</strong> — Shows only investor-visible items. No internal operational detail, individual names, or unresolved debates. Generatable on demand via Claude prompt in under 2 minutes. Kate sign-off required before sharing externally.
+  </div>
+
+  <!-- Strategic commitments — decisions flagged as Strategic commitment only -->
+  <div class="section-block full" style="margin-bottom:1rem;">
+    <div class="block-header">
+      <div class="block-title">📌 Strategic Commitments</div>
+      <span style="font-family:var(--display);font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4);">Strategic decisions only · no operational detail</span>
+    </div>
+    <div id="investor-commitments"></div>
+  </div>
+
+  <!-- Pipeline — investor-visible items only -->
+  <div class="section-grid">
+    <div class="section-block">
+      <div class="block-header">
+        <div class="block-title">🚀 Investor-Visible Pipeline</div>
+        <span style="font-family:var(--display);font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4);">Items marked investor-visible</span>
+      </div>
+      <div id="investor-pipeline"></div>
+    </div>
+
+    <!-- Milestones hit this period -->
+    <div class="section-block">
+      <div class="block-header">
+        <div class="block-title">🏁 Key Milestones</div>
+        <span style="font-family:var(--display);font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4);">Progress against quarterly goals</span>
+      </div>
+      <div id="milestones-list"></div>
+    </div>
+  </div>
+
+  <!-- Boulder progress -->
+  <div class="section-block full" style="margin-top:0">
+    <div class="block-header"><div class="block-title">🪨 Quarterly Boulder Progress</div></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--rule);">
+      <div style="background:var(--white);padding:1rem;">
+        <div style="font-family:var(--display);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.5rem;">Boulder 1</div>
+        <div style="font-size:.82rem;color:var(--ink);font-weight:500;margin-bottom:.25rem;">Team operates at optimal capacity</div>
+        <div style="font-size:.75rem;color:var(--ink-3);font-weight:300;">ConnectGo Operating System built and in use</div>
+        <div style="margin-top:.5rem;height:4px;background:var(--rule);border-radius:2px;"><div style="height:4px;background:var(--amber);border-radius:2px;width:60%"></div></div>
+        <div style="font-family:var(--display);font-size:.6rem;letter-spacing:.08em;color:var(--amber);margin-top:.25rem;">60% — in progress</div>
+      </div>
+      <div style="background:var(--white);padding:1rem;">
+        <div style="font-family:var(--display);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.5rem;">Boulder 2</div>
+        <div style="font-size:.82rem;color:var(--ink);font-weight:500;margin-bottom:.25rem;">Reflect spinout operational by August</div>
+        <div style="font-size:.75rem;color:var(--ink-3);font-weight:300;">We Reflect Ltd incorporated; fundraising in progress</div>
+        <div style="margin-top:.5rem;height:4px;background:var(--rule);border-radius:2px;"><div style="height:4px;background:var(--amber);border-radius:2px;width:35%"></div></div>
+        <div style="font-family:var(--display);font-size:.6rem;letter-spacing:.08em;color:var(--amber);margin-top:.25rem;">35% — early stage</div>
+      </div>
+      <div style="background:var(--white);padding:1rem;">
+        <div style="font-family:var(--display);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.5rem;">Boulder 3</div>
+        <div style="font-size:.82rem;color:var(--ink);font-weight:500;margin-bottom:.25rem;">C4C platform launch-ready</div>
+        <div style="font-size:.75rem;color:var(--ink-3);font-weight:300;">Backend, homepage, Stripe, brand rollout underway</div>
+        <div style="margin-top:.5rem;height:4px;background:var(--rule);border-radius:2px;"><div style="height:4px;background:var(--amber);border-radius:2px;width:50%"></div></div>
+        <div style="font-family:var(--display);font-size:.6rem;letter-spacing:.08em;color:var(--amber);margin-top:.25rem;">50% — on track</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+// ── OWNERS ──
+const OWNERS = {
+  'user://a87c7948-13ad-4a85-86d0-4c18ce913660': 'Kate',
+  'user://28a34fcf-1eaf-4d49-a8d3-069fb3c6daf6': 'Sam',
+  'user://2bed872b-594c-81b9-924a-0002033894ef': 'Hannah',
+  'user://ca3dc12b-390b-4a06-8ea2-8a5e0105d181': 'Belinda',
+  'user://2e2d872b-594c-817e-8f9a-00029a2414ce': 'Sumaya',
+  'user://198d872b-594c-81d0-bac1-0002a73fce8c': 'Hope',
+  'user://11fd872b-594c-8102-b63c-0002944ea2c3': 'Emma',
+};
+
+// ── UTILITIES ──
+function mapPeople(arr) {
+  if (!arr || !arr.length) return '—';
+  return arr.map(u => OWNERS['user://' + u.id] || u.name || '?').join(', ');
+}
+
+function dueCls(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr), t = new Date();
+  t.setHours(0, 0, 0, 0);
+  if (d < t) return 'due-overdue';
+  return (d - t) / 86400000 <= 5 ? 'due-soon' : 'due-ok';
+}
+
+function fmtDate(s) {
+  if (!s) return '—';
+  const d = new Date(s);
+  return d.getDate() + ' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()];
+}
+
+function fnTag(fn) {
+  const map = {'Product Development':'dtag-product','Commercials':'dtag-commercials','Marketing & Sales':'dtag-marketing','Compliance':'dtag-compliance','Knowledge Base':'dtag-product'};
+  return map[fn] || 'dtag-operational';
+}
+
+// ── NOTION PROPERTY PARSERS ──
+function p_title(prop)  { return prop?.title?.[0]?.plain_text || ''; }
+function p_text(prop)   { return prop?.rich_text?.[0]?.plain_text || ''; }
+function p_select(prop) { return prop?.select?.name || ''; }
+function p_multi(prop)  { return (prop?.multi_select || []).map(s => s.name).join(', ') || ''; }
+function p_people(prop) { return mapPeople(prop?.people); }
+function p_date(prop)   { return prop?.date?.start || ''; }
+function p_check(prop)  { return !!prop?.checkbox; }
+function p_num(prop)    { return prop?.number ?? null; }
+function p_uid(prop)    { return prop?.unique_id?.number ?? null; }
+function p_status(prop) { return prop?.status?.name || ''; }
+function tryProp(props, ...names) {
+  for (const n of names) if (props[n] !== undefined) return props[n];
+  return undefined;
+}
+
+// ── NOTION API ──
+async function notionQuery(db, filter, sorts, page_size) {
+  const r = await fetch('/.netlify/functions/notion', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ db, filter, sorts, page_size: page_size || 100 }),
+  });
+  if (!r.ok) throw new Error('Notion API error: ' + r.status);
+  return r.json();
+}
+
+// ── MAPPERS ──
+function mapAction(page) {
+  const p = page.properties;
+  return {
+    task:     p_title(tryProp(p, 'Task', 'Name', 'Action')),
+    owner:    p_people(tryProp(p, 'Owner', 'Assigned to')),
+    due:      p_date(tryProp(p, 'Due Date', 'Due')),
+    blocked:  p_check(tryProp(p, 'Blocked?', 'Blocked')),
+    fn:       p_select(tryProp(p, 'Function', 'Area')),
+    vertical: p_multi(tryProp(p, 'Vertical')),
+    urgency:  p_select(tryProp(p, 'Urgency', 'Priority')),
+    status:   p_select(tryProp(p, 'Status')),
+    notes:    p_text(tryProp(p, 'Blocker Notes', 'Notes')),
+  };
+}
+
+function mapDecision(page) {
+  const p = page.properties;
+  return {
+    text:    p_title(tryProp(p, 'Decision', 'Name')),
+    rev:     p_select(tryProp(p, 'Reversibility')),
+    fn:      p_select(tryProp(p, 'Function', 'Area')),
+    id:      p_uid(tryProp(p, 'Decision ID', 'ID')),
+    created: (page.created_time || '').substring(0, 10),
+  };
+}
+
+function mapLearning(page) {
+  const p = page.properties;
+  return {
+    q:       p_title(tryProp(p, 'Learning / Uncertainty', 'Learning', 'Name')),
+    type:    p_select(tryProp(p, 'Type', 'Category')),
+    status:  p_select(tryProp(p, 'Status')),
+    trl:     p_select(tryProp(p, 'Technology Readiness Level (TRL)', 'TRL')),
+    outcome: p_text(tryProp(p, 'Outcome / Learning', 'Outcome', 'Result')),
+    quarter: p_select(tryProp(p, 'Quarter')),
+  };
+}
+
+function mapMilestone(page) {
+  const p = page.properties;
+  return {
+    task:   p_title(p['Milestone']),
+    status: p_status(p['Status']),
+  };
+}
+
+// ── DATA STATE ──
+let THIS_WEEK = [], INBOX = [], BLOCKED = [], DONE = [];
+let DECISIONS = [], LEARNINGS = [], MILESTONES = [];
+
+// Pipeline is static until the Notion database is created
+const PIPELINE = [
+  {name:'Reflect Financial Dashboard',type:'Commercial Opportunity',stage:'Committed',owner:'Kate, Emma',vertical:'Reflect Carbon',quarter:'Q2 2026',investor:true,desc:'Build financial dashboard for Reflect — investors requesting cleaner financials'},
+  {name:'Review & Approvals Module Redesign',type:'Product Feature',stage:'Committed',owner:'Sam, Kate',vertical:'Cross-cutting',quarter:'Q2 2026',investor:false,desc:'Comprehensive UX simplification based on user testing — design brief handed to Sam'},
+  {name:'Automated Data Visualisation System',type:'Product Feature',stage:'Committed',owner:'Sam, Belinda',vertical:'Cross-cutting',quarter:'Q2 2026',investor:true,desc:'Automated branded visualisation generation for any survey — eliminates manual data viz work'},
+  {name:'Collington Capital Early Adopter',type:'Commercial Opportunity',stage:'Exploring',owner:'Emma',vertical:'Reflect Carbon',quarter:'Q2/Q3 2026',investor:true,desc:'Uganda carbon project as replacement for Compassionate Carbon — due diligence in progress'},
+  {name:'C4C Market Research Survey',type:'Marketing Opportunity',stage:'Committed',owner:'Hannah, Sumaya',vertical:'Citizens for Change',quarter:'Q2 2026',investor:false,desc:'Survey approved and ready — cold leads database being built toward distribution'},
+  {name:'Intercata Early Adopter Onboarding',type:'Commercial Opportunity',stage:'Committed',owner:'Kate, Hope',vertical:'Reflect Carbon',quarter:'Q2 2026',investor:true,desc:'Training and hand-holding process for Chicambo\'s team to be planned and executed'},
+  {name:'C4C Vertical Spin-off',type:'Growth & Strategy',stage:'Committed',owner:'Sam',vertical:'Citizens for Change',quarter:'Q2 2026',investor:true,desc:'Complete C4C as separate vertical on platform — backend, homepage, Stripe integration'},
+  {name:'Reflect for Nature Vertical',type:'Growth & Strategy',stage:'Committed',owner:'Sam',vertical:'Reflect Nature',quarter:'Q2 2026',investor:true,desc:'Spin off Reflect for Nature as third vertical — week of 14 June'},
+  {name:'Reflect Spinout — We Reflect Ltd',type:'Growth & Strategy',stage:'Committed',owner:'Kate',vertical:'Reflect Carbon',quarter:'Q2 2026',investor:true,desc:'Incorporate and operationalise We Reflect Ltd as standalone entity by end of August'},
+  {name:'Pricing Framework & Stripe Integration',type:'Product Feature',stage:'Committed',owner:'Sam',vertical:'Citizens for Change',quarter:'Q2 2026',investor:false,desc:'Build pricing tiers and Stripe payment into C4C platform. Stripe selected over Shopify.'},
+];
+
+// ── LOADERS ──
+async function loadActions() {
+  const [tw, bl, done, inbox] = await Promise.all([
+    notionQuery('actions', {property:'Status', select:{equals:'This Week'}}, [{property:'Due Date',direction:'ascending'}]),
+    notionQuery('actions', {property:'Blocked?', checkbox:{equals:true}}, [{property:'Due Date',direction:'ascending'}]),
+    notionQuery('actions', {property:'Status', select:{equals:'Done'}}, [{property:'Due Date',direction:'descending'}]),
+    notionQuery('actions', {property:'Status', select:{equals:'Inbox'}}, [{property:'Due Date',direction:'ascending'}]),
+  ]);
+  THIS_WEEK = tw.results.map(mapAction).filter(a => a.task);
+  BLOCKED   = bl.results.map(mapAction).filter(a => a.task);
+  DONE      = done.results.map(mapAction).filter(a => a.task);
+  INBOX     = inbox.results.map(mapAction).filter(a => a.task);
+}
+
+async function loadDecisions() {
+  const data = await notionQuery('decisions', undefined, [{property:'Decision ID', direction:'descending'}]);
+  DECISIONS = data.results.map(mapDecision).filter(d => d.text);
+}
+
+async function loadLearnings() {
+  const data = await notionQuery('learnings');
+  LEARNINGS = data.results.map(mapLearning).filter(l => l.q);
+}
+
+async function loadMilestones() {
+  const data = await notionQuery('milestones',
+    {property:'Status', status:{equals:'In progress'}}
+  );
+  MILESTONES = data.results.map(mapMilestone).filter(m => m.task);
+}
+
+// ── RENDER OVERVIEW ──
+function renderOverview() {
+  const today = new Date();
+  document.getElementById('s-thisweek').textContent = THIS_WEEK.length;
+  document.getElementById('s-blocked').textContent = BLOCKED.length;
+  document.getElementById('s-inbox').textContent = INBOX.length;
+  document.getElementById('s-done').textContent = DONE.length;
+  document.getElementById('s-decisions').textContent = DECISIONS.length;
+  document.getElementById('s-decisions-month').textContent = DECISIONS.filter(d => {
+    if (!d.created) return false;
+    const dd = new Date(d.created);
+    return dd.getMonth() === today.getMonth() && dd.getFullYear() === today.getFullYear();
+  }).length;
+  document.getElementById('badge-blocked').textContent = BLOCKED.length || '';
+
+  document.getElementById('blocked-list').innerHTML = BLOCKED.length
+    ? BLOCKED.map(a => `<div class="action-row">
+        <div class="action-task">${a.task}<span class="blocked-tag">blocked</span>${a.notes ? ' — ' + a.notes : ''}</div>
+        <div class="action-owner">${a.owner}</div>
+        <div class="action-due ${dueCls(a.due)}">${fmtDate(a.due)}</div>
+      </div>`).join('')
+    : '<div style="padding:.875rem 1rem;font-size:.78rem;color:var(--ink-4);font-weight:300;">No blocked actions</div>';
+
+  document.getElementById('thisweek-list').innerHTML = THIS_WEEK.slice(0, 8).map(a => `<div class="action-row">
+    <div class="action-task">${a.task}${a.blocked ? '<span class="blocked-tag">blocked</span>' : ''}</div>
+    <div class="action-owner">${a.owner}</div>
+    <div class="action-due ${dueCls(a.due)}">${fmtDate(a.due)}</div>
+  </div>`).join('') || '<div style="padding:.875rem 1rem;font-size:.78rem;color:var(--ink-4);font-weight:300;">No actions this week</div>';
+
+  document.getElementById('recent-decisions').innerHTML = DECISIONS.slice(0, 5).map(d => `<div class="decision-row">
+    <div class="decision-text">${d.text}</div>
+    <div class="decision-meta">
+      <span class="dtag ${d.rev === 'Strategic commitment' ? 'dtag-strategic' : 'dtag-operational'}">${d.rev === 'Strategic commitment' ? 'Strategic' : 'Operational'}</span>
+      <span class="dtag ${fnTag(d.fn)}">${d.fn}</span>
+    </div>
+  </div>`).join('') || '<div style="padding:.875rem 1rem;font-size:.78rem;color:var(--ink-4);font-weight:300;">No decisions logged</div>';
+
+  document.getElementById('recent-done').innerHTML = DONE.slice(0, 6).map(a => `<div class="action-row">
+    <div class="action-task">${a.task}</div>
+    <div class="action-owner">${a.owner}</div>
+    <div class="action-due due-ok">${fmtDate(a.due)}</div>
+  </div>`).join('') || '<div style="padding:.875rem 1rem;font-size:.78rem;color:var(--ink-4);font-weight:300;">No recent completions</div>';
+}
+
+// ── RENDER MILESTONES ──
+function renderMilestones() {
+  const el = document.getElementById('milestones-list');
+  if (!el) return;
+  const cls = s => s === 'In progress' ? 'due-soon' : s === 'Done' || s === 'Complete' ? 'due-ok' : 'due-ok';
+  el.innerHTML = MILESTONES.length
+    ? MILESTONES.map(m => `<div class="action-row">
+        <div class="action-task">${m.task}</div>
+        <div class="action-due ${cls(m.status)}">${m.status || '—'}</div>
+      </div>`).join('')
+    : '<div style="padding:.875rem 1rem;font-size:.78rem;color:var(--ink-4);font-weight:300;">No milestones</div>';
+}
+
+// ── RENDER INVESTOR VIEW ──
+function renderInvestorView() {
+  const commitEl = document.getElementById('investor-commitments');
+  if (commitEl) {
+    const commitments = DECISIONS.filter(d => d.rev === 'Strategic commitment');
+    commitEl.innerHTML = commitments.length
+      ? commitments.map(d => `<div class="decision-row">
+          <div class="decision-text">${d.text}</div>
+          <div class="decision-meta">
+            <span class="dtag dtag-strategic">Strategic commitment</span>
+            <span class="dtag ${fnTag(d.fn)}">${d.fn}</span>
+          </div>
+        </div>`).join('')
+      : '<div style="padding:.875rem 1rem;font-size:.78rem;color:var(--ink-4);font-weight:300;">No strategic commitments</div>';
+  }
+
+  const pipeEl = document.getElementById('investor-pipeline');
+  if (pipeEl) {
+    const invItems = PIPELINE.filter(p => p.investor);
+    pipeEl.innerHTML = invItems.map(p => `<div class="pipeline-row">
+      <div class="pipeline-name">${p.name}</div>
+      <div class="pipeline-owner">${p.quarter}</div>
+      <span class="stage-pill stage-${p.stage.toLowerCase()}">${p.stage}</span>
+    </div>`).join('');
+  }
+}
+
+// ── RENDER ACTIONS TABLE ──
+const activeFilters = {status:'all', owner:null, function:null, vertical:null};
+
+function renderActionsTable() {
+  const tbody = document.getElementById('actions-tbody');
+  let rows = [
+    ...THIS_WEEK.map(a => ({...a, status:'This Week'})),
+    ...INBOX.map(a => ({...a, status:'Inbox'})),
+  ];
+
+  const sf = activeFilters.status;
+  if (sf === 'thisweek') rows = rows.filter(r => r.status === 'This Week');
+  else if (sf === 'inbox') rows = rows.filter(r => r.status === 'Inbox');
+  else if (sf === 'blocked') rows = rows.filter(r => r.blocked);
+
+  const of = activeFilters.owner;
+  if (of === 'kate') rows = rows.filter(r => r.owner.includes('Kate'));
+  else if (of === 'sam') rows = rows.filter(r => r.owner.includes('Sam'));
+  else if (of === 'hannah') rows = rows.filter(r => r.owner.includes('Hannah'));
+  else if (of === 'belinda') rows = rows.filter(r => r.owner.includes('Belinda'));
+  else if (of === 'sumaya') rows = rows.filter(r => r.owner.includes('Sumaya'));
+  else if (of === 'emma') rows = rows.filter(r => r.owner.includes('Emma'));
+  else if (of === 'hope') rows = rows.filter(r => r.owner.includes('Hope'));
+
+  const ff = activeFilters.function;
+  if (ff === 'product') rows = rows.filter(r => r.fn === 'Product Development');
+  else if (ff === 'compliance') rows = rows.filter(r => r.fn === 'Compliance');
+  else if (ff === 'marketing') rows = rows.filter(r => r.fn === 'Marketing & Sales');
+  else if (ff === 'commercials') rows = rows.filter(r => r.fn === 'Commercials');
+  else if (ff === 'knowledge') rows = rows.filter(r => r.fn === 'Knowledge Base');
+
+  const vf = activeFilters.vertical;
+  if (vf === 'reflect-carbon') rows = rows.filter(r => (r.vertical||'').includes('Reflect Carbon'));
+  else if (vf === 'reflect-nature') rows = rows.filter(r => (r.vertical||'').includes('Reflect Nature'));
+  else if (vf === 'c4c') rows = rows.filter(r => (r.vertical||'').includes('Citizens for Change'));
+  else if (vf === 'cross') rows = rows.filter(r => (r.vertical||'').includes('Cross-cutting'));
+
+  tbody.innerHTML = rows.length
+    ? rows.map(a => `<tr>
+        <td>${a.task}${a.blocked ? '<span class="blocked-tag">blocked</span>' : ''}</td>
+        <td>${a.owner}</td>
+        <td><span class="status-pill sp-${a.status.toLowerCase().replace(' ','')}">${a.status}</span></td>
+        <td><span class="${a.urgency === 'High' ? 'urg-high' : a.urgency === 'Low' ? 'urg-low' : 'urg-normal'}">${a.urgency || 'Normal'}</span></td>
+        <td>${a.fn}</td>
+        <td>${a.vertical || 'Cross-cutting'}</td>
+        <td><span class="action-due ${dueCls(a.due)}">${fmtDate(a.due)}</span></td>
+      </tr>`).join('')
+    : '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--ink-4);font-weight:300;">No actions match these filters</td></tr>';
+}
+
+function filterActions(f, btn, group) {
+  const groupEl = btn.closest('[data-group]');
+  if (groupEl) groupEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (group === 'status') {
+    btn.classList.add('active');
+    activeFilters.status = f;
+  } else {
+    if (activeFilters[group] === f) { activeFilters[group] = null; }
+    else { btn.classList.add('active'); activeFilters[group] = f; }
+  }
+  renderActionsTable();
+}
+
+// ── RENDER DECISIONS ──
+let decFilter = 'all';
+function renderDecisions(filter) {
+  decFilter = filter;
+  let rows = filter === 'all' ? DECISIONS : DECISIONS.filter(d => d.rev === filter || d.fn === filter);
+  document.getElementById('decisions-container').innerHTML = rows.length
+    ? rows.map(d => `<div class="decision-row">
+        <div class="decision-text">${d.text}</div>
+        <div class="decision-meta">
+          <span class="dtag ${d.rev === 'Strategic commitment' ? 'dtag-strategic' : 'dtag-operational'}">${d.rev === 'Strategic commitment' ? 'Strategic' : 'Operational'}</span>
+          <span class="dtag ${fnTag(d.fn)}">${d.fn}</span>
+          ${d.id ? '<span style="font-size:.6rem;color:var(--ink-4);font-family:var(--display);font-weight:600;letter-spacing:.06em">ID-' + d.id + '</span>' : ''}
+        </div>
+      </div>`).join('')
+    : '<div style="padding:1.5rem;text-align:center;color:var(--ink-4);font-weight:300;">No decisions match this filter</div>';
+}
+
+function filterDecisions(f, btn) {
+  document.querySelectorAll('#tab-decisions .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderDecisions(f);
+}
+
+// ── RENDER LEARNINGS ──
+let learningsTypeFilter = 'all', learningsStatusFilter = null;
+const typeClass = {Technological:'type-tech',Product:'type-product',Commercial:'type-commercial',Operational:'type-operational',Team:'type-team'};
+const statusClass = {'Resolved':'status-resolved','Active uncertainty':'status-active','Hypothesis not yet tested':'status-active'};
+
+function renderLearnings(filter, statusFilter) {
+  let rows = LEARNINGS;
+  if (filter && filter !== 'all') rows = rows.filter(l => l.type === filter);
+  if (statusFilter) rows = rows.filter(l => l.status === statusFilter);
+  document.getElementById('learnings-tbody').innerHTML = rows.length
+    ? rows.map(l => `<tr>
+        <td>${l.q}</td>
+        <td><span class="type-pill ${typeClass[l.type]||''}">${l.type}</span></td>
+        <td><span class="${statusClass[l.status]||''}">${l.status}</span></td>
+        <td>${l.trl ? '<span class="dtag dtag-product">' + l.trl + '</span>' : '—'}</td>
+        <td style="font-size:.72rem;color:var(--ink-3);font-style:italic;max-width:280px;">${l.outcome||'—'}</td>
+        <td>${l.quarter||'—'}</td>
+      </tr>`).join('')
+    : '<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--ink-4);font-weight:300;">No learnings match this filter</td></tr>';
+}
+
+function renderLearningsFiltered() { renderLearnings(learningsTypeFilter, learningsStatusFilter); }
+
+function filterLearnings(f, btn) {
+  const g = btn.closest('[data-group]');
+  if (g) g.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  learningsTypeFilter = f;
+  renderLearningsFiltered();
+}
+
+function filterLearningsByStatus(f, btn) {
+  const g = btn.closest('[data-group]');
+  if (g) g.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (learningsStatusFilter === f) { learningsStatusFilter = null; }
+  else { btn.classList.add('active'); learningsStatusFilter = f; }
+  renderLearningsFiltered();
+}
+
+// ── RENDER PIPELINE (static snapshot) ──
+const pipelineFilters = {stage:'all', type:null, quarter:null};
+const stageClass = {Committed:'stage-committed',Exploring:'stage-exploring',Idea:'stage-idea',Parked:'stage-stalled'};
+
+function renderPipeline() {
+  let rows = PIPELINE;
+  if (pipelineFilters.stage !== 'all') rows = rows.filter(p => p.stage === pipelineFilters.stage);
+  if (pipelineFilters.type) rows = rows.filter(p => p.type === pipelineFilters.type);
+  if (pipelineFilters.quarter) rows = rows.filter(p => p.quarter.includes(pipelineFilters.quarter));
+  document.getElementById('pipeline-tbody').innerHTML = rows.map(p => `<tr>
+    <td><div style="font-weight:500">${p.name}</div><div style="font-size:.7rem;color:var(--ink-3);font-weight:300;margin-top:2px">${p.desc}</div></td>
+    <td><span class="dtag dtag-operational" style="white-space:nowrap">${p.type}</span></td>
+    <td><span class="stage-pill ${stageClass[p.stage]||''}">${p.stage}</span></td>
+    <td>${p.owner}</td>
+    <td>${p.vertical}</td>
+    <td>${p.quarter}</td>
+    <td>${p.investor ? '<span style="color:var(--green);font-weight:600;font-family:var(--display);font-size:.65rem;letter-spacing:.06em">YES</span>' : '<span style="color:var(--ink-4);font-family:var(--display);font-size:.65rem">—</span>'}</td>
+  </tr>`).join('');
+}
+
+function filterPipeline(group, value, btn) {
+  const g = btn.closest('[data-group]');
+  if (g) g.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (group === 'stage') { btn.classList.add('active'); pipelineFilters.stage = value; }
+  else if (pipelineFilters[group] === value) { pipelineFilters[group] = null; }
+  else { btn.classList.add('active'); pipelineFilters[group] = value; }
+  renderPipeline();
+}
+
+// ── CALENDAR (current week, live actions) ──
+function buildCalendar() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const dow = today.getDay();
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - (dow === 0 ? 6 : dow - 1));
+
+  const weekDays = Array.from({length: 5}, (_, i) => {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    return d;
+  });
+
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const dayNames = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
+
+  const byDate = {};
+  THIS_WEEK.forEach(a => {
+    const k = a.due ? a.due.substring(0, 10) : null;
+    if (!k) return;
+    (byDate[k] = byDate[k] || []).push(a);
+  });
+
+  document.getElementById('week-grid').innerHTML = weekDays.map((d, i) => {
+    const key = d.toISOString().substring(0, 10);
+    const isToday = d.getTime() === today.getTime();
+    const events = (byDate[key] || []).map(a => '<div class="cal-event due">' + a.task + '</div>').join('');
+    return '<div class="cal-day' + (isToday ? ' today' : '') + '">'
+      + '<div class="cal-day-header">' + dayNames[i] + ' ' + d.getDate() + ' ' + months[d.getMonth()] + '</div>'
+      + events
+      + '</div>';
+  }).join('');
+}
+
+// ── NAVIGATION ──
+function showTab(name, el) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  if (el) el.classList.add('active');
+}
+
+// ── DATE DISPLAY ──
+function updateDateDisplay() {
+  const today = new Date();
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('currentDate').textContent = days[today.getDay()] + ' ' + today.getDate() + ' ' + months[today.getMonth()] + ' ' + today.getFullYear();
+  const sub = document.getElementById('overview-sub');
+  if (sub) sub.textContent = 'Week of ' + today.getDate() + ' ' + months[today.getMonth()] + ' ' + today.getFullYear() + ' · Live data from Notion';
+  const invDate = document.getElementById('investor-date');
+  if (invDate) invDate.textContent = today.getDate() + ' ' + months[today.getMonth()] + ' ' + today.getFullYear();
+}
+
+// ── SET LOADING STATE ──
+function setLoadingState() {
+  const msg = '<div style="padding:.875rem 1rem;font-size:.78rem;color:var(--ink-4);font-weight:300;font-style:italic;">Loading from Notion…</div>';
+  ['blocked-list','thisweek-list','recent-decisions','recent-done','milestones-list','investor-commitments'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = msg;
+  });
+  document.getElementById('actions-tbody').innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--ink-4);font-weight:300;font-style:italic;">Loading from Notion…</td></tr>';
+  document.getElementById('decisions-container').innerHTML = msg;
+  document.getElementById('learnings-tbody').innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--ink-4);font-weight:300;font-style:italic;">Loading from Notion…</td></tr>';
+}
+
+// ── SYNC / LOAD ALL ──
+let syncing = false;
+async function loadAllData() {
+  if (syncing) return;
+  syncing = true;
+  const btn = document.getElementById('syncBtn');
+  if (btn) { btn.textContent = '↻ Syncing…'; btn.disabled = true; }
+  setLoadingState();
+
+  try {
+    const results = await Promise.allSettled([loadActions(), loadDecisions(), loadLearnings(), loadMilestones()]);
+    results.forEach((r, i) => {
+      if (r.status === 'rejected') console.warn(['actions','decisions','learnings','milestones'][i], 'failed:', r.reason);
+    });
+    renderOverview();
+    renderMilestones();
+    renderInvestorView();
+    renderActionsTable();
+    renderDecisions(decFilter);
+    renderLearningsFiltered();
+    buildCalendar();
+    updateDateDisplay();
+    if (btn) {
+      btn.textContent = '✓ Live';
+      setTimeout(() => { btn.textContent = '↻ Live Data'; btn.disabled = false; }, 2500);
+    }
+  } catch (err) {
+    console.error('Sync failed:', err);
+    const errMsg = '<div style="padding:.875rem 1rem;font-size:.78rem;color:var(--coral);font-weight:400;">Failed to load — check NOTION_TOKEN and database connections</div>';
+    ['blocked-list','thisweek-list','recent-decisions','recent-done','milestones-list'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.innerHTML.includes('Loading')) el.innerHTML = errMsg;
+    });
+    if (btn) {
+      btn.textContent = '✕ Sync failed';
+      setTimeout(() => { btn.textContent = '↻ Live Data'; btn.disabled = false; }, 3000);
+    }
+  }
+  syncing = false;
+}
+
+// ── INIT ──
+document.getElementById('syncBtn').addEventListener('click', loadAllData);
+updateDateDisplay();
+renderPipeline();
+renderInvestorView();
+loadAllData();
+
+</script>
+</body>
+</html>
