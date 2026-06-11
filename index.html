@@ -215,11 +215,11 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
     <div><div class="page-title">Overview</div><div class="page-sub" id="overview-sub">Loading from Notion…</div></div>
   </div>
   <div class="stat-grid">
-    <div class="stat-card c-amber"><div class="stat-label">This Week</div><div class="stat-value" id="s-thisweek">18</div><div class="stat-sub">actions in sprint</div></div>
-    <div class="stat-card c-coral"><div class="stat-label">Blocked</div><div class="stat-value" id="s-blocked">8</div><div class="stat-sub">need attention</div></div>
-    <div class="stat-card c-olive"><div class="stat-label">Inbox</div><div class="stat-value" id="s-inbox">24</div><div class="stat-sub">unscheduled</div></div>
-    <div class="stat-card c-green"><div class="stat-label">Done</div><div class="stat-value" id="s-done">34</div><div class="stat-sub">completed to date</div></div>
-    <div class="stat-card c-plum"><div class="stat-label">Decisions</div><div class="stat-value" id="s-decisions">28</div><div class="stat-sub">logged total</div></div>
+    <div class="stat-card c-amber"><div class="stat-label">This Week</div><div class="stat-value" id="s-thisweek">—</div><div class="stat-sub">actions in sprint</div></div>
+    <div class="stat-card c-coral"><div class="stat-label">Blocked</div><div class="stat-value" id="s-blocked">—</div><div class="stat-sub">need attention</div></div>
+    <div class="stat-card c-olive"><div class="stat-label">Inbox</div><div class="stat-value" id="s-inbox">—</div><div class="stat-sub">unscheduled</div></div>
+    <div class="stat-card c-green"><div class="stat-label">Done</div><div class="stat-value" id="s-done">—</div><div class="stat-sub">completed to date</div></div>
+    <div class="stat-card c-plum"><div class="stat-label">Decisions</div><div class="stat-value" id="s-decisions">—</div><div class="stat-sub">logged total</div></div>
     <div class="stat-card c-amber"><div class="stat-label">Decisions</div><div class="stat-value" id="s-decisions-month">—</div><div class="stat-sub">this month</div></div>
   </div>
   <div class="section-grid">
@@ -317,7 +317,7 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
 <!-- PIPELINE -->
 <div id="tab-pipeline" class="tab-panel">
   <div class="page-header">
-    <div><div class="page-title">Pipeline</div><div class="page-sub">Initiatives and opportunities in motion <span style="color:var(--ink-4);font-style:italic;">· static snapshot — live DB pending</span></div></div>
+    <div><div class="page-title">Pipeline</div><div class="page-sub">Initiatives and opportunities in motion</div></div>
   </div>
   <div class="filter-section">
     <div class="filter-row">
@@ -603,6 +603,20 @@ function mapLearning(page) {
   };
 }
 
+function mapPipelineItem(page) {
+  const p = page.properties;
+  return {
+    name:     p_title(p['Initiative']),
+    type:     p_select(p['Type']),
+    stage:    p_select(p['Stage']),
+    owner:    p_people(p['Owner']),
+    vertical: p_multi(p['Vertical']),
+    quarter:  p_select(p['Quarter']),
+    investor: p_check(p['Investor-visible']),
+    desc:     p_text(p['Description']),
+  };
+}
+
 function mapMilestone(page) {
   const p = page.properties;
   return {
@@ -613,21 +627,7 @@ function mapMilestone(page) {
 
 // ── DATA STATE ──
 let THIS_WEEK = [], INBOX = [], BLOCKED = [], DONE = [];
-let DECISIONS = [], LEARNINGS = [], MILESTONES = [];
-
-// Pipeline is static until the Notion database is created
-const PIPELINE = [
-  {name:'Reflect Financial Dashboard',type:'Commercial Opportunity',stage:'Committed',owner:'Kate, Emma',vertical:'Reflect Carbon',quarter:'Q2 2026',investor:true,desc:'Build financial dashboard for Reflect — investors requesting cleaner financials'},
-  {name:'Review & Approvals Module Redesign',type:'Product Feature',stage:'Committed',owner:'Sam, Kate',vertical:'Cross-cutting',quarter:'Q2 2026',investor:false,desc:'Comprehensive UX simplification based on user testing — design brief handed to Sam'},
-  {name:'Automated Data Visualisation System',type:'Product Feature',stage:'Committed',owner:'Sam, Belinda',vertical:'Cross-cutting',quarter:'Q2 2026',investor:true,desc:'Automated branded visualisation generation for any survey — eliminates manual data viz work'},
-  {name:'Collington Capital Early Adopter',type:'Commercial Opportunity',stage:'Exploring',owner:'Emma',vertical:'Reflect Carbon',quarter:'Q2/Q3 2026',investor:true,desc:'Uganda carbon project as replacement for Compassionate Carbon — due diligence in progress'},
-  {name:'C4C Market Research Survey',type:'Marketing Opportunity',stage:'Committed',owner:'Hannah, Sumaya',vertical:'Citizens for Change',quarter:'Q2 2026',investor:false,desc:'Survey approved and ready — cold leads database being built toward distribution'},
-  {name:'Intercata Early Adopter Onboarding',type:'Commercial Opportunity',stage:'Committed',owner:'Kate, Hope',vertical:'Reflect Carbon',quarter:'Q2 2026',investor:true,desc:'Training and hand-holding process for Chicambo\'s team to be planned and executed'},
-  {name:'C4C Vertical Spin-off',type:'Growth & Strategy',stage:'Committed',owner:'Sam',vertical:'Citizens for Change',quarter:'Q2 2026',investor:true,desc:'Complete C4C as separate vertical on platform — backend, homepage, Stripe integration'},
-  {name:'Reflect for Nature Vertical',type:'Growth & Strategy',stage:'Committed',owner:'Sam',vertical:'Reflect Nature',quarter:'Q2 2026',investor:true,desc:'Spin off Reflect for Nature as third vertical — week of 14 June'},
-  {name:'Reflect Spinout — We Reflect Ltd',type:'Growth & Strategy',stage:'Committed',owner:'Kate',vertical:'Reflect Carbon',quarter:'Q2 2026',investor:true,desc:'Incorporate and operationalise We Reflect Ltd as standalone entity by end of August'},
-  {name:'Pricing Framework & Stripe Integration',type:'Product Feature',stage:'Committed',owner:'Sam',vertical:'Citizens for Change',quarter:'Q2 2026',investor:false,desc:'Build pricing tiers and Stripe payment into C4C platform. Stripe selected over Shopify.'},
-];
+let DECISIONS = [], LEARNINGS = [], MILESTONES = [], PIPELINE = [];
 
 // ── LOADERS ──
 async function loadActions() {
@@ -658,6 +658,11 @@ async function loadMilestones() {
     {property:'Status', status:{equals:'In progress'}}
   );
   MILESTONES = data.results.map(mapMilestone).filter(m => m.task);
+}
+
+async function loadPipeline() {
+  const data = await notionQuery('pipeline');
+  PIPELINE = data.results.map(mapPipelineItem).filter(p => p.name);
 }
 
 // ── RENDER OVERVIEW ──
@@ -975,9 +980,9 @@ async function loadAllData() {
   setLoadingState();
 
   try {
-    const results = await Promise.allSettled([loadActions(), loadDecisions(), loadLearnings(), loadMilestones()]);
+    const results = await Promise.allSettled([loadActions(), loadDecisions(), loadLearnings(), loadMilestones(), loadPipeline()]);
     results.forEach((r, i) => {
-      if (r.status === 'rejected') console.warn(['actions','decisions','learnings','milestones'][i], 'failed:', r.reason);
+      if (r.status === 'rejected') console.warn(['actions','decisions','learnings','milestones','pipeline'][i], 'failed:', r.reason);
     });
     renderOverview();
     renderMilestones();
