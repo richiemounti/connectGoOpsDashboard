@@ -405,21 +405,7 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
   <div class="page-header">
     <div><div class="page-title">Boulder System</div><div class="page-sub">Quarterly priorities — opt-in for all team members</div></div>
   </div>
-  <div class="section-block full">
-    <div class="block-header"><div class="block-title">Q2 2026</div></div>
-    <div class="boulder-grid">
-      <div class="boulder-card">
-        <div class="boulder-person">Kate</div>
-        <div class="boulder-item"><span class="boulder-num">1</span><span>Team operates at optimal capacity — OS build</span></div>
-        <div class="boulder-item"><span class="boulder-num">2</span><span>Reflect spinout operational by August</span></div>
-        <div class="boulder-item"><span class="boulder-num">3</span><span>C4C platform launch-ready</span></div>
-      </div>
-      <div class="boulder-card"><div class="boulder-person">Hannah</div><div class="boulder-item"><span class="boulder-num">—</span><span>Q3 boulder session to be scheduled</span></div></div>
-      <div class="boulder-card"><div class="boulder-person">Sam</div><div class="boulder-item"><span class="boulder-num">—</span><span>Q3 boulder session to be scheduled</span></div></div>
-      <div class="boulder-card"><div class="boulder-person">Belinda</div><div class="boulder-item"><span class="boulder-num">—</span><span>Q3 boulder session to be scheduled</span></div></div>
-      <div class="boulder-card"><div class="boulder-person">Sumaya</div><div class="boulder-item"><span class="boulder-num">—</span><span>Q3 boulder session to be scheduled</span></div></div>
-    </div>
-  </div>
+  <div id="boulders-container"></div>
 </div>
 
 <!-- INVESTOR VIEW -->
@@ -471,29 +457,7 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
   <!-- Boulder progress -->
   <div class="section-block full" style="margin-top:0">
     <div class="block-header"><div class="block-title">🪨 Quarterly Boulder Progress</div></div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--rule);">
-      <div style="background:var(--white);padding:1rem;">
-        <div style="font-family:var(--display);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.5rem;">Boulder 1</div>
-        <div style="font-size:.82rem;color:var(--ink);font-weight:500;margin-bottom:.25rem;">Team operates at optimal capacity</div>
-        <div style="font-size:.75rem;color:var(--ink-3);font-weight:300;">ConnectGo Operating System built and in use</div>
-        <div style="margin-top:.5rem;height:4px;background:var(--rule);border-radius:2px;"><div style="height:4px;background:var(--amber);border-radius:2px;width:60%"></div></div>
-        <div style="font-family:var(--display);font-size:.6rem;letter-spacing:.08em;color:var(--amber);margin-top:.25rem;">60% — in progress</div>
-      </div>
-      <div style="background:var(--white);padding:1rem;">
-        <div style="font-family:var(--display);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.5rem;">Boulder 2</div>
-        <div style="font-size:.82rem;color:var(--ink);font-weight:500;margin-bottom:.25rem;">Reflect spinout operational by August</div>
-        <div style="font-size:.75rem;color:var(--ink-3);font-weight:300;">We Reflect Ltd incorporated; fundraising in progress</div>
-        <div style="margin-top:.5rem;height:4px;background:var(--rule);border-radius:2px;"><div style="height:4px;background:var(--amber);border-radius:2px;width:35%"></div></div>
-        <div style="font-family:var(--display);font-size:.6rem;letter-spacing:.08em;color:var(--amber);margin-top:.25rem;">35% — early stage</div>
-      </div>
-      <div style="background:var(--white);padding:1rem;">
-        <div style="font-family:var(--display);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.5rem;">Boulder 3</div>
-        <div style="font-size:.82rem;color:var(--ink);font-weight:500;margin-bottom:.25rem;">C4C platform launch-ready</div>
-        <div style="font-size:.75rem;color:var(--ink-3);font-weight:300;">Backend, homepage, Stripe, brand rollout underway</div>
-        <div style="margin-top:.5rem;height:4px;background:var(--rule);border-radius:2px;"><div style="height:4px;background:var(--amber);border-radius:2px;width:50%"></div></div>
-        <div style="font-family:var(--display);font-size:.6rem;letter-spacing:.08em;color:var(--amber);margin-top:.25rem;">50% — on track</div>
-      </div>
-    </div>
+    <div id="investor-boulders"></div>
   </div>
 </div>
 
@@ -625,9 +589,20 @@ function mapMilestone(page) {
   };
 }
 
+function mapBoulder(page) {
+  const p = page.properties;
+  return {
+    name:    p_title(p['Boulder']),
+    owner:   p_people(p['Owner']),
+    status:  p_select(p['Status']),
+    quarter: p_select(p['Quarter']),
+    id:      p_uid(p['Boulder ID']),
+  };
+}
+
 // ── DATA STATE ──
 let THIS_WEEK = [], INBOX = [], BLOCKED = [], DONE = [];
-let DECISIONS = [], LEARNINGS = [], MILESTONES = [], PIPELINE = [];
+let DECISIONS = [], LEARNINGS = [], MILESTONES = [], PIPELINE = [], BOULDERS = [];
 
 // ── LOADERS ──
 async function loadActions() {
@@ -663,6 +638,11 @@ async function loadMilestones() {
 async function loadPipeline() {
   const data = await notionQuery('pipeline');
   PIPELINE = data.results.map(mapPipelineItem).filter(p => p.name);
+}
+
+async function loadBoulders() {
+  const data = await notionQuery('boulders', undefined, [{property:'Boulder ID', direction:'ascending'}]);
+  BOULDERS = data.results.map(mapBoulder).filter(b => b.name);
 }
 
 // ── RENDER OVERVIEW ──
@@ -722,6 +702,38 @@ function renderMilestones() {
     : '<div style="padding:.875rem 1rem;font-size:.78rem;color:var(--ink-4);font-weight:300;">No milestones</div>';
 }
 
+// ── RENDER BOULDERS ──
+function renderBoulders() {
+  const container = document.getElementById('boulders-container');
+  if (!container) return;
+  if (!BOULDERS.length) {
+    container.innerHTML = '<div class="section-block full"><div style="padding:.875rem 1rem;font-size:.78rem;color:var(--ink-4);font-weight:300;">No boulders loaded</div></div>';
+    return;
+  }
+  const byQuarter = {};
+  BOULDERS.forEach(b => {
+    const q = b.quarter || 'Unscheduled';
+    if (!byQuarter[q]) byQuarter[q] = {};
+    const owner = b.owner || '—';
+    if (!byQuarter[q][owner]) byQuarter[q][owner] = [];
+    byQuarter[q][owner].push(b);
+  });
+  container.innerHTML = Object.entries(byQuarter).map(([quarter, ownerMap]) => `
+    <div class="section-block full">
+      <div class="block-header"><div class="block-title">${quarter}</div></div>
+      <div class="boulder-grid">
+        ${Object.entries(ownerMap).map(([owner, boulders]) => `
+          <div class="boulder-card">
+            <div class="boulder-person">${owner}</div>
+            ${boulders.map(b => `<div class="boulder-item">
+              <span class="boulder-num">${b.id ?? '—'}</span>
+              <span>${b.name}</span>
+            </div>`).join('')}
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
 // ── RENDER INVESTOR VIEW ──
 function renderInvestorView() {
   const commitEl = document.getElementById('investor-commitments');
@@ -746,6 +758,28 @@ function renderInvestorView() {
       <div class="pipeline-owner">${p.quarter}</div>
       <span class="stage-pill stage-${p.stage.toLowerCase()}">${p.stage}</span>
     </div>`).join('');
+  }
+
+  const bouldersEl = document.getElementById('investor-boulders');
+  if (bouldersEl) {
+    const active = BOULDERS.filter(b => b.status !== 'Dropped');
+    if (!active.length) {
+      bouldersEl.innerHTML = '<div style="padding:.875rem 1rem;font-size:.78rem;color:var(--ink-4);font-weight:300;">No active boulders</div>';
+    } else {
+      const byOwner = {};
+      active.forEach(b => {
+        const owner = b.owner || '—';
+        if (!byOwner[owner]) byOwner[owner] = [];
+        byOwner[owner].push(b);
+      });
+      const colCount = Math.min(Object.keys(byOwner).length, 3);
+      bouldersEl.innerHTML = `<div style="display:grid;grid-template-columns:repeat(${colCount},1fr);gap:3px;background:var(--rule);">` +
+        Object.entries(byOwner).map(([owner, boulders]) => `
+          <div style="background:var(--white);padding:1rem;">
+            <div style="font-family:var(--display);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.6rem;">${owner}</div>
+            ${boulders.map(b => `<div style="font-size:.78rem;color:var(--ink);font-weight:400;margin-bottom:.4rem;line-height:1.4;">${b.name}${b.status === 'Completed' ? ' <span style="color:var(--green);font-size:.7rem;">✓</span>' : ''}</div>`).join('')}
+          </div>`).join('') + `</div>`;
+    }
   }
 }
 
@@ -980,12 +1014,13 @@ async function loadAllData() {
   setLoadingState();
 
   try {
-    const results = await Promise.allSettled([loadActions(), loadDecisions(), loadLearnings(), loadMilestones(), loadPipeline()]);
+    const results = await Promise.allSettled([loadActions(), loadDecisions(), loadLearnings(), loadMilestones(), loadPipeline(), loadBoulders()]);
     results.forEach((r, i) => {
-      if (r.status === 'rejected') console.warn(['actions','decisions','learnings','milestones','pipeline'][i], 'failed:', r.reason);
+      if (r.status === 'rejected') console.warn(['actions','decisions','learnings','milestones','pipeline','boulders'][i], 'failed:', r.reason);
     });
     renderOverview();
     renderMilestones();
+    renderBoulders();
     renderInvestorView();
     renderActionsTable();
     renderDecisions(decFilter);
