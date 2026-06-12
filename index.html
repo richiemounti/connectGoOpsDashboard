@@ -606,16 +606,15 @@ let DECISIONS = [], LEARNINGS = [], MILESTONES = [], PIPELINE = [], BOULDERS = [
 
 // ── LOADERS ──
 async function loadActions() {
-  const [tw, bl, done, inbox] = await Promise.all([
+  const [tw, done, inbox] = await Promise.all([
     notionQuery('actions', {property:'Status', select:{equals:'This Week'}}, [{property:'Due Date',direction:'ascending'}]),
-    notionQuery('actions', {property:'Blocked?', checkbox:{equals:true}}, [{property:'Due Date',direction:'ascending'}]),
     notionQuery('actions', {property:'Status', select:{equals:'Done'}}, [{property:'Due Date',direction:'descending'}]),
     notionQuery('actions', {property:'Status', select:{equals:'Inbox'}}, [{property:'Due Date',direction:'ascending'}]),
   ]);
   THIS_WEEK = tw.results.map(mapAction).filter(a => a.task);
-  BLOCKED   = bl.results.map(mapAction).filter(a => a.task);
   DONE      = done.results.map(mapAction).filter(a => a.task);
   INBOX     = inbox.results.map(mapAction).filter(a => a.task);
+  BLOCKED   = [...THIS_WEEK, ...INBOX].filter(a => a.blocked);
 }
 
 async function loadDecisions() {
