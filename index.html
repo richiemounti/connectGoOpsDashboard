@@ -177,6 +177,27 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
 .inv-kpi{background:var(--white);padding:1rem;text-align:center;}
 .inv-kpi-val{font-family:var(--display);font-weight:700;font-size:1.8rem;color:var(--green);line-height:1;margin-bottom:.2rem;}
 .inv-kpi-label{font-family:var(--display);font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);}
+
+/* 2026 compact workspace redesign */
+:root{--sidebar:176px;--header:48px;--off:#f6f7f4;--paper:#eef1ed;--rule:#dce2de;--display:'Work Sans',sans-serif}
+html,body{font-size:13px;background:var(--off)}
+.topbar{grid-column:2;padding:0 16px;background:#fff;border-bottom:1px solid var(--rule);color:var(--ink)}
+.topbar-logo{display:none}.topbar-divider{display:none}.topbar-title{color:var(--ink-3);font-size:.66rem}.topbar-date{color:var(--ink-4)}
+.sync-btn{border-radius:6px;background:#e4efe9;color:#175542;padding:6px 11px}
+.sidebar{grid-row:1/-1;padding:12px 9px;background:#123c32}
+.sidebar:before{content:'CG  CONNECTGO';display:block;margin:1px 7px 18px;color:#fff;font-family:var(--display);font-size:.78rem;font-weight:600;letter-spacing:.09em}
+.nav-label{padding:12px 8px 4px;font-size:.55rem}.nav-item{padding:8px 9px;border-left:0;border-radius:5px;font-family:var(--body);font-size:.72rem;letter-spacing:0;text-transform:none}.nav-item.active{background:rgba(255,255,255,.11);color:#fff}.nav-dot{display:none}
+.tab-panel{padding:17px}.page-header{margin-bottom:13px;padding-bottom:0;border:0}.page-title{font-family:var(--body);font-size:1.45rem;font-weight:600;letter-spacing:0;text-transform:none}.page-sub{display:none}
+.stat-grid{grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--rule);background:#fff}.stat-card{padding:12px 14px;border-right:1px solid var(--rule)}.stat-card:nth-child(n+5){display:none}.stat-card::before{display:none}.stat-label{font-family:var(--body);font-size:.58rem}.stat-value{font-family:var(--body);font-size:1.6rem;font-weight:600}
+.section-grid{gap:12px}.section-block{border-color:var(--rule);border-radius:0}.block-header{padding:9px 11px;background:var(--paper)}.block-title{font-family:var(--body);font-size:.65rem;letter-spacing:.07em}.block-action{font-family:var(--body)}
+.action-row{padding:10px 11px}.action-task,.decision-text{font-size:.78rem}.action-owner,.action-due{font-family:var(--body)}
+.data-table th{font-family:var(--body);font-size:.57rem;background:var(--paper)}.data-table td{padding:10px 11px}.status-pill,.dtag,.stage-pill,.type-pill{font-family:var(--body);border-radius:999px;padding:3px 7px;letter-spacing:0;text-transform:none}
+.filter-section,.filter-bar{display:flex;flex-direction:row;gap:7px;flex-wrap:wrap;margin-bottom:11px}.compact-filter{min-width:130px;border:1px solid var(--rule);border-radius:6px;padding:7px 28px 7px 9px;background:#fff;color:var(--ink-2);font:inherit}.filter-row,.filter-bar>.filter-btn{display:none}
+.calendar-tools{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:11px}.view-switch{display:flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden}.view-switch button,.cal-nav button{border:0;border-right:1px solid var(--rule);padding:7px 10px;background:#fff;color:var(--ink-2);font:inherit}.view-switch button:last-child,.cal-nav button:last-child{border-right:0}.view-switch button.active{background:var(--green);color:#fff}.cal-nav{display:flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.calendar-week{grid-template-columns:repeat(var(--calendar-days,7),minmax(0,1fr));gap:0;border:1px solid var(--rule);background:#fff}.cal-day{min-height:360px;border-right:1px solid var(--rule)}.cal-day:last-child{border-right:0}.cal-day-header{padding:3px 0 8px}.cal-event{white-space:normal;padding:6px;margin-bottom:5px;border-radius:3px}
+.pipeline-board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.pipeline-column{background:#fff;border:1px solid var(--rule)}.pipeline-column h3{padding:9px 10px;background:var(--paper);font-size:.68rem;font-weight:600}.pipeline-card{margin:8px;padding:9px;border-left:3px solid var(--green);background:#f4f7f5}.pipeline-card strong{display:block;font-size:.75rem;font-weight:500}.pipeline-card small{display:block;margin-top:5px;color:var(--ink-3);font-size:.63rem}
+.boulder-list{border:1px solid var(--rule);background:#fff}.boulder-line{display:grid;grid-template-columns:minmax(220px,1.5fr) 110px 100px 90px;gap:10px;padding:11px;border-bottom:1px solid var(--rule);align-items:center}.boulder-line.head{background:var(--paper);font-size:.58rem;text-transform:uppercase;color:var(--ink-4)}.boulder-line strong{font-weight:500}.boulder-line small{color:var(--ink-3)}
+@media(max-width:760px){:root{--sidebar:138px}.topbar-date{display:none}.section-grid,.pipeline-board{grid-template-columns:1fr}.stat-grid{grid-template-columns:repeat(2,1fr)}.calendar-week{grid-template-columns:1fr}.cal-day{min-height:auto;border-right:0;border-bottom:1px solid var(--rule)}.boulder-line{grid-template-columns:minmax(0,1fr) auto}.boulder-line>:nth-child(n+3){display:none}}
 </style>
 </head>
 <body>
@@ -248,6 +269,10 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
     <div><div class="page-title">Actions</div><div class="page-sub">All active actions — sorted by due date</div></div>
   </div>
   <div class="filter-section">
+    <select class="compact-filter" id="action-status" onchange="setActionFilter('status',this.value)"><option value="all">All statuses</option><option value="thisweek">This Week</option><option value="inbox">Inbox</option><option value="blocked">Blocked</option></select>
+    <select class="compact-filter" id="action-owner" onchange="setActionFilter('owner',this.value)"><option value="">All owners</option><option value="kate">Kate</option><option value="sam">Sam</option><option value="hannah">Hannah</option><option value="belinda">Belinda</option><option value="sumaya">Sumaya</option><option value="emma">Emma</option><option value="hope">Hope</option></select>
+    <select class="compact-filter" id="action-function" onchange="setActionFilter('function',this.value)"><option value="">All functions</option><option value="product">Product Dev</option><option value="compliance">Compliance</option><option value="marketing">Marketing & Sales</option><option value="commercials">Commercials</option><option value="knowledge">Knowledge Base</option></select>
+    <select class="compact-filter" id="action-vertical" onchange="setActionFilter('vertical',this.value)"><option value="">All verticals</option><option value="reflect-carbon">Reflect Carbon</option><option value="reflect-nature">Reflect Nature</option><option value="c4c">Citizens for Change</option><option value="cross">Cross-cutting</option></select>
     <div class="filter-row">
       <div class="filter-row-label">Status</div>
       <div class="filter-row-btns" data-group="status">
@@ -303,6 +328,10 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
     <div><div class="page-title">Decisions</div><div class="page-sub">Permanent record of what was decided and why</div></div>
   </div>
   <div class="filter-bar">
+    <select class="compact-filter" id="decision-type" onchange="setDecisionFilters()"><option value="all">All types</option><option value="Strategic commitment">Strategic</option><option value="Operational decision">Operational</option></select>
+    <select class="compact-filter" id="decision-function" onchange="setDecisionFilters()"><option value="all">All functions</option><option>Product Development</option><option>Commercials</option><option>Marketing & Sales</option><option>Compliance</option></select>
+    <select class="compact-filter" id="decision-owner" onchange="setDecisionFilters()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaya</option><option>Emma</option><option>Hope</option></select>
+    <select class="compact-filter" id="decision-date" onchange="setDecisionFilters()"><option value="all">All dates</option><option value="30">Last 30 days</option><option value="90">Last 90 days</option></select>
     <button class="filter-btn active" onclick="filterDecisions('all',this)">All</button>
     <button class="filter-btn" onclick="filterDecisions('Strategic commitment',this)">Strategic</button>
     <button class="filter-btn" onclick="filterDecisions('Operational decision',this)">Operational</button>
@@ -320,6 +349,9 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
     <div><div class="page-title">Pipeline</div><div class="page-sub">Initiatives and opportunities in motion</div></div>
   </div>
   <div class="filter-section">
+    <select class="compact-filter" id="pipeline-owner" onchange="setPipelineSelectFilters()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaya</option><option>Emma</option><option>Hope</option></select>
+    <select class="compact-filter" id="pipeline-type" onchange="setPipelineSelectFilters()"><option value="all">All types</option><option>Product Feature</option><option>Commercial Opportunity</option><option>Marketing Opportunity</option><option>Growth & Strategy</option></select>
+    <select class="compact-filter" id="pipeline-quarter" onchange="setPipelineSelectFilters()"><option value="all">All quarters</option><option>Q2 2026</option><option>Q3 2026</option><option>Q4 2026</option></select>
     <div class="filter-row">
       <div class="filter-row-label">Stage</div>
       <div class="filter-row-btns" data-group="p-stage">
@@ -348,12 +380,8 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
       </div>
     </div>
   </div>
-  <div class="section-block full">
-    <table class="data-table">
-      <thead><tr><th>Initiative</th><th>Type</th><th>Stage</th><th>Owner</th><th>Vertical</th><th>Quarter</th><th>Investor</th></tr></thead>
-      <tbody id="pipeline-tbody"></tbody>
-    </table>
-  </div>
+  <div class="pipeline-board" id="pipeline-board"></div>
+  <table style="display:none"><tbody id="pipeline-tbody"></tbody></table>
 </div>
 
 <!-- LEARNINGS -->
@@ -361,10 +389,14 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
   <div class="page-header">
     <div><div class="page-title">Learnings</div><div class="page-sub">Organisational knowledge log — including R&D evidence</div></div>
   </div>
-  <div style="background:rgba(17,48,42,.05);border:1px solid rgba(17,48,42,.1);padding:.75rem 1rem;margin-bottom:1rem;font-size:.78rem;color:var(--ink-2);font-weight:300;">
+  <div style="display:none">
     <strong style="font-family:var(--display);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);">R&D Evidence Log</strong> — The Technological filter surfaces entries eligible for R&D tax credit claims. TRL, hypothesis and approach are required fields for R&D evidence. Expanded from the Technological Uncertainties Log.
   </div>
   <div class="filter-section">
+    <select class="compact-filter" id="learning-type" onchange="setLearningFilters()"><option value="all">All types</option><option>Technological</option><option>Product</option><option>Commercial</option><option>Operational</option><option>Team</option></select>
+    <select class="compact-filter" id="learning-status" onchange="setLearningFilters()"><option value="all">All statuses</option><option>Resolved</option><option>Active uncertainty</option><option>Hypothesis not yet tested</option></select>
+    <select class="compact-filter" id="learning-owner" onchange="setLearningFilters()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaya</option><option>Emma</option><option>Hope</option></select>
+    <select class="compact-filter" id="learning-quarter" onchange="setLearningFilters()"><option value="all">All quarters</option><option>Q2 2026</option><option>Q3 2026</option><option>Q4 2026</option></select>
     <div class="filter-row">
       <div class="filter-row-label">Type</div>
       <div class="filter-row-btns" data-group="l-type">
@@ -397,7 +429,7 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
   <div class="page-header">
     <div><div class="page-title">Calendar</div><div class="page-sub">Team week — actions due and meetings scheduled</div></div>
   </div>
-  <div class="calendar-week" id="week-grid"></div>
+  <div class="calendar-tools"><div class="cal-nav"><button onclick="moveCalendar(-1)">‹</button><button onclick="resetCalendar()">Today</button><button onclick="moveCalendar(1)">›</button></div><div class="view-switch"><button onclick="setCalendarView('day',this)">Day</button><button onclick="setCalendarView('three',this)">3 days</button><button class="active" onclick="setCalendarView('week',this)">Week</button></div><select class="compact-filter" id="calendar-owner" onchange="buildCalendar()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaya</option><option>Emma</option><option>Hope</option></select><select class="compact-filter" id="calendar-function" onchange="buildCalendar()"><option value="all">All functions</option><option>Product Development</option><option>Compliance</option><option>Marketing & Sales</option><option>Commercials</option></select></div><div class="calendar-week" id="week-grid"></div>
 </div>
 
 <!-- BOULDERS -->
@@ -405,7 +437,7 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
   <div class="page-header">
     <div><div class="page-title">Boulder System</div><div class="page-sub">Quarterly priorities — opt-in for all team members</div></div>
   </div>
-  <div id="boulders-container"></div>
+  <div class="filter-section"><select class="compact-filter" id="boulder-owner" onchange="renderBoulders()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaya</option><option>Emma</option><option>Hope</option></select><select class="compact-filter" id="boulder-status" onchange="renderBoulders()"><option value="all">All statuses</option><option>Active</option><option>Completed</option><option>At risk</option><option>Dropped</option></select><select class="compact-filter" id="boulder-quarter" onchange="renderBoulders()"><option value="all">All quarters</option><option>Q2 2026</option><option>Q3 2026</option><option>Q4 2026</option></select></div><div id="boulders-container"></div>
 </div>
 
 <!-- INVESTOR VIEW -->
@@ -519,13 +551,33 @@ function tryProp(props, ...names) {
 
 // ── NOTION API ──
 async function notionQuery(db, filter, sorts, page_size) {
-  const r = await fetch('/.netlify/functions/notion', {
+  const r = await fetch('https://connectgoopsdashboard.netlify.app/.netlify/functions/notion', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ db, filter, sorts, page_size: page_size || 100 }),
   });
   if (!r.ok) throw new Error('Notion API error: ' + r.status);
   return r.json();
+}
+
+async function governanceActions() {
+  const response = await fetch('/api/governance-tracker');
+  if (!response.ok) throw new Error('Governance Tracker API error: ' + response.status);
+  const data = await response.json();
+  return data.actions || [];
+}
+
+function mergeActions(...groups) {
+  const merged = new Map();
+  groups.flat().forEach(action => {
+    const key = [action.task, action.due || '', action.owner || '']
+      .join('|')
+      .toLowerCase()
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (!merged.has(key)) merged.set(key, action);
+  });
+  return [...merged.values()];
 }
 
 // ── MAPPERS ──
@@ -551,6 +603,7 @@ function mapDecision(page) {
     rev:     p_select(tryProp(p, 'Reversibility')),
     fn:      p_select(tryProp(p, 'Function', 'Area')),
     id:      p_uid(tryProp(p, 'Decision ID', 'ID')),
+    owner:   p_people(tryProp(p, 'Owner', 'Decision owner')),
     created: (page.created_time || '').substring(0, 10),
   };
 }
@@ -564,6 +617,7 @@ function mapLearning(page) {
     trl:     p_select(tryProp(p, 'Technology Readiness Level (TRL)', 'TRL')),
     outcome: p_text(tryProp(p, 'Outcome / Learning', 'Outcome', 'Result')),
     quarter: p_select(tryProp(p, 'Quarter')),
+    owner:   p_people(tryProp(p, 'Owner', 'Created by')),
   };
 }
 
@@ -606,14 +660,21 @@ let DECISIONS = [], LEARNINGS = [], MILESTONES = [], PIPELINE = [], BOULDERS = [
 
 // ── LOADERS ──
 async function loadActions() {
-  const [tw, done, inbox] = await Promise.all([
+  const [tw, done, inbox, governance] = await Promise.all([
     notionQuery('actions', {property:'Status', select:{equals:'This Week'}}, [{property:'Due Date',direction:'ascending'}]),
     notionQuery('actions', {property:'Status', select:{equals:'Done'}}, [{property:'Due Date',direction:'descending'}]),
     notionQuery('actions', {property:'Status', select:{equals:'Inbox'}}, [{property:'Due Date',direction:'ascending'}]),
+    governanceActions().catch(error => {
+      console.warn('Governance Tracker unavailable:', error);
+      return [];
+    }),
   ]);
-  THIS_WEEK = tw.results.map(mapAction).filter(a => a.task);
-  DONE      = done.results.map(mapAction).filter(a => a.task);
-  INBOX     = inbox.results.map(mapAction).filter(a => a.task);
+  const trackerThisWeek = governance.filter(a => ['In Progress', 'Overdue'].includes(a.status));
+  const trackerInbox = governance.filter(a => a.status === 'To Do');
+  const trackerDone = governance.filter(a => a.status === 'Done');
+  THIS_WEEK = mergeActions(tw.results.map(mapAction).filter(a => a.task), trackerThisWeek);
+  DONE      = mergeActions(done.results.map(mapAction).filter(a => a.task), trackerDone);
+  INBOX     = mergeActions(inbox.results.map(mapAction).filter(a => a.task), trackerInbox);
   BLOCKED   = [...THIS_WEEK, ...INBOX].filter(a => a.blocked);
 }
 
@@ -972,6 +1033,76 @@ function buildCalendar() {
 }
 
 // ── NAVIGATION ──
+function setActionFilter(group, value) {
+  activeFilters[group] = value || (group === 'status' ? 'all' : null);
+  renderActionsTable();
+}
+
+function renderDecisions(filter = 'all') {
+  decFilter = filter;
+  let rows = DECISIONS;
+  const type = document.getElementById('decision-type')?.value || 'all';
+  const fn = document.getElementById('decision-function')?.value || 'all';
+  const owner = document.getElementById('decision-owner')?.value || 'all';
+  const days = document.getElementById('decision-date')?.value || 'all';
+  if (type !== 'all') rows = rows.filter(d => d.rev === type);
+  if (fn !== 'all') rows = rows.filter(d => d.fn === fn);
+  if (owner !== 'all') rows = rows.filter(d => d.owner.includes(owner));
+  if (days !== 'all') { const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - Number(days)); rows = rows.filter(d => d.created && new Date(d.created) >= cutoff); }
+  document.getElementById('decisions-container').innerHTML = rows.length ? `<table class="data-table"><thead><tr><th>ID</th><th>Decision</th><th>Function</th><th>Type</th><th>Date</th></tr></thead><tbody>${rows.map(d => `<tr><td>${d.id ? 'ID-' + d.id : '—'}</td><td>${d.text}</td><td>${d.fn || '—'}</td><td><span class="dtag ${d.rev === 'Strategic commitment' ? 'dtag-strategic' : 'dtag-operational'}">${d.rev === 'Strategic commitment' ? 'Strategic' : 'Operational'}</span></td><td>${fmtDate(d.created)}</td></tr>`).join('')}</tbody></table>` : '<div style="padding:1.5rem;text-align:center;color:var(--ink-4)">No decisions match these filters</div>';
+}
+function setDecisionFilters() { renderDecisions('all'); }
+
+function renderLearnings(filter, statusFilter) {
+  let rows = LEARNINGS;
+  if (filter && filter !== 'all') rows = rows.filter(l => l.type === filter);
+  if (statusFilter) rows = rows.filter(l => l.status === statusFilter);
+  const owner = document.getElementById('learning-owner')?.value || 'all';
+  const quarter = document.getElementById('learning-quarter')?.value || 'all';
+  if (owner !== 'all') rows = rows.filter(l => l.owner.includes(owner));
+  if (quarter !== 'all') rows = rows.filter(l => l.quarter === quarter);
+  document.getElementById('learnings-tbody').innerHTML = rows.length ? rows.map(l => `<tr><td>${l.q}</td><td><span class="type-pill ${typeClass[l.type]||''}">${l.type}</span></td><td><span class="${statusClass[l.status]||''}">${l.status}</span></td><td>${l.trl || '—'}</td><td>${l.outcome || '—'}</td><td>${l.quarter || '—'}</td></tr>`).join('') : '<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--ink-4)">No learnings match these filters</td></tr>';
+}
+function setLearningFilters() {
+  learningsTypeFilter = document.getElementById('learning-type').value;
+  const status = document.getElementById('learning-status').value;
+  learningsStatusFilter = status === 'all' ? null : status;
+  renderLearningsFiltered();
+}
+
+function renderPipeline() {
+  let rows = PIPELINE;
+  if (pipelineFilters.stage !== 'all') rows = rows.filter(p => p.stage === pipelineFilters.stage);
+  if (pipelineFilters.type) rows = rows.filter(p => p.type === pipelineFilters.type);
+  if (pipelineFilters.quarter) rows = rows.filter(p => p.quarter.includes(pipelineFilters.quarter));
+  if (pipelineFilters.owner) rows = rows.filter(p => p.owner.includes(pipelineFilters.owner));
+  const board = document.getElementById('pipeline-board');
+  if (board) board.innerHTML = ['Idea','Exploring','Committed','Parked'].map(stage => `<section class="pipeline-column"><h3>${stage} · ${rows.filter(p => p.stage === stage).length}</h3>${rows.filter(p => p.stage === stage).map(p => `<article class="pipeline-card"><strong>${p.name}</strong><small>${p.owner} · ${p.quarter || 'Unscheduled'}</small></article>`).join('') || '<div style="padding:12px;color:var(--ink-4);font-size:.68rem">No items</div>'}</section>`).join('');
+}
+function setPipelineSelectFilters() {
+  const owner = document.getElementById('pipeline-owner').value, type = document.getElementById('pipeline-type').value, quarter = document.getElementById('pipeline-quarter').value;
+  pipelineFilters.owner = owner === 'all' ? null : owner; pipelineFilters.type = type === 'all' ? null : type; pipelineFilters.quarter = quarter === 'all' ? null : quarter; renderPipeline();
+}
+
+function renderBoulders() {
+  const container = document.getElementById('boulders-container'); if (!container) return;
+  const owner = document.getElementById('boulder-owner')?.value || 'all', status = document.getElementById('boulder-status')?.value || 'all', quarter = document.getElementById('boulder-quarter')?.value || 'all';
+  const rows = BOULDERS.filter(b => (owner === 'all' || b.owner.includes(owner)) && (status === 'all' || b.status === status) && (quarter === 'all' || b.quarter === quarter));
+  container.innerHTML = rows.length ? `<div class="boulder-list"><div class="boulder-line head"><span>Boulder</span><span>Owner</span><span>Status</span><span>Quarter</span></div>${rows.map(b => `<div class="boulder-line"><strong>${b.name}</strong><span>${b.owner}</span><span class="status-pill ${b.status === 'Completed' ? 'sp-done' : b.status === 'At risk' ? 'sp-onhold' : 'sp-thisweek'}">${b.status || 'Active'}</span><small>${b.quarter || '—'}</small></div>`).join('')}</div>` : '<div class="section-block full"><div style="padding:1.5rem;color:var(--ink-4)">No boulders match these filters</div></div>';
+}
+
+let calendarView = 'week', calendarShift = 0;
+function setCalendarView(view, btn) { calendarView = view; calendarShift = 0; document.querySelectorAll('.view-switch button').forEach(b => b.classList.toggle('active', b === btn)); buildCalendar(); }
+function moveCalendar(direction) { calendarShift += direction * (calendarView === 'week' ? 7 : calendarView === 'three' ? 3 : 1); buildCalendar(); }
+function resetCalendar() { calendarShift = 0; buildCalendar(); }
+function buildCalendar() {
+  const today = new Date(); today.setHours(0,0,0,0); const dow = today.getDay(); const monday = new Date(today); monday.setDate(today.getDate() - (dow === 0 ? 6 : dow - 1));
+  const count = calendarView === 'day' ? 1 : calendarView === 'three' ? 3 : 7; const start = new Date(monday); start.setDate(monday.getDate() + calendarShift + (calendarView === 'day' ? (dow === 0 ? 6 : dow - 1) : 0));
+  const days = Array.from({length:count},(_,i)=>{const d=new Date(start);d.setDate(start.getDate()+i);return d});
+  const owner = document.getElementById('calendar-owner')?.value || 'all', fn = document.getElementById('calendar-function')?.value || 'all'; const items = [...THIS_WEEK,...INBOX].filter(a => (owner === 'all' || a.owner.includes(owner)) && (fn === 'all' || a.fn === fn));
+  document.getElementById('week-grid').style.setProperty('--calendar-days',count); document.getElementById('week-grid').innerHTML = days.map(d=>{const key=d.toISOString().substring(0,10),events=items.filter(a=>(a.due||'').substring(0,10)===key);return `<div class="cal-day${d.getTime()===today.getTime()?' today':''}"><div class="cal-day-header">${d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}</div>${events.map(a=>`<div class="cal-event due">${a.task}<div style="font-size:.58rem;color:var(--ink-4);margin-top:3px">${a.owner}</div></div>`).join('')}</div>`}).join('');
+}
+
 function showTab(name, el) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
