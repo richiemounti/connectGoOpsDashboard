@@ -198,6 +198,15 @@ html,body{font-size:13px;background:var(--off)}
 .pipeline-board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.pipeline-column{background:#fff;border:1px solid var(--rule)}.pipeline-column h3{padding:9px 10px;background:var(--paper);font-size:.68rem;font-weight:600}.pipeline-card{margin:8px;padding:9px;border-left:3px solid var(--green);background:#f4f7f5}.pipeline-card strong{display:block;font-size:.75rem;font-weight:500}.pipeline-card small{display:block;margin-top:5px;color:var(--ink-3);font-size:.63rem}
 .boulder-list{border:1px solid var(--rule);background:#fff}.boulder-line{display:grid;grid-template-columns:minmax(220px,1.5fr) 110px 100px 90px;gap:10px;padding:11px;border-bottom:1px solid var(--rule);align-items:center}.boulder-line.head{background:var(--paper);font-size:.58rem;text-transform:uppercase;color:var(--ink-4)}.boulder-line strong{font-weight:500}.boulder-line small{color:var(--ink-3)}
 @media(max-width:760px){:root{--sidebar:138px}.topbar-date{display:none}.section-grid,.pipeline-board{grid-template-columns:1fr}.stat-grid{grid-template-columns:repeat(2,1fr)}.calendar-week{grid-template-columns:1fr}.cal-day{min-height:auto;border-right:0;border-bottom:1px solid var(--rule)}.boulder-line{grid-template-columns:minmax(0,1fr) auto}.boulder-line>:nth-child(n+3){display:none}}
+
+/* Readability, original typography, pagination and live Notion controls */
+:root{--display:'Rajdhani',sans-serif;--body:'Work Sans',sans-serif}
+html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-label,.stat-value,.block-title,.block-action,.data-table th,.status-pill,.dtag,.stage-pill,.type-pill,.pipeline-column h3{font-family:var(--display)}
+.topbar-title{font-size:.78rem}.sync-btn{font-size:.75rem}.sidebar:before{font-family:var(--display);font-size:1rem}.nav-label{font-size:.68rem}.nav-item{font-family:var(--body);font-size:.86rem}.page-title{font-size:1.8rem;font-weight:700;letter-spacing:.035em;text-transform:uppercase}.compact-filter{font-size:.84rem;padding:8px 30px 8px 10px}.stat-label{font-size:.72rem}.stat-value{font-family:var(--display);font-size:2rem}.stat-sub{font-size:.72rem}.block-title{font-size:.8rem}.block-action{font-size:.72rem}.action-task,.decision-text,.data-table{font-size:.86rem}.action-owner,.action-due{font-size:.72rem}.data-table th{font-size:.7rem}.data-table td{padding:12px 11px}.pipeline-column h3{font-size:.82rem}.pipeline-card strong{font-size:.84rem}.pipeline-card small{font-size:.7rem}.cal-day-header{font-size:.75rem}.cal-event{font-size:.75rem}.boulder-line{font-size:.84rem}.boulder-line.head{font-family:var(--display);font-size:.7rem}
+.overview-old{display:none!important}.overview-band{display:grid;grid-template-columns:minmax(240px,1.7fr) repeat(3,minmax(115px,.7fr));margin-bottom:12px;background:var(--green);color:#fff}.overview-band>div{padding:16px;border-left:1px solid rgba(255,255,255,.13)}.overview-band>div:first-child{border-left:0}.overview-band span{display:block;color:rgba(255,255,255,.55);font-family:var(--display);font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}.overview-band strong{display:block;margin-top:6px;font-family:var(--display);font-size:1.45rem;font-weight:600}.overview-band-title strong{font-size:1.05rem}.overview-new{margin-bottom:12px}.overview-new .stat-card{border:0;border-right:1px solid var(--rule);background:#fff;text-align:left;color:inherit;cursor:pointer}.overview-new .stat-card:hover{background:#f0f4f1}.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.overview-wide{grid-column:1/-1}.overview-attention{border-top:3px solid var(--coral)}
+.notion-link{color:var(--green);font-weight:500;text-decoration:none}.notion-link:hover{text-decoration:underline;text-underline-offset:3px}.notion-arrow{margin-left:5px;color:var(--amber);font-size:.75rem}.action-check{width:17px;height:17px;accent-color:var(--green);cursor:pointer}.action-check:disabled{cursor:wait;opacity:.55}.action-task-cell{display:flex;align-items:flex-start;gap:9px}.pager{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:11px;border-top:1px solid var(--rule);background:#fff}.pager span{margin-right:auto;color:var(--ink-3);font-size:.75rem}.pager button{border:1px solid var(--rule);border-radius:5px;background:#fff;color:var(--green);padding:6px 9px;font:inherit}.pager button:disabled{opacity:.35;cursor:default}.write-status{position:fixed;right:20px;bottom:20px;z-index:300;max-width:330px;padding:11px 14px;border-radius:6px;background:var(--green);color:#fff;box-shadow:0 8px 30px rgba(0,0,0,.2);font-size:.8rem}.write-status.error{background:#8d3033}
+@media(max-width:900px){.overview-band{grid-template-columns:1fr 1fr}.overview-grid{grid-template-columns:1fr}.overview-wide{grid-column:auto}}
+@media(max-width:600px){html,body{font-size:14px}.overview-band{grid-template-columns:1fr}.overview-band>div{border-left:0;border-top:1px solid rgba(255,255,255,.13)}.overview-band>div:first-child{border-top:0}.pager{justify-content:center;flex-wrap:wrap}.pager span{width:100%;margin:0;text-align:center}}
 </style>
 </head>
 <body>
@@ -235,7 +244,24 @@ html,body{font-size:13px;background:var(--off)}
   <div class="page-header">
     <div><div class="page-title">Overview</div><div class="page-sub" id="overview-sub">Loading from Notion…</div></div>
   </div>
-  <div class="stat-grid">
+  <section class="overview-band">
+    <div class="overview-band-title"><span>Operating pulse</span><strong id="overview-pulse">Loading live workspace</strong></div>
+    <div><span>Action database</span><strong id="overview-action-count">—</strong></div>
+    <div><span>Governance tracker</span><strong id="overview-governance-count">—</strong></div>
+    <div><span>Decisions this month</span><strong id="overview-decisions-month">—</strong></div>
+  </section>
+  <div class="stat-grid overview-new">
+    <button class="stat-card c-amber" onclick="openActionStatus('thisweek')"><div class="stat-label">This week</div><div class="stat-value" id="overview-thisweek">—</div><div class="stat-sub">active priorities</div></button>
+    <button class="stat-card c-coral" onclick="openActionStatus('blocked')"><div class="stat-label">Blocked</div><div class="stat-value" id="overview-blocked">—</div><div class="stat-sub">need attention</div></button>
+    <button class="stat-card c-olive" onclick="openActionStatus('inbox')"><div class="stat-label">Inbox</div><div class="stat-value" id="overview-inbox">—</div><div class="stat-sub">not yet scheduled</div></button>
+    <button class="stat-card c-green"><div class="stat-label">Completed</div><div class="stat-value" id="overview-done">—</div><div class="stat-sub">completed to date</div></button>
+  </div>
+  <div class="overview-grid">
+    <section class="section-block overview-attention"><div class="block-header"><div class="block-title">Needs attention</div><button class="block-action" onclick="openActionStatus('blocked')">View actions →</button></div><div id="overview-blocked-list"></div></section>
+    <section class="section-block"><div class="block-header"><div class="block-title">This week</div><button class="block-action" onclick="openActionStatus('thisweek')">View actions →</button></div><div id="overview-week-list"></div></section>
+    <section class="section-block overview-wide"><div class="block-header"><div class="block-title">Recent decisions</div><button class="block-action" onclick="showTab('decisions',document.querySelector('[onclick*=decisions]'))">View decisions →</button></div><div id="overview-decision-list"></div></section>
+  </div>
+  <div class="stat-grid overview-old">
     <div class="stat-card c-amber"><div class="stat-label">This Week</div><div class="stat-value" id="s-thisweek">—</div><div class="stat-sub">actions in sprint</div></div>
     <div class="stat-card c-coral"><div class="stat-label">Blocked</div><div class="stat-value" id="s-blocked">—</div><div class="stat-sub">need attention</div></div>
     <div class="stat-card c-olive"><div class="stat-label">Inbox</div><div class="stat-value" id="s-inbox">—</div><div class="stat-sub">unscheduled</div></div>
@@ -243,7 +269,7 @@ html,body{font-size:13px;background:var(--off)}
     <div class="stat-card c-plum"><div class="stat-label">Decisions</div><div class="stat-value" id="s-decisions">—</div><div class="stat-sub">logged total</div></div>
     <div class="stat-card c-amber"><div class="stat-label">Decisions</div><div class="stat-value" id="s-decisions-month">—</div><div class="stat-sub">this month</div></div>
   </div>
-  <div class="section-grid">
+  <div class="section-grid overview-old">
     <div class="section-block">
       <div class="block-header"><div class="block-title">🚧 Blocked Actions</div><button class="block-action" onclick="showTab('actions',document.querySelector('[onclick*=actions]'))">View all →</button></div>
       <div id="blocked-list"></div>
@@ -539,6 +565,7 @@ function p_text(prop)   { return prop?.rich_text?.[0]?.plain_text || ''; }
 function p_select(prop) { return prop?.select?.name || ''; }
 function p_multi(prop)  { return (prop?.multi_select || []).map(s => s.name).join(', ') || ''; }
 function p_people(prop) { return mapPeople(prop?.people); }
+function p_owner(prop)  { const people = mapPeople(prop?.people); return people !== 'â€”' ? people : (prop?.rich_text || []).map(value => value.plain_text).join('') || 'â€”'; }
 function p_date(prop)   { return prop?.date?.start || ''; }
 function p_check(prop)  { return !!prop?.checkbox; }
 function p_num(prop)    { return prop?.number ?? null; }
@@ -551,7 +578,7 @@ function tryProp(props, ...names) {
 
 // ── NOTION API ──
 async function notionQuery(db, filter, sorts, page_size) {
-  const r = await fetch('https://connectgoopsdashboard.netlify.app/.netlify/functions/notion', {
+  const r = await fetch('/.netlify/functions/notion', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ db, filter, sorts, page_size: page_size || 100 }),
@@ -561,10 +588,19 @@ async function notionQuery(db, filter, sorts, page_size) {
 }
 
 async function governanceActions() {
-  const response = await fetch('/api/governance-tracker');
-  if (!response.ok) throw new Error('Governance Tracker API error: ' + response.status);
-  const data = await response.json();
-  return data.actions || [];
+  const data = await notionQuery('governance', undefined, [{property:'Due Date', direction:'ascending'}]);
+  return (data.results || []).map(mapGovernanceAction).filter(action => action.task && action.status !== 'Skipped');
+}
+
+async function notionComplete(pageId, source) {
+  const response = await fetch('/.netlify/functions/notion', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ operation: 'complete', page_id: pageId, source }),
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.error || 'Notion update failed');
+  return data;
 }
 
 function mergeActions(...groups) {
@@ -584,6 +620,9 @@ function mergeActions(...groups) {
 function mapAction(page) {
   const p = page.properties;
   return {
+    id:       page.id,
+    url:      page.url,
+    source:   p_select(tryProp(p, 'Source')) || 'Action Database',
     task:     p_title(tryProp(p, 'Task', 'Name', 'Action')),
     owner:    p_people(tryProp(p, 'Owner', 'Assigned to')),
     due:      p_date(tryProp(p, 'Due Date', 'Due')),
@@ -599,6 +638,8 @@ function mapAction(page) {
 function mapDecision(page) {
   const p = page.properties;
   return {
+    idPage:  page.id,
+    url:     page.url,
     text:    p_title(tryProp(p, 'Decision', 'Name')),
     rev:     p_select(tryProp(p, 'Reversibility')),
     fn:      p_select(tryProp(p, 'Function', 'Area')),
@@ -611,6 +652,8 @@ function mapDecision(page) {
 function mapLearning(page) {
   const p = page.properties;
   return {
+    id:      page.id,
+    url:     page.url,
     q:       p_title(tryProp(p, 'Learning / Uncertainty', 'Learning', 'Name')),
     type:    p_select(tryProp(p, 'Type', 'Category')),
     status:  p_select(tryProp(p, 'Status')),
@@ -624,6 +667,8 @@ function mapLearning(page) {
 function mapPipelineItem(page) {
   const p = page.properties;
   return {
+    id:       page.id,
+    url:      page.url,
     name:     p_title(p['Initiative']),
     type:     p_select(p['Type']),
     stage:    p_select(p['Stage']),
@@ -638,6 +683,8 @@ function mapPipelineItem(page) {
 function mapMilestone(page) {
   const p = page.properties;
   return {
+    id:     page.id,
+    url:    page.url,
     task:   p_title(p['Milestone']),
     status: p_status(p['Status']),
   };
@@ -646,11 +693,32 @@ function mapMilestone(page) {
 function mapBoulder(page) {
   const p = page.properties;
   return {
+    pageId:  page.id,
+    url:     page.url,
     name:    p_title(p['Boulder']),
     owner:   p_people(p['Owner']),
     status:  p_select(p['Status']),
     quarter: p_select(p['Quarter']),
     id:      p_uid(p['Boulder ID']),
+  };
+}
+
+function mapGovernanceAction(page) {
+  const p = page.properties || {};
+  const rawStatus = p_select(tryProp(p, 'Status'));
+  return {
+    id: page.id,
+    url: page.url,
+    source: 'Governance Tracker',
+    task: p_title(tryProp(p, 'Activity', 'Name')),
+    owner: p_owner(tryProp(p, 'Owner')),
+    due: p_date(tryProp(p, 'Due Date')),
+    blocked: rawStatus === 'Overdue',
+    fn: 'Compliance',
+    vertical: p_select(tryProp(p, 'Domain')) || 'Cross-cutting',
+    urgency: p_select(tryProp(p, 'Priority')) || 'Normal',
+    status: rawStatus,
+    notes: '',
   };
 }
 
@@ -1102,6 +1170,72 @@ function buildCalendar() {
   const owner = document.getElementById('calendar-owner')?.value || 'all', fn = document.getElementById('calendar-function')?.value || 'all'; const items = [...THIS_WEEK,...INBOX].filter(a => (owner === 'all' || a.owner.includes(owner)) && (fn === 'all' || a.fn === fn));
   document.getElementById('week-grid').style.setProperty('--calendar-days',count); document.getElementById('week-grid').innerHTML = days.map(d=>{const key=d.toISOString().substring(0,10),events=items.filter(a=>(a.due||'').substring(0,10)===key);return `<div class="cal-day${d.getTime()===today.getTime()?' today':''}"><div class="cal-day-header">${d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}</div>${events.map(a=>`<div class="cal-event due">${a.task}<div style="font-size:.58rem;color:var(--ink-4);margin-top:3px">${a.owner}</div></div>`).join('')}</div>`}).join('');
 }
+
+const PAGE_SIZE = 10;
+const pageState = {actions:1, decisions:1, learnings:1, boulders:1};
+function esc(value) { return String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char])); }
+function notionAnchor(item, label) { return item?.url ? `<a class="notion-link" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(label)}<span class="notion-arrow" aria-hidden="true">↗</span></a>` : esc(label); }
+function pageRows(key, rows) { const pages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE)); pageState[key] = Math.min(pageState[key] || 1, pages); const start = (pageState[key] - 1) * PAGE_SIZE; return {visible:rows.slice(start,start+PAGE_SIZE), start, pages}; }
+function pagerHTML(key, total, start, pages) { return `<div class="pager"><span>${total ? `Showing ${start+1}–${Math.min(start+PAGE_SIZE,total)} of ${total}` : 'No matching records'}</span><button type="button" onclick="changePage('${key}',-1)" ${pageState[key] <= 1 ? 'disabled' : ''}>Previous</button><strong>${pageState[key]} / ${pages}</strong><button type="button" onclick="changePage('${key}',1)" ${pageState[key] >= pages ? 'disabled' : ''}>Next</button></div>`; }
+function changePage(key, amount) { pageState[key] = Math.max(1,(pageState[key]||1)+amount); ({actions:renderActionsTable,decisions:()=>renderDecisions('all'),learnings:renderLearningsFiltered,boulders:renderBoulders}[key] || (()=>{}))(); }
+function showWriteStatus(message, error=false) { let el=document.getElementById('write-status'); if(!el){el=document.createElement('div');el.id='write-status';document.body.appendChild(el)} el.className='write-status'+(error?' error':'');el.textContent=message;clearTimeout(showWriteStatus.timer);showWriteStatus.timer=setTimeout(()=>el.remove(),3500); }
+
+async function completeAction(pageId, source, checkbox) {
+  if (!checkbox.checked) return;
+  checkbox.disabled = true;
+  showWriteStatus('Updating Notion…');
+  try {
+    await notionComplete(pageId, source);
+    await loadActions();
+    pageState.actions = 1;
+    renderOverview(); renderActionsTable(); buildCalendar();
+    showWriteStatus('Completed in Notion');
+  } catch (error) {
+    checkbox.checked = false; checkbox.disabled = false;
+    showWriteStatus(error.message || 'Could not update Notion', true);
+  }
+}
+
+function filteredActions() {
+  let rows = [...THIS_WEEK.map(a=>({...a,status:'This Week'})),...INBOX.map(a=>({...a,status:'Inbox'}))];
+  if(activeFilters.status==='thisweek')rows=rows.filter(r=>r.status==='This Week'); else if(activeFilters.status==='inbox')rows=rows.filter(r=>r.status==='Inbox'); else if(activeFilters.status==='blocked')rows=rows.filter(r=>r.blocked);
+  const owners={kate:'Kate',sam:'Sam',hannah:'Hannah',belinda:'Belinda',sumaya:'Sumaya',emma:'Emma',hope:'Hope'}; if(activeFilters.owner)rows=rows.filter(r=>(r.owner||'').includes(owners[activeFilters.owner]||activeFilters.owner));
+  const functions={product:'Product Development',compliance:'Compliance',marketing:'Marketing & Sales',commercials:'Commercials',knowledge:'Knowledge Base'}; if(activeFilters.function)rows=rows.filter(r=>r.fn===functions[activeFilters.function]);
+  const verticals={'reflect-carbon':'Reflect Carbon','reflect-nature':'Reflect Nature',c4c:'Citizens for Change',cross:'Cross-cutting'}; if(activeFilters.vertical)rows=rows.filter(r=>(r.vertical||'').includes(verticals[activeFilters.vertical]));
+  return rows.sort((a,b)=>(a.due||'9999').localeCompare(b.due||'9999'));
+}
+function renderActionsTable() {
+  const tbody=document.getElementById('actions-tbody'),rows=filteredActions(),page=pageRows('actions',rows);
+  tbody.innerHTML=page.visible.length?page.visible.map(a=>`<tr><td><div class="action-task-cell"><input class="action-check" type="checkbox" aria-label="Mark ${esc(a.task)} complete" onchange="completeAction('${esc(a.id)}','${esc(a.source)}',this)"><div>${notionAnchor(a,a.task)}${a.blocked?'<span class="blocked-tag">blocked</span>':''}<div style="margin-top:4px;color:var(--ink-4);font-size:.7rem">${esc(a.source||'Action Database')}</div></div></div></td><td>${esc(a.owner)}</td><td><span class="status-pill sp-${a.status.toLowerCase().replace(' ','')}">${esc(a.status)}</span></td><td><span class="${a.urgency==='High'?'urg-high':a.urgency==='Low'?'urg-low':'urg-normal'}">${esc(a.urgency||'Normal')}</span></td><td>${esc(a.fn)}</td><td>${esc(a.vertical||'Cross-cutting')}</td><td><span class="action-due ${dueCls(a.due)}">${fmtDate(a.due)}</span></td></tr>`).join(''):'<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--ink-4)">No actions match these filters</td></tr>';
+  let pager=tbody.closest('.section-block').querySelector('.pager'); if(pager)pager.remove(); tbody.closest('.section-block').insertAdjacentHTML('beforeend',pagerHTML('actions',rows.length,page.start,page.pages));
+}
+function setActionFilter(group,value){activeFilters[group]=value||(group==='status'?'all':null);pageState.actions=1;renderActionsTable()}
+function openActionStatus(status){document.getElementById('action-status').value=status;setActionFilter('status',status);showTab('actions',document.querySelector("[onclick*='actions']"))}
+
+function renderOverview() {
+  const today=new Date(),monthDecisions=DECISIONS.filter(d=>{const date=new Date(d.created);return d.created&&date.getMonth()===today.getMonth()&&date.getFullYear()===today.getFullYear()}).length;
+  const active=[...THIS_WEEK,...INBOX],governance=active.filter(a=>a.source==='Governance Tracker').length,actions=active.length-governance;
+  [['s-thisweek',THIS_WEEK.length],['s-blocked',BLOCKED.length],['s-inbox',INBOX.length],['s-done',DONE.length],['s-decisions',DECISIONS.length],['s-decisions-month',monthDecisions],['overview-thisweek',THIS_WEEK.length],['overview-blocked',BLOCKED.length],['overview-inbox',INBOX.length],['overview-done',DONE.length],['overview-action-count',actions],['overview-governance-count',governance],['overview-decisions-month',monthDecisions]].forEach(([id,value])=>{const el=document.getElementById(id);if(el)el.textContent=value});
+  document.getElementById('badge-blocked').textContent=BLOCKED.length||''; document.getElementById('overview-pulse').textContent=BLOCKED.length?`${BLOCKED.length} blocked item${BLOCKED.length===1?'':'s'} need attention`:'No blocked items';
+  const actionRow=a=>`<div class="action-row"><div class="action-task">${notionAnchor(a,a.task)}${a.blocked?'<span class="blocked-tag">blocked</span>':''}</div><div class="action-owner">${esc(a.owner)}</div><div class="action-due ${dueCls(a.due)}">${fmtDate(a.due)}</div></div>`;
+  document.getElementById('overview-blocked-list').innerHTML=BLOCKED.slice(0,5).map(actionRow).join('')||'<div class="action-row"><div class="action-task">No blocked actions</div></div>';
+  document.getElementById('overview-week-list').innerHTML=THIS_WEEK.slice(0,5).map(actionRow).join('')||'<div class="action-row"><div class="action-task">No actions this week</div></div>';
+  document.getElementById('overview-decision-list').innerHTML=DECISIONS.slice(0,5).map(d=>`<div class="decision-row"><div class="decision-text">${notionAnchor(d,d.text)}</div><div class="decision-meta"><span class="dtag ${d.rev==='Strategic commitment'?'dtag-strategic':'dtag-operational'}">${d.rev==='Strategic commitment'?'Strategic':'Operational'}</span><span class="dtag ${fnTag(d.fn)}">${esc(d.fn)}</span><span>${fmtDate(d.created)}</span></div></div>`).join('')||'<div class="decision-row">No decisions logged</div>';
+}
+
+function renderDecisions(filter='all') {
+  decFilter=filter;let rows=DECISIONS;const type=document.getElementById('decision-type')?.value||'all',fn=document.getElementById('decision-function')?.value||'all',owner=document.getElementById('decision-owner')?.value||'all',days=document.getElementById('decision-date')?.value||'all';if(type!=='all')rows=rows.filter(d=>d.rev===type);if(fn!=='all')rows=rows.filter(d=>d.fn===fn);if(owner!=='all')rows=rows.filter(d=>(d.owner||'').includes(owner));if(days!=='all'){const cutoff=new Date();cutoff.setDate(cutoff.getDate()-Number(days));rows=rows.filter(d=>d.created&&new Date(d.created)>=cutoff)}const page=pageRows('decisions',rows),container=document.getElementById('decisions-container');container.innerHTML=page.visible.length?`<table class="data-table"><thead><tr><th>ID</th><th>Decision</th><th>Function</th><th>Type</th><th>Date</th></tr></thead><tbody>${page.visible.map(d=>`<tr><td>${d.id?'ID-'+d.id:'—'}</td><td>${notionAnchor(d,d.text)}</td><td>${esc(d.fn||'—')}</td><td><span class="dtag ${d.rev==='Strategic commitment'?'dtag-strategic':'dtag-operational'}">${d.rev==='Strategic commitment'?'Strategic':'Operational'}</span></td><td>${fmtDate(d.created)}</td></tr>`).join('')}</tbody></table>${pagerHTML('decisions',rows.length,page.start,page.pages)}`:'<div style="padding:1.5rem;text-align:center;color:var(--ink-4)">No decisions match these filters</div>'+pagerHTML('decisions',0,0,1);
+}
+function setDecisionFilters(){pageState.decisions=1;renderDecisions('all')}
+
+function renderLearnings(filter,statusFilter){let rows=LEARNINGS;if(filter&&filter!=='all')rows=rows.filter(l=>l.type===filter);if(statusFilter)rows=rows.filter(l=>l.status===statusFilter);const owner=document.getElementById('learning-owner')?.value||'all',quarter=document.getElementById('learning-quarter')?.value||'all';if(owner!=='all')rows=rows.filter(l=>(l.owner||'').includes(owner));if(quarter!=='all')rows=rows.filter(l=>l.quarter===quarter);const page=pageRows('learnings',rows),tbody=document.getElementById('learnings-tbody');tbody.innerHTML=page.visible.length?page.visible.map(l=>`<tr><td>${notionAnchor(l,l.q)}</td><td><span class="type-pill ${typeClass[l.type]||''}">${esc(l.type)}</span></td><td><span class="${statusClass[l.status]||''}">${esc(l.status)}</span></td><td>${esc(l.trl||'—')}</td><td>${esc(l.outcome||'—')}</td><td>${esc(l.quarter||'—')}</td></tr>`).join(''):'<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--ink-4)">No learnings match these filters</td></tr>';let pager=tbody.closest('.section-block').querySelector('.pager');if(pager)pager.remove();tbody.closest('.section-block').insertAdjacentHTML('beforeend',pagerHTML('learnings',rows.length,page.start,page.pages))}
+function setLearningFilters(){learningsTypeFilter=document.getElementById('learning-type').value;const status=document.getElementById('learning-status').value;learningsStatusFilter=status==='all'?null:status;pageState.learnings=1;renderLearningsFiltered()}
+
+function renderPipeline(){let rows=PIPELINE;if(pipelineFilters.stage!=='all')rows=rows.filter(p=>p.stage===pipelineFilters.stage);if(pipelineFilters.type)rows=rows.filter(p=>p.type===pipelineFilters.type);if(pipelineFilters.quarter)rows=rows.filter(p=>p.quarter.includes(pipelineFilters.quarter));if(pipelineFilters.owner)rows=rows.filter(p=>(p.owner||'').includes(pipelineFilters.owner));const board=document.getElementById('pipeline-board');if(board)board.innerHTML=['Idea','Exploring','Committed','Parked'].map(stage=>`<section class="pipeline-column"><h3>${stage} · ${rows.filter(p=>p.stage===stage).length}</h3>${rows.filter(p=>p.stage===stage).map(p=>`<article class="pipeline-card"><strong>${notionAnchor(p,p.name)}</strong><small>${esc(p.owner)} · ${esc(p.quarter||'Unscheduled')}</small></article>`).join('')||'<div style="padding:12px;color:var(--ink-4);font-size:.75rem">No items</div>'}</section>`).join('')}
+
+function renderBoulders(){const container=document.getElementById('boulders-container');if(!container)return;const owner=document.getElementById('boulder-owner')?.value||'all',status=document.getElementById('boulder-status')?.value||'all',quarter=document.getElementById('boulder-quarter')?.value||'all';const rows=BOULDERS.filter(b=>(owner==='all'||(b.owner||'').includes(owner))&&(status==='all'||b.status===status)&&(quarter==='all'||b.quarter===quarter));const page=pageRows('boulders',rows);container.innerHTML=page.visible.length?`<div class="boulder-list"><div class="boulder-line head"><span>Boulder</span><span>Owner</span><span>Status</span><span>Quarter</span></div>${page.visible.map(b=>`<div class="boulder-line"><strong>${notionAnchor(b,b.name)}</strong><span>${esc(b.owner)}</span><span class="status-pill ${b.status==='Completed'?'sp-done':b.status==='At risk'?'sp-onhold':'sp-thisweek'}">${esc(b.status||'Active')}</span><small>${esc(b.quarter||'—')}</small></div>`).join('')}</div>${pagerHTML('boulders',rows.length,page.start,page.pages)}`:'<div class="section-block full"><div style="padding:1.5rem;color:var(--ink-4)">No boulders match these filters</div></div>'+pagerHTML('boulders',0,0,1)}
+
+function buildCalendar(){const today=new Date();today.setHours(0,0,0,0);const dow=today.getDay(),monday=new Date(today);monday.setDate(today.getDate()-(dow===0?6:dow-1));const count=calendarView==='day'?1:calendarView==='three'?3:7,start=new Date(monday);start.setDate(monday.getDate()+calendarShift+(calendarView==='day'?(dow===0?6:dow-1):0));const days=Array.from({length:count},(_,i)=>{const d=new Date(start);d.setDate(start.getDate()+i);return d}),owner=document.getElementById('calendar-owner')?.value||'all',fn=document.getElementById('calendar-function')?.value||'all',items=[...THIS_WEEK,...INBOX].filter(a=>(owner==='all'||(a.owner||'').includes(owner))&&(fn==='all'||a.fn===fn)),grid=document.getElementById('week-grid');grid.style.setProperty('--calendar-days',count);grid.innerHTML=days.map(d=>{const key=d.toISOString().substring(0,10),events=items.filter(a=>(a.due||'').substring(0,10)===key);return `<div class="cal-day${d.getTime()===today.getTime()?' today':''}"><div class="cal-day-header">${d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}</div>${events.map(a=>`<div class="cal-event due">${notionAnchor(a,a.task)}<div style="font-size:.68rem;color:var(--ink-4);margin-top:4px">${esc(a.owner)}</div></div>`).join('')}</div>`}).join('')}
 
 function showTab(name, el) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
