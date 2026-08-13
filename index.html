@@ -205,8 +205,9 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
 .topbar-title{font-size:.78rem}.sync-btn{font-size:.75rem}.sidebar:before{font-family:var(--display);font-size:1rem}.nav-label{font-size:.68rem}.nav-item{font-family:var(--body);font-size:.86rem}.page-title{font-size:1.8rem;font-weight:700;letter-spacing:.035em;text-transform:uppercase}.compact-filter{font-size:.84rem;padding:8px 30px 8px 10px}.stat-label{font-size:.72rem}.stat-value{font-family:var(--display);font-size:2rem}.stat-sub{font-size:.72rem}.block-title{font-size:.8rem}.block-action{font-size:.72rem}.action-task,.decision-text,.data-table{font-size:.86rem}.action-owner,.action-due{font-size:.72rem}.data-table th{font-size:.7rem}.data-table td{padding:12px 11px}.pipeline-column h3{font-size:.82rem}.pipeline-card strong{font-size:.84rem}.pipeline-card small{font-size:.7rem}.cal-day-header{font-size:.75rem}.cal-event{font-size:.75rem}.boulder-line{font-size:.84rem}.boulder-line.head{font-family:var(--display);font-size:.7rem}
 .overview-old{display:none!important}.overview-band{display:grid;grid-template-columns:minmax(240px,1.7fr) repeat(3,minmax(115px,.7fr));margin-bottom:12px;background:var(--green);color:#fff}.overview-band>div{padding:16px;border-left:1px solid rgba(255,255,255,.13)}.overview-band>div:first-child{border-left:0}.overview-band span{display:block;color:rgba(255,255,255,.55);font-family:var(--display);font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}.overview-band strong{display:block;margin-top:6px;font-family:var(--display);font-size:1.45rem;font-weight:600}.overview-band-title strong{font-size:1.05rem}.overview-new{margin-bottom:12px}.overview-new .stat-card{border:0;border-right:1px solid var(--rule);background:#fff;text-align:left;color:inherit;cursor:pointer}.overview-new .stat-card:hover{background:#f0f4f1}.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.overview-wide{grid-column:1/-1}.overview-attention{border-top:3px solid var(--coral)}
 .notion-link{color:var(--green);font-weight:500;text-decoration:none}.notion-link:hover{text-decoration:underline;text-underline-offset:3px}.notion-arrow{margin-left:5px;color:var(--amber);font-size:.75rem}.action-check{width:17px;height:17px;accent-color:var(--green);cursor:pointer}.action-check:disabled{cursor:wait;opacity:.55}.action-task-cell{display:flex;align-items:flex-start;gap:9px}.pager{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:11px;border-top:1px solid var(--rule);background:#fff}.pager span{margin-right:auto;color:var(--ink-3);font-size:.75rem}.pager button{border:1px solid var(--rule);border-radius:5px;background:#fff;color:var(--green);padding:6px 9px;font:inherit}.pager button:disabled{opacity:.35;cursor:default}.write-status{position:fixed;right:20px;bottom:20px;z-index:300;max-width:330px;padding:11px 14px;border-radius:6px;background:var(--green);color:#fff;box-shadow:0 8px 30px rgba(0,0,0,.2);font-size:.8rem}.write-status.error{background:#8d3033}
+.completed-section{margin-top:28px;padding-top:19px;border-top:1px solid var(--rule)}.completed-heading-row{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:11px}.completed-heading-row h2{margin:0;color:var(--green);font-family:var(--display);font-size:1.25rem;letter-spacing:.035em;text-transform:uppercase}.completed-heading-row span{display:block;margin-top:3px;color:var(--ink-4);font-size:.75rem}.completed-filters{margin:0}.completed-section .sp-done{white-space:nowrap}
 @media(max-width:900px){.overview-band{grid-template-columns:1fr 1fr}.overview-grid{grid-template-columns:1fr}.overview-wide{grid-column:auto}}
-@media(max-width:600px){html,body{font-size:14px}.overview-band{grid-template-columns:1fr}.overview-band>div{border-left:0;border-top:1px solid rgba(255,255,255,.13)}.overview-band>div:first-child{border-top:0}.pager{justify-content:center;flex-wrap:wrap}.pager span{width:100%;margin:0;text-align:center}}
+@media(max-width:600px){html,body{font-size:14px}.overview-band{grid-template-columns:1fr}.overview-band>div{border-left:0;border-top:1px solid rgba(255,255,255,.13)}.overview-band>div:first-child{border-top:0}.pager{justify-content:center;flex-wrap:wrap}.pager span{width:100%;margin:0;text-align:center}.completed-heading-row{align-items:flex-start;flex-direction:column}.completed-filters{width:100%}.completed-filters .compact-filter{flex:1}}
 </style>
 </head>
 <body>
@@ -346,6 +347,21 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
       <tbody id="actions-tbody"></tbody>
     </table>
   </div>
+  <section class="completed-section" aria-labelledby="completed-heading">
+    <div class="completed-heading-row">
+      <div><h2 id="completed-heading">Completed tasks</h2><span id="completed-count">0 completed</span></div>
+      <div class="filter-section completed-filters">
+        <select class="compact-filter" id="completed-owner" onchange="setCompletedFilters()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaya</option><option>Emma</option><option>Hope</option></select>
+        <select class="compact-filter" id="completed-function" onchange="setCompletedFilters()"><option value="all">All functions</option><option value="Product Development">Product Dev</option><option value="Compliance">Compliance</option><option value="Marketing & Sales">Marketing & Sales</option><option value="Commercials">Commercials</option><option value="Knowledge Base">Knowledge Base</option></select>
+      </div>
+    </div>
+    <div class="section-block full" id="completed-table-wrap">
+      <table class="data-table" id="completed-table">
+        <thead><tr><th>Task</th><th>Owner</th><th>Function</th><th>Vertical</th><th>Completed</th><th>Source</th></tr></thead>
+        <tbody id="completed-tbody"></tbody>
+      </table>
+    </div>
+  </section>
 </div>
 
 <!-- DECISIONS -->
@@ -626,6 +642,7 @@ function mapAction(page) {
     task:     p_title(tryProp(p, 'Task', 'Name', 'Action')),
     owner:    p_people(tryProp(p, 'Owner', 'Assigned to')),
     due:      p_date(tryProp(p, 'Due Date', 'Due')),
+    completed:p_date(tryProp(p, 'Completed Date', 'Date Completed')),
     blocked:  p_check(tryProp(p, 'Blocked?', 'Blocked')),
     fn:       p_select(tryProp(p, 'Function', 'Area')),
     vertical: p_multi(tryProp(p, 'Vertical')),
@@ -713,6 +730,7 @@ function mapGovernanceAction(page) {
     task: p_title(tryProp(p, 'Activity', 'Name')),
     owner: p_owner(tryProp(p, 'Owner')),
     due: p_date(tryProp(p, 'Due Date')),
+    completed: p_date(tryProp(p, 'Completed Date')),
     blocked: rawStatus === 'Overdue',
     fn: 'Compliance',
     vertical: p_select(tryProp(p, 'Domain')) || 'Cross-cutting',
@@ -1172,12 +1190,12 @@ function buildCalendar() {
 }
 
 const PAGE_SIZE = 10;
-const pageState = {actions:1, decisions:1, learnings:1, boulders:1};
+const pageState = {actions:1, completed:1, decisions:1, learnings:1, boulders:1};
 function esc(value) { return String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char])); }
 function notionAnchor(item, label) { return item?.url ? `<a class="notion-link" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(label)}<span class="notion-arrow" aria-hidden="true">↗</span></a>` : esc(label); }
 function pageRows(key, rows) { const pages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE)); pageState[key] = Math.min(pageState[key] || 1, pages); const start = (pageState[key] - 1) * PAGE_SIZE; return {visible:rows.slice(start,start+PAGE_SIZE), start, pages}; }
 function pagerHTML(key, total, start, pages) { return `<div class="pager"><span>${total ? `Showing ${start+1}–${Math.min(start+PAGE_SIZE,total)} of ${total}` : 'No matching records'}</span><button type="button" onclick="changePage('${key}',-1)" ${pageState[key] <= 1 ? 'disabled' : ''}>Previous</button><strong>${pageState[key]} / ${pages}</strong><button type="button" onclick="changePage('${key}',1)" ${pageState[key] >= pages ? 'disabled' : ''}>Next</button></div>`; }
-function changePage(key, amount) { pageState[key] = Math.max(1,(pageState[key]||1)+amount); ({actions:renderActionsTable,decisions:()=>renderDecisions('all'),learnings:renderLearningsFiltered,boulders:renderBoulders}[key] || (()=>{}))(); }
+function changePage(key, amount) { pageState[key] = Math.max(1,(pageState[key]||1)+amount); ({actions:renderActionsTable,completed:renderCompletedTable,decisions:()=>renderDecisions('all'),learnings:renderLearningsFiltered,boulders:renderBoulders}[key] || (()=>{}))(); }
 function showWriteStatus(message, error=false) { let el=document.getElementById('write-status'); if(!el){el=document.createElement('div');el.id='write-status';document.body.appendChild(el)} el.className='write-status'+(error?' error':'');el.textContent=message;clearTimeout(showWriteStatus.timer);showWriteStatus.timer=setTimeout(()=>el.remove(),3500); }
 
 async function completeAction(pageId, source, checkbox) {
@@ -1187,8 +1205,8 @@ async function completeAction(pageId, source, checkbox) {
   try {
     await notionComplete(pageId, source);
     await loadActions();
-    pageState.actions = 1;
-    renderOverview(); renderActionsTable(); buildCalendar();
+    pageState.actions = 1; pageState.completed = 1;
+    renderOverview(); renderActionsTable(); renderCompletedTable(); buildCalendar();
     showWriteStatus('Completed in Notion');
   } catch (error) {
     checkbox.checked = false; checkbox.disabled = false;
@@ -1211,6 +1229,17 @@ function renderActionsTable() {
 }
 function setActionFilter(group,value){activeFilters[group]=value||(group==='status'?'all':null);pageState.actions=1;renderActionsTable()}
 function openActionStatus(status){document.getElementById('action-status').value=status;setActionFilter('status',status);showTab('actions',document.querySelector("[onclick*='actions']"))}
+
+function renderCompletedTable() {
+  const owner=document.getElementById('completed-owner')?.value||'all',fn=document.getElementById('completed-function')?.value||'all';
+  const rows=DONE.filter(item=>(owner==='all'||(item.owner||'').includes(owner))&&(fn==='all'||item.fn===fn)).sort((a,b)=>(b.completed||b.due||'').localeCompare(a.completed||a.due||''));
+  const page=pageRows('completed',rows),tbody=document.getElementById('completed-tbody'),wrap=document.getElementById('completed-table-wrap'),count=document.getElementById('completed-count');
+  if(!tbody||!wrap)return;
+  if(count)count.textContent=`${rows.length} completed`;
+  tbody.innerHTML=page.visible.length?page.visible.map(a=>`<tr><td>${notionAnchor(a,a.task)}</td><td>${esc(a.owner)}</td><td>${esc(a.fn||'—')}</td><td>${esc(a.vertical||'Cross-cutting')}</td><td><span class="status-pill sp-done">${fmtDate(a.completed||a.due)}</span></td><td>${esc(a.source||'Action Database')}</td></tr>`).join(''):'<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--ink-4)">No completed tasks match these filters</td></tr>';
+  const oldPager=wrap.querySelector('.pager');if(oldPager)oldPager.remove();wrap.insertAdjacentHTML('beforeend',pagerHTML('completed',rows.length,page.start,page.pages));
+}
+function setCompletedFilters(){pageState.completed=1;renderCompletedTable()}
 
 function renderOverview() {
   const today=new Date(),monthDecisions=DECISIONS.filter(d=>{const date=new Date(d.created);return d.created&&date.getMonth()===today.getMonth()&&date.getFullYear()===today.getFullYear()}).length;
@@ -1264,6 +1293,7 @@ function setLoadingState() {
     if (el) el.innerHTML = msg;
   });
   document.getElementById('actions-tbody').innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--ink-4);font-weight:300;font-style:italic;">Loading from Notion…</td></tr>';
+  document.getElementById('completed-tbody').innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--ink-4);font-weight:300;font-style:italic;">Loading completed tasks from Notion...</td></tr>';
   document.getElementById('decisions-container').innerHTML = msg;
   document.getElementById('learnings-tbody').innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--ink-4);font-weight:300;font-style:italic;">Loading from Notion…</td></tr>';
 }
@@ -1287,6 +1317,7 @@ async function loadAllData() {
     renderBoulders();
     renderInvestorView();
     renderActionsTable();
+    renderCompletedTable();
     renderDecisions(decFilter);
     renderLearningsFiltered();
     buildCalendar();
