@@ -1055,7 +1055,7 @@ function filterLearningsByStatus(f, btn) {
 }
 
 // ── RENDER PIPELINE (static snapshot) ──
-const pipelineFilters = {stage:'all', type:null, quarter:null};
+const pipelineFilters = {stage:'all', type:null, quarter:null, owner:null};
 const stageClass = {Committed:'stage-committed',Exploring:'stage-exploring',Idea:'stage-idea',Parked:'stage-stalled'};
 
 function renderPipeline() {
@@ -1271,6 +1271,17 @@ function showTab(name, el) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
   if (el) el.classList.add('active');
+  if (name === 'pipeline') renderPipeline();
+}
+
+function initialiseAllFilters() {
+  const allValueIds = ['action-status','decision-type','decision-function','decision-owner','decision-date','pipeline-owner','pipeline-type','pipeline-quarter','learning-type','learning-status','learning-owner','learning-quarter','calendar-owner','calendar-function','boulder-owner','boulder-status','boulder-quarter','completed-owner','completed-function'];
+  allValueIds.forEach(id => { const element=document.getElementById(id); if(element && [...element.options].some(option=>option.value==='all')) element.value='all'; });
+  ['action-owner','action-function','action-vertical'].forEach(id => { const element=document.getElementById(id); if(element) element.value=''; });
+  activeFilters.status='all'; activeFilters.owner=null; activeFilters.function=null; activeFilters.vertical=null;
+  pipelineFilters.stage='all'; pipelineFilters.owner=null; pipelineFilters.type=null; pipelineFilters.quarter=null;
+  learningsTypeFilter='all'; learningsStatusFilter=null;
+  Object.keys(pageState).forEach(key => { pageState[key]=1; });
 }
 
 // ── DATE DISPLAY ──
@@ -1318,6 +1329,7 @@ async function loadAllData() {
     renderInvestorView();
     renderActionsTable();
     renderCompletedTable();
+    renderPipeline();
     renderDecisions(decFilter);
     renderLearningsFiltered();
     buildCalendar();
@@ -1343,6 +1355,7 @@ async function loadAllData() {
 
 // ── INIT ──
 document.getElementById('syncBtn').addEventListener('click', loadAllData);
+initialiseAllFilters();
 updateDateDisplay();
 renderPipeline();
 renderInvestorView();
