@@ -297,7 +297,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
   </div>
   <div class="filter-section">
     <select class="compact-filter" id="action-status" onchange="setActionFilter('status',this.value)"><option value="all">All statuses</option><option value="thisweek">This Week</option><option value="inbox">Inbox</option><option value="blocked">Blocked</option></select>
-    <select class="compact-filter" id="action-owner" onchange="setActionFilter('owner',this.value)"><option value="">All owners</option><option value="kate">Kate</option><option value="sam">Sam</option><option value="hannah">Hannah</option><option value="belinda">Belinda</option><option value="sumaya">Sumaya</option><option value="emma">Emma</option><option value="hope">Hope</option></select>
+    <select class="compact-filter" id="action-owner" onchange="setActionFilter('owner',this.value)"><option value="">All owners</option><option value="kate">Kate</option><option value="sam">Sam</option><option value="hannah">Hannah</option><option value="belinda">Belinda</option><option value="sumaiya">Sumaiya</option><option value="emma">Emma</option><option value="hope">Hope</option></select>
     <select class="compact-filter" id="action-function" onchange="setActionFilter('function',this.value)"><option value="">All functions</option><option value="product">Product Dev</option><option value="compliance">Compliance</option><option value="marketing">Marketing & Sales</option><option value="commercials">Commercials</option><option value="knowledge">Knowledge Base</option></select>
     <select class="compact-filter" id="action-vertical" onchange="setActionFilter('vertical',this.value)"><option value="">All verticals</option><option value="reflect-carbon">Reflect Carbon</option><option value="reflect-nature">Reflect Nature</option><option value="c4c">Citizens for Change</option><option value="cross">Cross-cutting</option></select>
     <div class="filter-row">
@@ -316,7 +316,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
         <button class="filter-btn" onclick="filterActions('sam',this,'owner')">Sam</button>
         <button class="filter-btn" onclick="filterActions('hannah',this,'owner')">Hannah</button>
         <button class="filter-btn" onclick="filterActions('belinda',this,'owner')">Belinda</button>
-        <button class="filter-btn" onclick="filterActions('sumaya',this,'owner')">Sumaya</button>
+        <button class="filter-btn" onclick="filterActions('sumaiya',this,'owner')">Sumaiya</button>
         <button class="filter-btn" onclick="filterActions('emma',this,'owner')">Emma</button>
         <button class="filter-btn" onclick="filterActions('hope',this,'owner')">Hope</button>
       </div>
@@ -351,7 +351,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
     <div class="completed-heading-row">
       <div><h2 id="completed-heading">Completed tasks</h2><span id="completed-count">0 completed</span></div>
       <div class="filter-section completed-filters">
-        <select class="compact-filter" id="completed-owner" onchange="setCompletedFilters()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaya</option><option>Emma</option><option>Hope</option></select>
+        <select class="compact-filter" id="completed-owner" onchange="setCompletedFilters()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaiya</option><option>Emma</option><option>Hope</option></select>
         <select class="compact-filter" id="completed-function" onchange="setCompletedFilters()"><option value="all">All functions</option><option value="Product Development">Product Dev</option><option value="Compliance">Compliance</option><option value="Marketing & Sales">Marketing & Sales</option><option value="Commercials">Commercials</option><option value="Knowledge Base">Knowledge Base</option></select>
       </div>
     </div>
@@ -372,7 +372,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
   <div class="filter-bar">
     <select class="compact-filter" id="decision-type" onchange="setDecisionFilters()"><option value="all">All types</option><option value="Strategic commitment">Strategic</option><option value="Operational decision">Operational</option></select>
     <select class="compact-filter" id="decision-function" onchange="setDecisionFilters()"><option value="all">All functions</option><option>Product Development</option><option>Commercials</option><option>Marketing & Sales</option><option>Compliance</option></select>
-    <select class="compact-filter" id="decision-owner" onchange="setDecisionFilters()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaya</option><option>Emma</option><option>Hope</option></select>
+    <select class="compact-filter" id="decision-owner" onchange="setDecisionFilters()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaiya</option><option>Emma</option><option>Hope</option></select>
     <select class="compact-filter" id="decision-date" onchange="setDecisionFilters()"><option value="all">All dates</option><option value="30">Last 30 days</option><option value="90">Last 90 days</option></select>
     <button class="filter-btn active" onclick="filterDecisions('all',this)">All</button>
     <button class="filter-btn" onclick="filterDecisions('Strategic commitment',this)">Strategic</button>
@@ -391,7 +391,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
     <div><div class="page-title">Pipeline</div><div class="page-sub">Initiatives and opportunities in motion</div></div>
   </div>
   <div class="filter-section">
-    <select class="compact-filter" id="pipeline-owner" onchange="setPipelineSelectFilters()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaya</option><option>Emma</option><option>Hope</option></select>
+    <select class="compact-filter" id="pipeline-owner" onchange="setPipelineSelectFilters()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaiya</option><option>Emma</option><option>Hope</option></select>
     <select class="compact-filter" id="pipeline-type" onchange="setPipelineSelectFilters()"><option value="all">All types</option><option>Product Feature</option><option>Commercial Opportunity</option><option>Marketing Opportunity</option><option>Growth & Strategy</option></select>
     <select class="compact-filter" id="pipeline-quarter" onchange="setPipelineSelectFilters()"><option value="all">All quarters</option><option>Q2 2026</option><option>Q3 2026</option><option>Q4 2026</option></select>
     <div class="filter-row">
@@ -437,7 +437,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
   <div class="filter-section">
     <select class="compact-filter" id="learning-type" onchange="setLearningFilters()"><option value="all">All types</option><option>Technological</option><option>Product</option><option>Commercial</option><option>Operational</option><option>Team</option></select>
     <select class="compact-filter" id="learning-status" onchange="setLearningFilters()"><option value="all">All statuses</option><option>Resolved</option><option>Active uncertainty</option><option>Hypothesis not yet tested</option></select>
-    <select class="compact-filter" id="learning-owner" onchange="setLearningFilters()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaya</option><option>Emma</option><option>Hope</option></select>
+    <select class="compact-filter" id="learning-owner" onchange="setLearningFilters()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaiya</option><option>Emma</option><option>Hope</option></select>
     <select class="compact-filter" id="learning-quarter" onchange="setLearningFilters()"><option value="all">All quarters</option><option>Q2 2026</option><option>Q3 2026</option><option>Q4 2026</option></select>
     <div class="filter-row">
       <div class="filter-row-label">Type</div>
@@ -471,7 +471,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
   <div class="page-header">
     <div><div class="page-title">Calendar</div><div class="page-sub">Team week — actions due and meetings scheduled</div></div>
   </div>
-  <div class="calendar-tools"><div class="cal-nav"><button onclick="moveCalendar(-1)">‹</button><button onclick="resetCalendar()">Today</button><button onclick="moveCalendar(1)">›</button></div><div class="view-switch"><button onclick="setCalendarView('day',this)">Day</button><button onclick="setCalendarView('three',this)">3 days</button><button class="active" onclick="setCalendarView('week',this)">Week</button></div><select class="compact-filter" id="calendar-owner" onchange="buildCalendar()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaya</option><option>Emma</option><option>Hope</option></select><select class="compact-filter" id="calendar-function" onchange="buildCalendar()"><option value="all">All functions</option><option>Product Development</option><option>Compliance</option><option>Marketing & Sales</option><option>Commercials</option></select></div><div class="calendar-week" id="week-grid"></div>
+  <div class="calendar-tools"><div class="cal-nav"><button onclick="moveCalendar(-1)">‹</button><button onclick="resetCalendar()">Today</button><button onclick="moveCalendar(1)">›</button></div><div class="view-switch"><button onclick="setCalendarView('day',this)">Day</button><button onclick="setCalendarView('three',this)">3 days</button><button class="active" onclick="setCalendarView('week',this)">Week</button></div><select class="compact-filter" id="calendar-owner" onchange="buildCalendar()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaiya</option><option>Emma</option><option>Hope</option></select><select class="compact-filter" id="calendar-function" onchange="buildCalendar()"><option value="all">All functions</option><option>Product Development</option><option>Compliance</option><option>Marketing & Sales</option><option>Commercials</option></select></div><div class="calendar-week" id="week-grid"></div>
 </div>
 
 <!-- BOULDERS -->
@@ -479,7 +479,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
   <div class="page-header">
     <div><div class="page-title">Boulder System</div><div class="page-sub">Quarterly priorities — opt-in for all team members</div></div>
   </div>
-  <div class="filter-section"><select class="compact-filter" id="boulder-owner" onchange="renderBoulders()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaya</option><option>Emma</option><option>Hope</option></select><select class="compact-filter" id="boulder-status" onchange="renderBoulders()"><option value="all">All statuses</option><option>Active</option><option>Completed</option><option>At risk</option><option>Dropped</option></select><select class="compact-filter" id="boulder-quarter" onchange="renderBoulders()"><option value="all">All quarters</option><option>Q2 2026</option><option>Q3 2026</option><option>Q4 2026</option></select></div><div id="boulders-container"></div>
+  <div class="filter-section"><select class="compact-filter" id="boulder-owner" onchange="renderBoulders()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaiya</option><option>Emma</option><option>Hope</option></select><select class="compact-filter" id="boulder-status" onchange="renderBoulders()"><option value="all">All statuses</option><option>Active</option><option>Completed</option><option>At risk</option><option>Dropped</option></select><select class="compact-filter" id="boulder-quarter" onchange="renderBoulders()"><option value="all">All quarters</option><option>Q2 2026</option><option>Q3 2026</option><option>Q4 2026</option></select></div><div id="boulders-container"></div>
 </div>
 
 <!-- INVESTOR VIEW -->
@@ -545,15 +545,19 @@ const OWNERS = {
   'user://28a34fcf-1eaf-4d49-a8d3-069fb3c6daf6': 'Sam',
   'user://2bed872b-594c-81b9-924a-0002033894ef': 'Hannah',
   'user://ca3dc12b-390b-4a06-8ea2-8a5e0105d181': 'Belinda',
-  'user://2e2d872b-594c-817e-8f9a-00029a2414ce': 'Sumaya',
+  'user://2e2d872b-594c-817e-8f9a-00029a2414ce': 'Sumaiya',
   'user://198d872b-594c-81d0-bac1-0002a73fce8c': 'Hope',
   'user://11fd872b-594c-8102-b63c-0002944ea2c3': 'Emma',
 };
 
 // ── UTILITIES ──
+function normaliseOwnerName(name) {
+  return String(name || '').replace(/\bSumaya\b/g, 'Sumaiya');
+}
+
 function mapPeople(arr) {
   if (!arr || !arr.length) return '—';
-  return arr.map(u => OWNERS['user://' + u.id] || u.name || '?').join(', ');
+  return arr.map(u => normaliseOwnerName(OWNERS['user://' + u.id] || u.name || '?')).join(', ');
 }
 
 function dueCls(dateStr) {
@@ -728,7 +732,7 @@ function mapGovernanceAction(page) {
     url: page.url,
     source: 'Governance Tracker',
     task: p_title(tryProp(p, 'Activity', 'Name')),
-    owner: p_owner(tryProp(p, 'Owner')),
+    owner: normaliseOwnerName(p_owner(tryProp(p, 'Owner'))),
     due: p_date(tryProp(p, 'Due Date')),
     completed: p_date(tryProp(p, 'Completed Date')),
     blocked: rawStatus === 'Overdue',
@@ -949,7 +953,7 @@ function renderActionsTable() {
   else if (of === 'sam') rows = rows.filter(r => r.owner.includes('Sam'));
   else if (of === 'hannah') rows = rows.filter(r => r.owner.includes('Hannah'));
   else if (of === 'belinda') rows = rows.filter(r => r.owner.includes('Belinda'));
-  else if (of === 'sumaya') rows = rows.filter(r => r.owner.includes('Sumaya'));
+  else if (of === 'sumaiya') rows = rows.filter(r => r.owner.includes('Sumaiya'));
   else if (of === 'emma') rows = rows.filter(r => r.owner.includes('Emma'));
   else if (of === 'hope') rows = rows.filter(r => r.owner.includes('Hope'));
 
@@ -1217,7 +1221,7 @@ async function completeAction(pageId, source, checkbox) {
 function filteredActions() {
   let rows = [...THIS_WEEK.map(a=>({...a,status:'This Week'})),...INBOX.map(a=>({...a,status:'Inbox'}))];
   if(activeFilters.status==='thisweek')rows=rows.filter(r=>r.status==='This Week'); else if(activeFilters.status==='inbox')rows=rows.filter(r=>r.status==='Inbox'); else if(activeFilters.status==='blocked')rows=rows.filter(r=>r.blocked);
-  const owners={kate:'Kate',sam:'Sam',hannah:'Hannah',belinda:'Belinda',sumaya:'Sumaya',emma:'Emma',hope:'Hope'}; if(activeFilters.owner)rows=rows.filter(r=>(r.owner||'').includes(owners[activeFilters.owner]||activeFilters.owner));
+  const owners={kate:'Kate',sam:'Sam',hannah:'Hannah',belinda:'Belinda',sumaiya:'Sumaiya',emma:'Emma',hope:'Hope'}; if(activeFilters.owner)rows=rows.filter(r=>(r.owner||'').includes(owners[activeFilters.owner]||activeFilters.owner));
   const functions={product:'Product Development',compliance:'Compliance',marketing:'Marketing & Sales',commercials:'Commercials',knowledge:'Knowledge Base'}; if(activeFilters.function)rows=rows.filter(r=>r.fn===functions[activeFilters.function]);
   const verticals={'reflect-carbon':'Reflect Carbon','reflect-nature':'Reflect Nature',c4c:'Citizens for Change',cross:'Cross-cutting'}; if(activeFilters.vertical)rows=rows.filter(r=>(r.vertical||'').includes(verticals[activeFilters.vertical]));
   return rows.sort((a,b)=>(a.due||'9999').localeCompare(b.due||'9999'));
