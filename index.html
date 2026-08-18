@@ -19,6 +19,7 @@
 }
 html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);background:var(--off);}
 .app{display:grid;grid-template-columns:var(--sidebar) 1fr;grid-template-rows:var(--header) 1fr;height:100vh;overflow:hidden;}
+
 /* TOPBAR */
 .topbar{grid-column:1/-1;background:var(--green);display:flex;align-items:center;padding:0 1.25rem;gap:.75rem;border-bottom:2px solid var(--amber);z-index:100;}
 .topbar-logo{font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:.12em;text-transform:uppercase;color:var(--white);}
@@ -28,6 +29,7 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
 .topbar-right{margin-left:auto;display:flex;align-items:center;gap:.75rem;}
 .topbar-date{font-family:var(--display);font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);}
 .sync-btn{font-family:var(--display);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--amber);color:var(--green);border:none;padding:4px 12px;cursor:pointer;}
+
 /* SIDEBAR */
 .sidebar{background:var(--green);overflow-y:auto;padding:1.25rem 0;border-right:1px solid rgba(255,255,255,.06);}
 .nav-label{font-family:var(--display);font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.22);padding:.5rem 1.1rem .2rem;}
@@ -36,14 +38,17 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
 .nav-item.active{background:rgba(205,128,40,.12);border-left-color:var(--amber);color:var(--amber);}
 .nav-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.7;flex-shrink:0;}
 .nav-badge{margin-left:auto;font-size:.58rem;font-weight:700;background:var(--coral);color:var(--white);padding:1px 5px;border-radius:2px;}
+
 /* MAIN */
 .main{overflow-y:auto;background:var(--off);}
 .tab-panel{display:none;padding:1.5rem;}
 .tab-panel.active{display:block;}
+
 /* PAGE HEADER */
 .page-header{margin-bottom:1.5rem;padding-bottom:.875rem;border-bottom:1px solid var(--rule);display:flex;align-items:flex-end;justify-content:space-between;}
 .page-title{font-family:var(--display);font-weight:700;font-size:1.4rem;letter-spacing:.04em;text-transform:uppercase;color:var(--green);}
 .page-sub{font-size:.75rem;color:var(--ink-3);font-weight:300;margin-top:2px;}
+
 /* STAT GRID */
 .stat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:3px;margin-bottom:1.5rem;background:var(--rule);}
 .stat-card{background:var(--white);padding:1rem;position:relative;overflow:hidden;}
@@ -56,6 +61,7 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
 .stat-label{font-family:var(--display);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);margin-bottom:.3rem;}
 .stat-value{font-family:var(--display);font-weight:700;font-size:2rem;line-height:1;color:var(--green);margin-bottom:.2rem;}
 .stat-sub{font-size:.68rem;color:var(--ink-3);font-weight:300;}
+
 /* SECTION GRID */
 .section-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
 .section-block{background:var(--white);border:1px solid var(--rule);}
@@ -63,6 +69,7 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
 .block-header{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;border-bottom:1px solid var(--rule);background:var(--paper);}
 .block-title{font-family:var(--display);font-weight:700;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);}
 .block-action{font-family:var(--display);font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);cursor:pointer;border:none;background:none;}
+
 /* ACTION ROW */
 .action-row{display:grid;grid-template-columns:1fr auto auto;gap:.6rem;align-items:center;padding:.55rem 1rem;border-bottom:1px solid var(--rule);transition:background .1s;}
 .action-row:last-child{border-bottom:none;}
@@ -74,6 +81,7 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
 .due-soon{background:rgba(240,199,29,.15);color:#7a6200;}
 .due-ok{background:rgba(17,48,42,.07);color:var(--green);}
 .blocked-tag{display:inline-block;font-family:var(--display);font-size:.56rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(238,92,95,.1);color:var(--coral);padding:1px 4px;margin-left:3px;vertical-align:middle;}
+
 /* DECISION ROW */
 .decision-row{padding:.7rem 1rem;border-bottom:1px solid var(--rule);}
 .decision-row:last-child{border-bottom:none;}
@@ -87,17 +95,20 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
 .dtag-commercials{background:rgba(205,128,40,.12);color:#7a5010;}
 .dtag-compliance{background:rgba(238,92,95,.1);color:var(--coral);}
 .dtag-marketing{background:rgba(240,199,29,.15);color:#7a6200;}
+
 /* FILTER SECTIONS */
 .filter-section{display:flex;flex-direction:column;gap:4px;margin-bottom:1rem;}
 .filter-row{display:flex;align-items:center;gap:.5rem;}
 .filter-row-label{font-family:var(--display);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);width:72px;flex-shrink:0;}
 .filter-row-btns{display:flex;gap:.35rem;flex-wrap:wrap;}
+
 /* TABLE */
 .data-table{width:100%;border-collapse:collapse;font-size:.78rem;}
 .data-table th{font-family:var(--display);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);background:var(--paper);padding:.55rem .875rem;text-align:left;border-bottom:1px solid var(--rule);white-space:nowrap;}
 .data-table td{padding:.55rem .875rem;border-bottom:1px solid var(--rule);color:var(--ink-2);vertical-align:middle;}
 .data-table tr:hover td{background:var(--off);}
 .data-table tr:last-child td{border-bottom:none;}
+
 /* STATUS */
 .status-pill{display:inline-block;font-family:var(--display);font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:1px 6px;}
 .sp-thisweek{background:rgba(205,128,40,.15);color:#7a5010;}
@@ -105,15 +116,18 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
 .sp-done{background:rgba(17,48,42,.08);color:var(--green);}
 .sp-carried{background:rgba(240,199,29,.12);color:#7a6200;}
 .sp-onhold{background:rgba(238,92,95,.1);color:var(--coral);}
+
 /* URGENCY */
 .urg-high{color:var(--coral);font-weight:600;}
 .urg-normal{color:var(--ink-3);}
 .urg-low{color:var(--ink-4);}
+
 /* FILTER BAR */
 .filter-bar{display:flex;gap:.4rem;margin-bottom:1rem;flex-wrap:wrap;}
 .filter-btn{font-family:var(--display);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--rule);background:var(--white);color:var(--ink-3);cursor:pointer;transition:all .1s;}
 .filter-btn:hover{border-color:var(--amber);color:var(--amber);}
 .filter-btn.active{background:var(--green);color:var(--white);border-color:var(--green);}
+
 /* CALENDAR */
 .calendar-week{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;background:var(--rule);margin-bottom:1rem;}
 .cal-day{background:var(--white);min-height:120px;padding:.625rem;}
@@ -122,6 +136,7 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
 .cal-event{font-size:.68rem;color:var(--ink-2);padding:2px 5px;margin-bottom:2px;border-left:2px solid var(--green);background:rgba(17,48,42,.05);font-weight:300;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .cal-event.meeting{border-color:var(--olive);background:rgba(133,135,85,.06);}
 .cal-event.due{border-color:var(--amber);background:rgba(205,128,40,.06);}
+
 /* LEARNINGS */
 .type-pill{display:inline-block;font-family:var(--display);font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:1px 6px;}
 .type-tech{background:rgba(17,48,42,.08);color:var(--green);}
@@ -131,12 +146,14 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
 .type-team{background:rgba(81,20,51,.08);color:var(--plum);}
 .status-resolved{font-family:var(--display);font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);}
 .status-active{font-family:var(--display);font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);}
+
 /* PIPELINE */
 .stage-pill{display:inline-block;font-family:var(--display);font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;}
 .stage-committed{background:rgba(17,48,42,.08);color:var(--green);}
 .stage-exploring{background:rgba(205,128,40,.12);color:#7a5010;}
 .stage-idea{background:rgba(133,135,85,.1);color:var(--olive);}
 .stage-stalled{background:rgba(238,92,95,.1);color:var(--coral);}
+
 /* BOULDERS */
 .boulder-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:3px;background:var(--rule);}
 .boulder-card{background:var(--white);padding:.875rem;}
@@ -144,11 +161,13 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
 .boulder-item{font-size:.75rem;color:var(--ink-2);padding:.25rem 0;border-bottom:1px solid var(--rule);display:flex;gap:.4rem;align-items:flex-start;font-weight:300;}
 .boulder-item:last-child{border-bottom:none;}
 .boulder-num{font-family:var(--display);font-weight:700;font-size:.65rem;color:var(--olive);flex-shrink:0;}
+
 /* PIPELINE ROW (investor view) */
 .pipeline-row{display:flex;align-items:center;gap:.75rem;padding:.55rem 1rem;border-bottom:1px solid var(--rule);}
 .pipeline-row:last-child{border-bottom:none;}
 .pipeline-name{flex:1;font-size:.8rem;color:var(--ink);}
 .pipeline-owner{font-family:var(--display);font-size:.62rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-4);white-space:nowrap;}
+
 /* INVESTOR */
 .investor-header{background:var(--green);padding:1.5rem;margin:-1.5rem -1.5rem 1.5rem;display:flex;justify-content:space-between;align-items:flex-end;}
 .investor-logo{font-family:var(--display);font-weight:700;font-size:1.3rem;letter-spacing:.08em;text-transform:uppercase;color:var(--white);}
@@ -158,6 +177,7 @@ html,body{height:100%;font-family:var(--body);font-size:14px;color:var(--ink);ba
 .inv-kpi{background:var(--white);padding:1rem;text-align:center;}
 .inv-kpi-val{font-family:var(--display);font-weight:700;font-size:1.8rem;color:var(--green);line-height:1;margin-bottom:.2rem;}
 .inv-kpi-label{font-family:var(--display);font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);}
+
 /* 2026 compact workspace redesign */
 :root{--sidebar:176px;--header:48px;--off:#f6f7f4;--paper:#eef1ed;--rule:#dce2de;--display:'Work Sans',sans-serif}
 html,body{font-size:13px;background:var(--off)}
@@ -178,6 +198,7 @@ html,body{font-size:13px;background:var(--off)}
 .pipeline-board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.pipeline-column{background:#fff;border:1px solid var(--rule)}.pipeline-column h3{padding:9px 10px;background:var(--paper);font-size:.68rem;font-weight:600}.pipeline-card{margin:8px;padding:9px;border-left:3px solid var(--green);background:#f4f7f5}.pipeline-card strong{display:block;font-size:.75rem;font-weight:500}.pipeline-card small{display:block;margin-top:5px;color:var(--ink-3);font-size:.63rem}
 .boulder-list{border:1px solid var(--rule);background:#fff}.boulder-line{display:grid;grid-template-columns:minmax(220px,1.5fr) 110px 100px 90px;gap:10px;padding:11px;border-bottom:1px solid var(--rule);align-items:center}.boulder-line.head{background:var(--paper);font-size:.58rem;text-transform:uppercase;color:var(--ink-4)}.boulder-line strong{font-weight:500}.boulder-line small{color:var(--ink-3)}
 @media(max-width:760px){:root{--sidebar:138px}.topbar-date{display:none}.section-grid,.pipeline-board{grid-template-columns:1fr}.stat-grid{grid-template-columns:repeat(2,1fr)}.calendar-week{grid-template-columns:1fr}.cal-day{min-height:auto;border-right:0;border-bottom:1px solid var(--rule)}.boulder-line{grid-template-columns:minmax(0,1fr) auto}.boulder-line>:nth-child(n+3){display:none}}
+
 /* Readability, original typography, pagination and live Notion controls */
 :root{--display:'Rajdhani',sans-serif;--body:'Work Sans',sans-serif}
 html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-label,.stat-value,.block-title,.block-action,.data-table th,.status-pill,.dtag,.stage-pill,.type-pill,.pipeline-column h3{font-family:var(--display)}
@@ -193,6 +214,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
 </head>
 <body>
 <div class="app">
+
 <header class="topbar">
   <div class="topbar-logo">Connect<span>Go</span></div>
   <div class="topbar-divider"></div>
@@ -202,6 +224,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
     <button class="sync-btn" id="syncBtn">↻ Live Data</button>
   </div>
 </header>
+
 <nav class="sidebar">
   <div class="nav-label">Dashboard</div>
   <div class="nav-item active" onclick="showTab('overview',this)"><div class="nav-dot"></div><span>Overview</span><span class="nav-badge" id="badge-blocked"></span></div>
@@ -216,7 +239,9 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
   <div class="nav-label" style="margin-top:.5rem">External</div>
   <div class="nav-item" onclick="showTab('investor',this)"><div class="nav-dot"></div><span>Investor View</span></div>
 </nav>
+
 <main class="main">
+
 <!-- OVERVIEW -->
 <div id="tab-overview" class="tab-panel active">
   <div class="page-header">
@@ -226,7 +251,6 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
     <div class="overview-band-title"><span>Operating pulse</span><strong id="overview-pulse">Loading live workspace</strong></div>
     <div><span>Action database</span><strong id="overview-action-count">—</strong></div>
     <div><span>Governance tracker</span><strong id="overview-governance-count">—</strong></div>
-    <div><span>Bug logger</span><strong id="overview-bug-count">—</strong></div>
     <div><span>Bug Log</span><strong id="overview-bug-count">—</strong></div>
     <div><span>Decisions this month</span><strong id="overview-decisions-month">—</strong></div>
   </section>
@@ -268,6 +292,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
     </div>
   </div>
 </div>
+
 <!-- ACTIONS -->
 <div id="tab-actions" class="tab-panel">
   <div class="page-header">
@@ -303,6 +328,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
     </div>
   </section>
 </div>
+
 <!-- DECISIONS -->
 <div id="tab-decisions" class="tab-panel">
   <div class="page-header">
@@ -324,6 +350,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
   </div>
   <div class="section-block full" id="decisions-container"></div>
 </div>
+
 <!-- PIPELINE -->
 <div id="tab-pipeline" class="tab-panel">
   <div class="page-header">
@@ -374,6 +401,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
     <div class="pipeline-calendar-wrap"><div class="pipeline-calendar-grid" id="pipeline-calendar-grid"></div></div>
   </div>
 </div>
+
 <!-- LEARNINGS -->
 <div id="tab-learnings" class="tab-panel">
   <div class="page-header">
@@ -413,6 +441,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
     </table>
   </div>
 </div>
+
 <!-- CALENDAR -->
 <div id="tab-calendar" class="tab-panel">
   <div class="page-header">
@@ -426,6 +455,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
     </table>
   </div>
 </div>
+
 <!-- BOULDERS -->
 <div id="tab-boulders" class="tab-panel">
   <div class="page-header">
@@ -433,6 +463,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
   </div>
   <div class="filter-section"><select class="compact-filter" id="boulder-owner" onchange="renderBoulders()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaiya</option><option>Emma</option><option>Hope</option><option>Evie</option></select><select class="compact-filter" id="boulder-status" onchange="renderBoulders()"><option value="all">All statuses</option><option>Active</option><option>Completed</option><option>At risk</option><option>Dropped</option></select><select class="compact-filter" id="boulder-quarter" onchange="renderBoulders()"><option value="all">All quarters</option><option>Q2 2026</option><option>Q3 2026</option><option>Q4 2026</option></select></div><div id="boulders-container"></div>
 </div>
+
 <!-- INVESTOR VIEW -->
 <div id="tab-investor" class="tab-panel">
   <div class="investor-header">
@@ -445,9 +476,11 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
       <div style="font-family:var(--display);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:4px;">For investor & commercial partner use</div>
     </div>
   </div>
+
   <div style="background:rgba(205,128,40,.08);border:1px solid rgba(205,128,40,.2);padding:.75rem 1rem;margin-bottom:1.25rem;font-size:.78rem;color:var(--ink-2);font-weight:300;">
     <strong style="font-family:var(--display);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);">About this view</strong> — Shows only investor-visible items. No internal operational detail, individual names, or unresolved debates. Generatable on demand via Claude prompt in under 2 minutes. Kate sign-off required before sharing externally.
   </div>
+
   <!-- Strategic commitments — decisions flagged as Strategic commitment only -->
   <div class="section-block full" style="margin-bottom:1rem;">
     <div class="block-header">
@@ -456,6 +489,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
     </div>
     <div id="investor-commitments"></div>
   </div>
+
   <!-- Pipeline — investor-visible items only -->
   <div class="section-grid">
     <div class="section-block">
@@ -465,6 +499,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
       </div>
       <div id="investor-pipeline"></div>
     </div>
+
     <!-- Milestones hit this period -->
     <div class="section-block">
       <div class="block-header">
@@ -474,14 +509,17 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
       <div id="milestones-list"></div>
     </div>
   </div>
+
   <!-- Boulder progress -->
   <div class="section-block full" style="margin-top:0">
     <div class="block-header"><div class="block-title">🪨 Quarterly Boulder Progress</div></div>
     <div id="investor-boulders"></div>
   </div>
 </div>
+
 </main>
 </div>
+
 <script>
 // ── OWNERS ──
 const OWNERS = {
@@ -494,10 +532,12 @@ const OWNERS = {
   'user://11fd872b-594c-8102-b63c-0002944ea2c3': 'Emma',
 };
 const TEAM_MEMBERS = ['Kate', 'Sam', 'Hannah', 'Belinda', 'Sumaiya', 'Emma', 'Hope', 'Evie'];
+
 // ── UTILITIES ──
 function normaliseOwnerName(name) {
   return String(name || '').replace(/\bSumaya\b/g, 'Sumaiya');
 }
+
 function canonicalOwnerName(name) {
   const cleaned = normaliseOwnerName(name).trim();
   const aliases = {
@@ -514,20 +554,22 @@ function canonicalOwnerName(name) {
     'samuel mounsey': 'Sam',
     'sam': 'Sam',
   };
-  return aliases[cleaned.toLowerCase()] || cleaned.split(/\s+/)[0] || '';
   const lowered = cleaned.toLowerCase();
   if (aliases[lowered]) return aliases[lowered];
   if (/^sam(?:uel)?\b/.test(lowered)) return 'Sam';
   return cleaned.split(/\s+/)[0] || '';
 }
+
 function canonicalOwnerList(value) {
   const names = String(value || '').split(',').map(canonicalOwnerName).filter(Boolean);
   return [...new Set(names)].join(', ') || '—';
 }
+
 function mapPeople(arr) {
   if (!arr || !arr.length) return '—';
   return canonicalOwnerList(arr.map(u => u.name || OWNERS['user://' + u.id] || '?').join(', '));
 }
+
 function dueCls(dateStr) {
   if (!dateStr) return '';
   const d = new Date(dateStr), t = new Date();
@@ -535,11 +577,13 @@ function dueCls(dateStr) {
   if (d < t) return 'due-overdue';
   return (d - t) / 86400000 <= 5 ? 'due-soon' : 'due-ok';
 }
+
 function fmtDate(s) {
   if (!s) return '—';
   const d = new Date(s);
   return d.getDate() + ' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()];
 }
+
 function localDateFromKey(value) {
   const parts=String(value||'').substring(0,10).split('-').map(Number);
   if(parts.length!==3||parts.some(Number.isNaN))return null;
@@ -560,11 +604,13 @@ function dueFilterMatches(action,filter){
   return true;
 }
 function dueCell(action){const days=overdueDays(action.due);return `<span class="action-due ${dueCls(action.due)}">${fmtDate(action.due)}</span>${days?`<span class="overdue-label">Overdue by ${days} day${days===1?'':'s'}</span>`:''}`}
+
 function fnTag(fn) {
   const map = {'Product Development':'dtag-product','Commercials':'dtag-commercials','Marketing & Sales':'dtag-marketing','Compliance':'dtag-compliance','Knowledge Base':'dtag-product','Client work':'dtag-commercials','Writing':'dtag-marketing'};
   const match = Object.keys(map).find(name => String(fn || '').includes(name));
   return map[match] || 'dtag-operational';
 }
+
 // ── NOTION PROPERTY PARSERS ──
 function p_title(prop)  { return prop?.title?.[0]?.plain_text || ''; }
 function p_text(prop)   { return prop?.rich_text?.[0]?.plain_text || ''; }
@@ -598,6 +644,7 @@ function tryProp(props, ...names) {
   }
   return undefined;
 }
+
 // ── NOTION API ──
 async function notionQuery(db, filter, sorts, page_size) {
   const r = await fetch('/.netlify/functions/notion', {
@@ -606,11 +653,10 @@ async function notionQuery(db, filter, sorts, page_size) {
     body: JSON.stringify({ db, filter, sorts, page_size: page_size || 100 }),
   });
   const data = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error('Notion API error: ' + r.status);
-  return r.json();
   if (!r.ok) throw new Error(data.error || 'Notion API error: ' + r.status);
   return data;
 }
+
 async function notionSchema(db) {
   const response = await fetch('/.netlify/functions/notion', {
     method: 'POST',
@@ -620,17 +666,17 @@ async function notionSchema(db) {
   if (!response.ok) throw new Error('Notion schema error: ' + response.status);
   return response.json();
 }
+
 async function governanceActions() {
-  const data = await notionQuery('governance', undefined, [{property:'Due Date', direction:'ascending'}]);
   const data = await notionQuery('governance');
   return (data.results || []).map(mapGovernanceAction).filter(action => action.task);
 }
-async function bugLoggerActions() {
-  const data = await notionQuery('bugs', undefined, [{property:'Date Logged', direction:'descending'}]);
+
 async function bugLogActions() {
   const data = await notionQuery('bugs');
   return (data.results || []).map(mapBugAction).filter(action => action.task);
 }
+
 async function notionComplete(pageId, source) {
   const response = await fetch('/.netlify/functions/notion', {
     method: 'POST',
@@ -641,6 +687,7 @@ async function notionComplete(pageId, source) {
   if (!response.ok) throw new Error(data.error || 'Notion update failed');
   return data;
 }
+
 async function notionReschedule(pageId, source, dueDate) {
   const response = await fetch('/.netlify/functions/notion', {
     method: 'POST',
@@ -651,6 +698,7 @@ async function notionReschedule(pageId, source, dueDate) {
   if (!response.ok) throw new Error(data.error || 'Notion date update failed');
   return data;
 }
+
 function mergeActions(...groups) {
   const merged = new Map();
   groups.flat().forEach(action => {
@@ -663,6 +711,7 @@ function mergeActions(...groups) {
   });
   return [...merged.values()];
 }
+
 // ── MAPPERS ──
 function mapAction(page) {
   const p = page.properties;
@@ -684,6 +733,7 @@ function mapAction(page) {
     notes:    p_text(tryProp(p, 'Blocker Notes', 'Notes')),
   };
 }
+
 function mapDecision(page) {
   const p = page.properties;
   return {
@@ -698,6 +748,7 @@ function mapDecision(page) {
     created: (page.created_time || '').substring(0, 10),
   };
 }
+
 function mapLearning(page) {
   const p = page.properties;
   return {
@@ -712,6 +763,7 @@ function mapLearning(page) {
     owner:   p_owner_value(tryProp(p, 'Owner', 'Created by')),
   };
 }
+
 function mapPipelineItem(page) {
   const p = page.properties;
   const startProperty = tryProp(p, 'Start Date', 'Start');
@@ -723,16 +775,6 @@ function mapPipelineItem(page) {
   return {
     id:       page.id,
     url:      page.url,
-    name:     p_title(p['Initiative']),
-    type:     p_choice(p['Type']),
-    stage:    p_choice(p['Stage']),
-    owner:    p_owner_value(p['Owner']),
-    vertical: p_multi(p['Vertical']),
-    quarter:  p_select(p['Quarter']),
-    start:    p_date(tryProp(p, 'Start Date', 'Start')),
-    due:      p_date(tryProp(p, 'Due Date', 'Due')),
-    investor: p_check(p['Investor-visible']),
-    desc:     p_text(p['Description']),
     name:     p_title(tryProp(p, 'Initiative', 'Name', 'Pipeline Item')),
     type:     p_choice(tryProp(p, 'Type')),
     stage:    p_choice(tryProp(p, 'Stage', 'Status')),
@@ -745,6 +787,7 @@ function mapPipelineItem(page) {
     desc:     p_text(tryProp(p, 'Description', 'Notes')),
   };
 }
+
 function mapMilestone(page) {
   const p = page.properties;
   return {
@@ -754,6 +797,7 @@ function mapMilestone(page) {
     status: p_status(p['Status']),
   };
 }
+
 function mapBoulder(page) {
   const p = page.properties;
   return {
@@ -766,6 +810,7 @@ function mapBoulder(page) {
     id:      p_uid(p['Boulder ID']),
   };
 }
+
 function mapGovernanceAction(page) {
   const p = page.properties || {};
   const rawStatus = p_choice(tryProp(p, 'Status'));
@@ -792,12 +837,12 @@ function mapGovernanceAction(page) {
     notes: '',
   };
 }
+
 function mapBugAction(page) {
   const p = page.properties || {};
   return {
     id: page.id,
     url: page.url,
-    source: 'Bug Logger',
     source: 'Bug Log',
     task: p_title(tryProp(p, 'Bug / Incident', 'Name')),
     owner: 'Sam',
@@ -817,10 +862,12 @@ function mapBugAction(page) {
     notes: '',
   };
 }
+
 // ── DATA STATE ──
 let ALL_ACTIONS = [], ACTIVE_ACTIONS = [], THIS_WEEK = [], INBOX = [], BLOCKED = [], DONE = [];
 let DECISIONS = [], LEARNINGS = [], MILESTONES = [], PIPELINE = [], BOULDERS = [];
 const NOTION_SCHEMAS = {};
+
 // ── LOADERS ──
 async function loadActions() {
   const [tw, done, inbox, governance] = await Promise.all([
@@ -840,6 +887,7 @@ async function loadActions() {
   INBOX     = mergeActions(inbox.results.map(mapAction).filter(a => a.task), trackerInbox);
   BLOCKED   = [...THIS_WEEK, ...INBOX].filter(a => a.blocked);
 }
+
 async function loadDecisions() {
   const [data, schema] = await Promise.all([
     notionQuery('decisions', undefined, [{property:'Decision ID', direction:'descending'}]),
@@ -848,24 +896,29 @@ async function loadDecisions() {
   NOTION_SCHEMAS.decisions = schema;
   DECISIONS = data.results.map(mapDecision).filter(d => d.text);
 }
+
 async function loadLearnings() {
   const data = await notionQuery('learnings');
   LEARNINGS = data.results.map(mapLearning).filter(l => l.q);
 }
+
 async function loadMilestones() {
   const data = await notionQuery('milestones',
     {property:'Status', status:{equals:'In progress'}}
   );
   MILESTONES = data.results.map(mapMilestone).filter(m => m.task);
 }
+
 async function loadPipeline() {
   const data = await notionQuery('pipeline');
   PIPELINE = data.results.map(mapPipelineItem).filter(p => p.name);
 }
+
 async function loadBoulders() {
   const data = await notionQuery('boulders', undefined, [{property:'Boulder ID', direction:'ascending'}]);
   BOULDERS = data.results.map(mapBoulder).filter(b => b.name);
 }
+
 // ── RENDER OVERVIEW ──
 function renderOverview() {
   const today = new Date();
@@ -880,6 +933,7 @@ function renderOverview() {
     return dd.getMonth() === today.getMonth() && dd.getFullYear() === today.getFullYear();
   }).length;
   document.getElementById('badge-blocked').textContent = BLOCKED.length || '';
+
   document.getElementById('blocked-list').innerHTML = BLOCKED.length
     ? BLOCKED.map(a => `<div class="action-row">
         <div class="action-task">${a.task}<span class="blocked-tag">blocked</span>${a.notes ? ' — ' + a.notes : ''}</div>
@@ -887,11 +941,13 @@ function renderOverview() {
         <div class="action-due ${dueCls(a.due)}">${fmtDate(a.due)}</div>
       </div>`).join('')
     : '<div style="padding:.875rem 1rem;font-size:.78rem;color:var(--ink-4);font-weight:300;">No blocked actions</div>';
+
   document.getElementById('thisweek-list').innerHTML = THIS_WEEK.slice(0, 8).map(a => `<div class="action-row">
     <div class="action-task">${a.task}${a.blocked ? '<span class="blocked-tag">blocked</span>' : ''}</div>
     <div class="action-owner">${a.owner}</div>
     <div class="action-due ${dueCls(a.due)}">${fmtDate(a.due)}</div>
   </div>`).join('') || '<div style="padding:.875rem 1rem;font-size:.78rem;color:var(--ink-4);font-weight:300;">No actions this week</div>';
+
   document.getElementById('recent-decisions').innerHTML = DECISIONS.slice(0, 5).map(d => `<div class="decision-row">
     <div class="decision-text">${d.text}</div>
     <div class="decision-meta">
@@ -899,12 +955,14 @@ function renderOverview() {
       <span class="dtag ${fnTag(d.fn)}">${d.fn}</span>
     </div>
   </div>`).join('') || '<div style="padding:.875rem 1rem;font-size:.78rem;color:var(--ink-4);font-weight:300;">No decisions logged</div>';
+
   document.getElementById('recent-done').innerHTML = DONE.slice(0, 6).map(a => `<div class="action-row">
     <div class="action-task">${a.task}</div>
     <div class="action-owner">${a.owner}</div>
     <div class="action-due due-ok">${fmtDate(a.due)}</div>
   </div>`).join('') || '<div style="padding:.875rem 1rem;font-size:.78rem;color:var(--ink-4);font-weight:300;">No recent completions</div>';
 }
+
 // ── RENDER MILESTONES ──
 function renderMilestones() {
   const el = document.getElementById('milestones-list');
@@ -917,6 +975,7 @@ function renderMilestones() {
       </div>`).join('')
     : '<div style="padding:.875rem 1rem;font-size:.78rem;color:var(--ink-4);font-weight:300;">No milestones</div>';
 }
+
 // ── RENDER BOULDERS ──
 function renderBoulders() {
   const container = document.getElementById('boulders-container');
@@ -948,6 +1007,7 @@ function renderBoulders() {
       </div>
     </div>`).join('');
 }
+
 // ── RENDER INVESTOR VIEW ──
 function renderInvestorView() {
   const commitEl = document.getElementById('investor-commitments');
@@ -963,6 +1023,7 @@ function renderInvestorView() {
         </div>`).join('')
       : '<div style="padding:.875rem 1rem;font-size:.78rem;color:var(--ink-4);font-weight:300;">No strategic commitments</div>';
   }
+
   const pipeEl = document.getElementById('investor-pipeline');
   if (pipeEl) {
     const invItems = PIPELINE.filter(p => p.investor);
@@ -972,6 +1033,7 @@ function renderInvestorView() {
       <span class="stage-pill stage-${p.stage.toLowerCase()}">${p.stage}</span>
     </div>`).join('');
   }
+
   const bouldersEl = document.getElementById('investor-boulders');
   if (bouldersEl) {
     const active = BOULDERS.filter(b => b.status !== 'Dropped');
@@ -994,18 +1056,22 @@ function renderInvestorView() {
     }
   }
 }
+
 // ── RENDER ACTIONS TABLE ──
 const activeFilters = {status:'all', due:'all', owner:null, function:null, vertical:null, frequency:null};
+
 function renderActionsTable() {
   const tbody = document.getElementById('actions-tbody');
   let rows = [
     ...THIS_WEEK.map(a => ({...a, status:'This Week'})),
     ...INBOX.map(a => ({...a, status:'Inbox'})),
   ];
+
   const sf = activeFilters.status;
   if (sf === 'thisweek') rows = rows.filter(r => r.status === 'This Week');
   else if (sf === 'inbox') rows = rows.filter(r => r.status === 'Inbox');
   else if (sf === 'blocked') rows = rows.filter(r => r.blocked);
+
   const of = activeFilters.owner;
   if (of === 'kate') rows = rows.filter(r => r.owner.includes('Kate'));
   else if (of === 'sam') rows = rows.filter(r => r.owner.includes('Sam'));
@@ -1014,17 +1080,20 @@ function renderActionsTable() {
   else if (of === 'sumaiya') rows = rows.filter(r => r.owner.includes('Sumaiya'));
   else if (of === 'emma') rows = rows.filter(r => r.owner.includes('Emma'));
   else if (of === 'hope') rows = rows.filter(r => r.owner.includes('Hope'));
+
   const ff = activeFilters.function;
   if (ff === 'product') rows = rows.filter(r => r.fn === 'Product Development');
   else if (ff === 'compliance') rows = rows.filter(r => r.fn === 'Compliance');
   else if (ff === 'marketing') rows = rows.filter(r => r.fn === 'Marketing & Sales');
   else if (ff === 'commercials') rows = rows.filter(r => r.fn === 'Commercials');
   else if (ff === 'knowledge') rows = rows.filter(r => r.fn === 'Knowledge Base');
+
   const vf = activeFilters.vertical;
   if (vf === 'reflect-carbon') rows = rows.filter(r => (r.vertical||'').includes('Reflect Carbon'));
   else if (vf === 'reflect-nature') rows = rows.filter(r => (r.vertical||'').includes('Reflect Nature'));
   else if (vf === 'c4c') rows = rows.filter(r => (r.vertical||'').includes('Citizens for Change'));
   else if (vf === 'cross') rows = rows.filter(r => (r.vertical||'').includes('Cross-cutting'));
+
   tbody.innerHTML = rows.length
     ? rows.map(a => `<tr>
         <td>${a.task}${a.blocked ? '<span class="blocked-tag">blocked</span>' : ''}</td>
@@ -1037,6 +1106,7 @@ function renderActionsTable() {
       </tr>`).join('')
     : '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--ink-4);font-weight:300;">No actions match these filters</td></tr>';
 }
+
 function filterActions(f, btn, group) {
   const groupEl = btn.closest('[data-group]');
   if (groupEl) groupEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1049,6 +1119,7 @@ function filterActions(f, btn, group) {
   }
   renderActionsTable();
 }
+
 // ── RENDER DECISIONS ──
 let decFilter = 'all';
 function renderDecisions(filter) {
@@ -1065,15 +1136,18 @@ function renderDecisions(filter) {
       </div>`).join('')
     : '<div style="padding:1.5rem;text-align:center;color:var(--ink-4);font-weight:300;">No decisions match this filter</div>';
 }
+
 function filterDecisions(f, btn) {
   document.querySelectorAll('#tab-decisions .filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderDecisions(f);
 }
+
 // ── RENDER LEARNINGS ──
 let learningsTypeFilter = 'all', learningsStatusFilter = null;
 const typeClass = {Technological:'type-tech',Product:'type-product',Commercial:'type-commercial',Operational:'type-operational',Team:'type-team'};
 const statusClass = {'Resolved':'status-resolved','Active uncertainty':'status-active','Hypothesis not yet tested':'status-active'};
+
 function renderLearnings(filter, statusFilter) {
   let rows = LEARNINGS;
   if (filter && filter !== 'all') rows = rows.filter(l => l.type === filter);
@@ -1089,7 +1163,9 @@ function renderLearnings(filter, statusFilter) {
       </tr>`).join('')
     : '<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--ink-4);font-weight:300;">No learnings match this filter</td></tr>';
 }
+
 function renderLearningsFiltered() { renderLearnings(learningsTypeFilter, learningsStatusFilter); }
+
 function filterLearnings(f, btn) {
   const g = btn.closest('[data-group]');
   if (g) g.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1097,6 +1173,7 @@ function filterLearnings(f, btn) {
   learningsTypeFilter = f;
   renderLearningsFiltered();
 }
+
 function filterLearningsByStatus(f, btn) {
   const g = btn.closest('[data-group]');
   if (g) g.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1104,9 +1181,11 @@ function filterLearningsByStatus(f, btn) {
   else { btn.classList.add('active'); learningsStatusFilter = f; }
   renderLearningsFiltered();
 }
+
 // ── RENDER PIPELINE (static snapshot) ──
 const pipelineFilters = {stage:'all', type:null, quarter:null, owner:null};
 const stageClass = {Committed:'stage-committed',Exploring:'stage-exploring',Idea:'stage-idea',Parked:'stage-stalled'};
+
 function renderPipeline() {
   let rows = PIPELINE;
   if (pipelineFilters.stage !== 'all') rows = rows.filter(p => p.stage === pipelineFilters.stage);
@@ -1122,6 +1201,7 @@ function renderPipeline() {
     <td>${p.investor ? '<span style="color:var(--green);font-weight:600;font-family:var(--display);font-size:.65rem;letter-spacing:.06em">YES</span>' : '<span style="color:var(--ink-4);font-family:var(--display);font-size:.65rem">—</span>'}</td>
   </tr>`).join('');
 }
+
 function filterPipeline(group, value, btn) {
   const g = btn.closest('[data-group]');
   if (g) g.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1130,6 +1210,7 @@ function filterPipeline(group, value, btn) {
   else { btn.classList.add('active'); pipelineFilters[group] = value; }
   renderPipeline();
 }
+
 // ── CALENDAR (current week, live actions) ──
 function buildCalendar() {
   const today = new Date();
@@ -1137,19 +1218,23 @@ function buildCalendar() {
   const dow = today.getDay();
   const monday = new Date(today);
   monday.setDate(today.getDate() - (dow === 0 ? 6 : dow - 1));
+
   const weekDays = Array.from({length: 5}, (_, i) => {
     const d = new Date(monday);
     d.setDate(monday.getDate() + i);
     return d;
   });
+
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const dayNames = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
+
   const byDate = {};
   THIS_WEEK.forEach(a => {
     const k = a.due ? a.due.substring(0, 10) : null;
     if (!k) return;
     (byDate[k] = byDate[k] || []).push(a);
   });
+
   document.getElementById('week-grid').innerHTML = weekDays.map((d, i) => {
     const key = d.toISOString().substring(0, 10);
     const isToday = d.getTime() === today.getTime();
@@ -1160,11 +1245,13 @@ function buildCalendar() {
       + '</div>';
   }).join('');
 }
+
 // ── NAVIGATION ──
 function setActionFilter(group, value) {
   activeFilters[group] = value || (group === 'status' ? 'all' : null);
   renderActionsTable();
 }
+
 function renderDecisions(filter = 'all') {
   decFilter = filter;
   let rows = DECISIONS;
@@ -1179,6 +1266,7 @@ function renderDecisions(filter = 'all') {
   document.getElementById('decisions-container').innerHTML = rows.length ? `<table class="data-table"><thead><tr><th>ID</th><th>Decision</th><th>Function</th><th>Type</th><th>Date</th></tr></thead><tbody>${rows.map(d => `<tr><td>${d.id ? 'ID-' + d.id : '—'}</td><td>${d.text}</td><td>${d.fn || '—'}</td><td><span class="dtag ${d.rev === 'Strategic commitment' ? 'dtag-strategic' : 'dtag-operational'}">${d.rev === 'Strategic commitment' ? 'Strategic' : 'Operational'}</span></td><td>${fmtDate(d.created)}</td></tr>`).join('')}</tbody></table>` : '<div style="padding:1.5rem;text-align:center;color:var(--ink-4)">No decisions match these filters</div>';
 }
 function setDecisionFilters() { renderDecisions('all'); }
+
 function renderLearnings(filter, statusFilter) {
   let rows = LEARNINGS;
   if (filter && filter !== 'all') rows = rows.filter(l => l.type === filter);
@@ -1195,6 +1283,7 @@ function setLearningFilters() {
   learningsStatusFilter = status === 'all' ? null : status;
   renderLearningsFiltered();
 }
+
 function renderPipeline() {
   let rows = PIPELINE;
   if (pipelineFilters.stage !== 'all') rows = rows.filter(p => p.stage === pipelineFilters.stage);
@@ -1208,12 +1297,14 @@ function setPipelineSelectFilters() {
   const owner = document.getElementById('pipeline-owner').value, type = document.getElementById('pipeline-type').value, quarter = document.getElementById('pipeline-quarter').value;
   pipelineFilters.owner = owner === 'all' ? null : owner; pipelineFilters.type = type === 'all' ? null : type; pipelineFilters.quarter = quarter === 'all' ? null : quarter; renderPipeline();
 }
+
 function renderBoulders() {
   const container = document.getElementById('boulders-container'); if (!container) return;
   const owner = document.getElementById('boulder-owner')?.value || 'all', status = document.getElementById('boulder-status')?.value || 'all', quarter = document.getElementById('boulder-quarter')?.value || 'all';
   const rows = BOULDERS.filter(b => (owner === 'all' || b.owner.includes(owner)) && (status === 'all' || b.status === status) && (quarter === 'all' || b.quarter === quarter));
   container.innerHTML = rows.length ? `<div class="boulder-list"><div class="boulder-line head"><span>Boulder</span><span>Owner</span><span>Status</span><span>Quarter</span></div>${rows.map(b => `<div class="boulder-line"><strong>${b.name}</strong><span>${b.owner}</span><span class="status-pill ${b.status === 'Completed' ? 'sp-done' : b.status === 'At risk' ? 'sp-onhold' : 'sp-thisweek'}">${b.status || 'Active'}</span><small>${b.quarter || '—'}</small></div>`).join('')}</div>` : '<div class="section-block full"><div style="padding:1.5rem;color:var(--ink-4)">No boulders match these filters</div></div>';
 }
+
 let calendarView = 'week', calendarAnchor = todayAtMidnight();
 function setCalendarView(view, btn) { calendarView = view; calendarAnchor = todayAtMidnight(); document.querySelectorAll('#tab-calendar .view-switch button').forEach(b => b.classList.toggle('active', b === btn)); buildCalendar(); }
 function moveCalendar(direction) { if(calendarView==='month')calendarAnchor=new Date(calendarAnchor.getFullYear(),calendarAnchor.getMonth()+direction,1);else{const amount=calendarView==='week'?7:calendarView==='three'?3:1;calendarAnchor.setDate(calendarAnchor.getDate()+direction*amount)} buildCalendar(); }
@@ -1225,6 +1316,7 @@ function buildCalendar() {
   const owner = document.getElementById('calendar-owner')?.value || 'all', fn = document.getElementById('calendar-function')?.value || 'all'; const items = [...THIS_WEEK,...INBOX].filter(a => (owner === 'all' || a.owner.includes(owner)) && (fn === 'all' || a.fn === fn));
   document.getElementById('week-grid').style.setProperty('--calendar-days',count); document.getElementById('week-grid').innerHTML = days.map(d=>{const key=d.toISOString().substring(0,10),events=items.filter(a=>(a.due||'').substring(0,10)===key);return `<div class="cal-day${d.getTime()===today.getTime()?' today':''}"><div class="cal-day-header">${d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}</div>${events.map(a=>`<div class="cal-event due">${a.task}<div style="font-size:.58rem;color:var(--ink-4);margin-top:3px">${a.owner}</div></div>`).join('')}</div>`}).join('');
 }
+
 const PAGE_SIZE = 10;
 const pageState = {actions:1, completed:1, decisions:1, learnings:1, boulders:1};
 function esc(value) { return String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char])); }
@@ -1241,6 +1333,7 @@ function pageRows(key, rows) { const pages = Math.max(1, Math.ceil(rows.length /
 function pagerHTML(key, total, start, pages) { return `<div class="pager"><span>${total ? `Showing ${start+1}–${Math.min(start+PAGE_SIZE,total)} of ${total}` : 'No matching records'}</span><button type="button" onclick="changePage('${key}',-1)" ${pageState[key] <= 1 ? 'disabled' : ''}>Previous</button><strong>${pageState[key]} / ${pages}</strong><button type="button" onclick="changePage('${key}',1)" ${pageState[key] >= pages ? 'disabled' : ''}>Next</button></div>`; }
 function changePage(key, amount) { pageState[key] = Math.max(1,(pageState[key]||1)+amount); ({actions:renderActionsTable,completed:renderCompletedTable,decisions:()=>renderDecisions('all'),learnings:renderLearningsFiltered,boulders:renderBoulders}[key] || (()=>{}))(); }
 function showWriteStatus(message, error=false) { let el=document.getElementById('write-status'); if(!el){el=document.createElement('div');el.id='write-status';document.body.appendChild(el)} el.className='write-status'+(error?' error':'');el.textContent=message;clearTimeout(showWriteStatus.timer);showWriteStatus.timer=setTimeout(()=>el.remove(),3500); }
+
 async function completeAction(pageId, source, checkbox) {
   if (!checkbox.checked) return;
   checkbox.disabled = true;
@@ -1256,6 +1349,7 @@ async function completeAction(pageId, source, checkbox) {
     showWriteStatus(error.message || 'Could not update Notion', true);
   }
 }
+
 function calendarDragStart(event,pageId,source){event.dataTransfer.effectAllowed='move';event.dataTransfer.setData('text/plain',JSON.stringify({pageId,source}))}
 function calendarDragOver(event){event.preventDefault();event.dataTransfer.dropEffect='move';event.currentTarget.classList.add('drag-over')}
 function calendarDragLeave(event){event.currentTarget.classList.remove('drag-over')}
@@ -1271,12 +1365,12 @@ async function calendarDrop(event,dueDate){
     showWriteStatus(`Due date moved to ${fmtDate(dueDate)}`);
   }catch(error){showWriteStatus(error.message||'Could not update the due date',true);buildCalendar()}
 }
+
 function actionStatusKey(value) { return String(value || '').trim().toLowerCase().replace(/[ _-]+/g,' '); }
 function actionDisplayStatus(action) {
   return action.status || 'Unscheduled';
 }
 function isCompletedAction(action) {
-  return action.source==='Bug Logger'
   return action.source==='Bug Log'
     ? actionStatusKey(action.status)==='resolved'
     : actionStatusKey(action.status)==='done';
@@ -1293,12 +1387,11 @@ function functionMatches(value, selected) {
   const actual = String(value || '').trim();
   return actual === selected || (selected === 'Compliance' && actual.startsWith('Compliance –'));
 }
+
 async function loadActions() {
   const [actionsData,governance,bugs,actionsSchema,governanceSchema,bugsSchema] = await Promise.all([
-    notionQuery('actions',undefined,[{property:'Due Date',direction:'ascending'}]),
     notionQuery('actions'),
     governanceActions().catch(error=>{console.warn('Governance Tracker unavailable:',error);return[]}),
-    bugLoggerActions().catch(error=>{console.warn('Bug Logger unavailable:',error);return[]}),
     bugLogActions().catch(error=>{console.warn('Bug Log unavailable:',error);return[]}),
     notionSchema('actions').catch(()=>({properties:{}})),
     notionSchema('governance').catch(()=>({properties:{}})),
@@ -1313,18 +1406,17 @@ async function loadActions() {
   ACTIVE_ACTIONS=ALL_ACTIONS.filter(action=>!isCompletedAction(action));
   THIS_WEEK=ACTIVE_ACTIONS.filter(action=>action.source==='Governance Tracker'
     ? statusMatches(action.status,'In Progress')
-    : action.source==='Bug Logger'
     : action.source==='Bug Log'
       ? ['investigating','workaround in place','fix in progress','review fix (hope)'].includes(actionStatusKey(action.status))
       : statusMatches(action.status,'This Week'));
   INBOX=ACTIVE_ACTIONS.filter(action=>action.source==='Governance Tracker'
     ? statusMatches(action.status,'To Do')
-    : action.source==='Bug Logger'
     : action.source==='Bug Log'
       ? statusMatches(action.status,'Open')
       : statusMatches(action.status,'Inbox'));
   BLOCKED=ACTIVE_ACTIONS.filter(action=>action.source==='Governance Tracker'?statusMatches(action.status,'Overdue'):action.blocked);
 }
+
 function filteredActions() {
   let rows=ACTIVE_ACTIONS.map(action=>({...action,status:actionDisplayStatus(action)}));
   if(activeFilters.status==='__this_week')rows=rows.filter(row=>THIS_WEEK.some(item=>item.id===row.id));
@@ -1352,6 +1444,7 @@ function renderActionsTable() {
 }
 function setActionFilter(group,value){activeFilters[group]=(value==='all'||value==='')?(group==='status'?'all':null):value;pageState.actions=1;renderActionsTable()}
 function openActionStatus(status){const mapped={thisweek:'__this_week',inbox:'__inbox',blocked:'__attention'}[status]||status;const select=document.getElementById('action-status');if(select)select.value=mapped;setActionFilter('status',mapped);showTab('actions',document.querySelector("[onclick*='actions']"))}
+
 function renderCompletedTable() {
   const owner=document.getElementById('completed-owner')?.value||'all',fn=document.getElementById('completed-function')?.value||'all';
   const rows=DONE.filter(item=>ownerMatches(item.owner,owner)&&functionMatches(item.fn,fn)).sort((a,b)=>(b.completed||b.due||'').localeCompare(a.completed||a.due||''));
@@ -1362,11 +1455,11 @@ function renderCompletedTable() {
   const oldPager=wrap.querySelector('.pager');if(oldPager)oldPager.remove();wrap.insertAdjacentHTML('beforeend',pagerHTML('completed',rows.length,page.start,page.pages));
 }
 function setCompletedFilters(){pageState.completed=1;renderCompletedTable()}
+
 function renderOverview() {
   const today=new Date(),monthDecisions=DECISIONS.filter(d=>{const date=new Date(d.created);return d.created&&date.getMonth()===today.getMonth()&&date.getFullYear()===today.getFullYear()}).length;
   const active=ACTIVE_ACTIONS;
   const governance=active.filter(a=>a.source==='Governance Tracker').length;
-  const bugs=active.filter(a=>a.source==='Bug Logger').length;
   const bugs=active.filter(a=>a.source==='Bug Log').length;
   const actions=active.filter(a=>a.source==='Action Database').length;
   [['s-thisweek',THIS_WEEK.length],['s-blocked',BLOCKED.length],['s-inbox',INBOX.length],['s-done',DONE.length],['s-decisions',DECISIONS.length],['s-decisions-month',monthDecisions],['overview-thisweek',THIS_WEEK.length],['overview-blocked',BLOCKED.length],['overview-inbox',INBOX.length],['overview-done',DONE.length],['overview-action-count',actions],['overview-governance-count',governance],['overview-bug-count',bugs],['overview-decisions-month',monthDecisions]].forEach(([id,value])=>{const el=document.getElementById(id);if(el)el.textContent=value});
@@ -1376,6 +1469,7 @@ function renderOverview() {
   document.getElementById('overview-week-list').innerHTML=THIS_WEEK.slice(0,5).map(actionRow).join('')||'<div class="action-row"><div class="action-task">No actions this week</div></div>';
   document.getElementById('overview-decision-list').innerHTML=DECISIONS.slice(0,5).map(d=>`<div class="decision-row"><div class="decision-text">${notionAnchor(d,d.text)}</div><div class="decision-meta"><span class="dtag ${d.rev==='Strategic commitment'?'dtag-strategic':'dtag-operational'}">${d.rev==='Strategic commitment'?'Strategic':'Operational'}</span><span class="dtag ${fnTag(d.fn)}">${esc(d.fn)}</span><span>${fmtDate(d.created)}</span></div></div>`).join('')||'<div class="decision-row">No decisions logged</div>';
 }
+
 function renderDecisions(filter='all') {
   decFilter=filter;
   let rows=DECISIONS;
@@ -1393,10 +1487,12 @@ function renderDecisions(filter='all') {
   container.innerHTML=page.visible.length?`<table class="data-table"><thead><tr><th>ID</th><th>Decision</th><th>Function</th><th>Type</th><th>Status</th><th>Made By</th><th>Date</th></tr></thead><tbody>${page.visible.map(d=>`<tr><td>${d.id?'ID-'+d.id:'—'}</td><td>${notionAnchor(d,d.text)}</td><td>${esc(d.fn||'—')}</td><td><span class="dtag ${d.rev==='Strategic commitment'?'dtag-strategic':'dtag-operational'}">${esc(d.rev||'—')}</span></td><td><span class="status-pill ${statusMatches(d.status,'Superseded')?'sp-onhold':'sp-done'}">${esc(d.status||'—')}</span></td><td>${esc(d.owner||'—')}</td><td>${fmtDate(d.created)}</td></tr>`).join('')}</tbody></table>${pagerHTML('decisions',rows.length,page.start,page.pages)}`:'<div style="padding:1.5rem;text-align:center;color:var(--ink-4)">No decisions match these filters</div>'+pagerHTML('decisions',0,0,1);
 }
 function setDecisionFilters(){pageState.decisions=1;renderDecisions('all')}
+
 function renderLearnings(filter,statusFilter){let rows=LEARNINGS;if(filter&&filter!=='all')rows=rows.filter(l=>l.type===filter);if(statusFilter)rows=rows.filter(l=>l.status===statusFilter);const owner=document.getElementById('learning-owner')?.value||'all',quarter=document.getElementById('learning-quarter')?.value||'all';if(owner!=='all')rows=rows.filter(l=>ownerMatches(l.owner,owner));if(quarter!=='all')rows=rows.filter(l=>l.quarter===quarter);const page=pageRows('learnings',rows),tbody=document.getElementById('learnings-tbody');tbody.innerHTML=page.visible.length?page.visible.map(l=>`<tr><td>${notionAnchor(l,l.q)}</td><td><span class="type-pill ${typeClass[l.type]||''}">${esc(l.type)}</span></td><td><span class="${statusClass[l.status]||''}">${esc(l.status)}</span></td><td>${esc(l.trl||'—')}</td><td>${esc(l.outcome||'—')}</td><td>${esc(l.quarter||'—')}</td></tr>`).join(''):'<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--ink-4)">No learnings match these filters</td></tr>';let pager=tbody.closest('.section-block').querySelector('.pager');if(pager)pager.remove();tbody.closest('.section-block').insertAdjacentHTML('beforeend',pagerHTML('learnings',rows.length,page.start,page.pages))}
 function setLearningFilters(){learningsTypeFilter=document.getElementById('learning-type').value;const status=document.getElementById('learning-status').value;learningsStatusFilter=status==='all'?null:status;pageState.learnings=1;renderLearningsFiltered()}
+
 function renderPipeline(){let rows=PIPELINE;if(pipelineFilters.stage!=='all')rows=rows.filter(p=>p.stage===pipelineFilters.stage);if(pipelineFilters.type)rows=rows.filter(p=>p.type===pipelineFilters.type);if(pipelineFilters.quarter)rows=rows.filter(p=>p.quarter.includes(pipelineFilters.quarter));if(pipelineFilters.owner)rows=rows.filter(p=>ownerMatches(p.owner,pipelineFilters.owner));const board=document.getElementById('pipeline-board');if(board)board.innerHTML=['Idea','Exploring','Committed','Parked'].map(stage=>`<section class="pipeline-column"><h3>${stage} · ${rows.filter(p=>p.stage===stage).length}</h3>${rows.filter(p=>p.stage===stage).map(p=>`<article class="pipeline-card"><strong>${notionAnchor(p,p.name)}</strong><small>${esc(p.owner)} · ${esc(p.quarter||'Unscheduled')}</small></article>`).join('')||'<div style="padding:12px;color:var(--ink-4);font-size:.75rem">No items</div>'}</section>`).join('')}
-let pipelineView='all',pipelineCalendarAnchor=todayAtMidnight();
+
 let pipelineView='all',pipelineCalendarAnchor=todayAtMidnight(),pipelineCalendarInitialised=false;
 function pipelineRange(item){
   let start=localDateFromKey(item.start||item.due),end=localDateFromKey(item.due||item.start);
@@ -1423,31 +1519,29 @@ function setPipelineView(view){
   if(calendarViewEl)calendarViewEl.style.display=view==='calendar'?'block':'none';
   document.getElementById('pipeline-all-button')?.classList.toggle('active',view==='all');
   document.getElementById('pipeline-calendar-button')?.classList.toggle('active',view==='calendar');
-  if(view==='calendar')buildPipelineCalendar();else renderPipeline();
   if(view==='calendar'){initialisePipelineCalendarMonth();buildPipelineCalendar()}else renderPipeline();
 }
 function movePipelineCalendar(direction){pipelineCalendarAnchor=new Date(pipelineCalendarAnchor.getFullYear(),pipelineCalendarAnchor.getMonth()+direction,1);buildPipelineCalendar()}
-function resetPipelineCalendar(){pipelineCalendarAnchor=todayAtMidnight();buildPipelineCalendar()}
 function resetPipelineCalendar(){pipelineCalendarInitialised=true;pipelineCalendarAnchor=todayAtMidnight();buildPipelineCalendar()}
 function buildPipelineCalendar(){
   const grid=document.getElementById('pipeline-calendar-grid');if(!grid)return;
   const owner=document.getElementById('pipeline-calendar-owner')?.value||'all',vertical=document.getElementById('pipeline-calendar-vertical')?.value||'all';
   const first=new Date(pipelineCalendarAnchor.getFullYear(),pipelineCalendarAnchor.getMonth(),1),start=new Date(first);start.setDate(first.getDate()-((first.getDay()+6)%7));
   const days=Array.from({length:42},(_,index)=>{const date=new Date(start);date.setDate(start.getDate()+index);return date});
-  const items=PIPELINE.filter(item=>statusMatches(item.stage,'Committed')&&item.start&&item.due&&ownerMatches(item.owner,owner)&&(vertical==='all'||valueIncludes(item.vertical,vertical)));
   const items=PIPELINE.map(item=>({item,range:pipelineRange(item)})).filter(entry=>statusMatches(entry.item.stage,'Committed')&&entry.range&&ownerMatches(entry.item.owner,owner)&&(vertical==='all'||valueIncludes(entry.item.vertical,vertical)));
   const weekdays=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
   document.getElementById('pipeline-calendar-range').textContent=first.toLocaleDateString('en-GB',{month:'long',year:'numeric'});
   grid.innerHTML=weekdays.map(day=>`<div class="pipeline-cal-weekday">${day}</div>`).join('')+days.map(date=>{
     const key=localDateKey(date),outside=date.getMonth()!==first.getMonth();
-    const events=items.filter(item=>key>=String(item.start).substring(0,10)&&key<=String(item.due).substring(0,10)).sort((a,b)=>a.name.localeCompare(b.name));
-    return `<div class="pipeline-cal-day${outside?' outside':''}"><div class="pipeline-cal-date">${date.getDate()}${outside?` ${date.toLocaleDateString('en-GB',{month:'short'})}`:''}</div>${events.map(item=>{const startKey=String(item.start).substring(0,10),dueKey=String(item.due).substring(0,10),marker=key===startKey?'Starts':key===dueKey?'Due':'';return `<div class="pipeline-cal-event">${notionAnchor(item,item.name)}<small>${esc(item.owner)}${marker?` · ${marker}`:''}</small></div>`}).join('')}</div>`;
     const events=items.filter(entry=>date>=entry.range.start&&date<=entry.range.end).sort((a,b)=>a.item.name.localeCompare(b.item.name));
     return `<div class="pipeline-cal-day${outside?' outside':''}"><div class="pipeline-cal-date">${date.getDate()}${outside?` ${date.toLocaleDateString('en-GB',{month:'short'})}`:''}</div>${events.map(entry=>{const item=entry.item,startKey=localDateKey(entry.range.start),dueKey=localDateKey(entry.range.end),marker=key===startKey&&key===dueKey?'Target':key===startKey?'Starts':key===dueKey?'Due':'';return `<div class="pipeline-cal-event">${notionAnchor(item,item.name)}<small>${esc(item.owner)}${marker?` · ${marker}`:''}</small></div>`}).join('')}</div>`;
   }).join('');
 }
+
 function renderBoulders(){const container=document.getElementById('boulders-container');if(!container)return;const owner=document.getElementById('boulder-owner')?.value||'all',status=document.getElementById('boulder-status')?.value||'all',quarter=document.getElementById('boulder-quarter')?.value||'all';const rows=BOULDERS.filter(b=>ownerMatches(b.owner,owner)&&(status==='all'||b.status===status)&&(quarter==='all'||b.quarter===quarter));const page=pageRows('boulders',rows);container.innerHTML=page.visible.length?`<div class="boulder-list"><div class="boulder-line head"><span>Boulder</span><span>Owner</span><span>Status</span><span>Quarter</span></div>${page.visible.map(b=>`<div class="boulder-line"><strong>${notionAnchor(b,b.name)}</strong><span>${esc(b.owner)}</span><span class="status-pill ${b.status==='Completed'?'sp-done':b.status==='At risk'?'sp-onhold':'sp-thisweek'}">${esc(b.status||'Active')}</span><small>${esc(b.quarter||'—')}</small></div>`).join('')}</div>${pagerHTML('boulders',rows.length,page.start,page.pages)}`:'<div class="section-block full"><div style="padding:1.5rem;color:var(--ink-4)">No boulders match these filters</div></div>'+pagerHTML('boulders',0,0,1)}
+
 function buildCalendar(){const today=new Date();today.setHours(0,0,0,0);const dow=today.getDay(),monday=new Date(today);monday.setDate(today.getDate()-(dow===0?6:dow-1));const count=calendarView==='day'?1:calendarView==='three'?3:7,start=new Date(monday);start.setDate(monday.getDate()+calendarShift+(calendarView==='day'?(dow===0?6:dow-1):0));const days=Array.from({length:count},(_,i)=>{const d=new Date(start);d.setDate(start.getDate()+i);return d}),owner=document.getElementById('calendar-owner')?.value||'all',fn=document.getElementById('calendar-function')?.value||'all',items=[...THIS_WEEK,...INBOX].filter(a=>(owner==='all'||(a.owner||'').includes(owner))&&(fn==='all'||a.fn===fn)),grid=document.getElementById('week-grid');grid.style.setProperty('--calendar-days',count);grid.innerHTML=days.map(d=>{const key=d.toISOString().substring(0,10),events=items.filter(a=>(a.due||'').substring(0,10)===key);return `<div class="cal-day${d.getTime()===today.getTime()?' today':''}"><div class="cal-day-header">${d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}</div>${events.map(a=>`<div class="cal-event due">${notionAnchor(a,a.task)}<div style="font-size:.68rem;color:var(--ink-4);margin-top:4px">${esc(a.owner)}</div></div>`).join('')}</div>`}).join('')}
+
 const ACTION_FUNCTION_OPTIONS=['Product Development','Marketing & Sales','Compliance','Knowledge Base','Commercials','Client work','Writing'];
 function splitFieldValues(value){return String(value||'').split(',').map(item=>item.trim()).filter(item=>item&&item!=='—')}
 function uniqueFieldValues(items,field){return [...new Set(items.flatMap(item=>splitFieldValues(item[field])).map(normaliseOwnerName))].sort((left,right)=>left.localeCompare(right))}
@@ -1505,6 +1599,7 @@ function populateDataFilters(){
   populateSelect('decision-status',decisionStatuses,'all','All statuses');
   populateSelect('decision-function',decisionFunctions,'all','All functions');
 }
+
 function buildCalendar(){
   const today=todayAtMidnight(),anchor=new Date(calendarAnchor),monthStart=new Date(anchor.getFullYear(),anchor.getMonth(),1);
   let count=calendarView==='day'?1:calendarView==='three'?3:7,start=new Date(anchor);
@@ -1514,7 +1609,6 @@ function buildCalendar(){
   const owner=document.getElementById('calendar-owner')?.value||'all';
   const fn=document.getElementById('calendar-function')?.value||'all';
   const status=document.getElementById('calendar-status')?.value||'all';
-  const items=ALL_ACTIONS.filter(action=>action.source!=='Bug Logger'&&action.due&&ownerMatches(action.owner,owner)&&functionMatches(action.fn,fn)&&(status==='all'||statusMatches(action.status,status)));
   const items=ALL_ACTIONS.filter(action=>action.source!=='Bug Log'&&action.due&&ownerMatches(action.owner,owner)&&functionMatches(action.fn,fn)&&(status==='all'||statusMatches(action.status,status)));
   const visibleKeys=new Set(days.map(localDateKey));
   const actionStartKey=action=>{const startKey=String(action.start||'').substring(0,10),dueKey=String(action.due||'').substring(0,10);return startKey&&startKey<=dueKey?startKey:dueKey};
@@ -1526,6 +1620,7 @@ function buildCalendar(){
   const tbody=document.getElementById('calendar-tbody');
   if(tbody)tbody.innerHTML=visibleItems.length?visibleItems.map(action=>`<tr><td>${fmtDate(action.start)}</td><td>${fmtDate(action.due)}</td><td>${notionAnchor(action,action.task)}${action.frequency?`<div style="margin-top:4px;color:var(--ink-4);font-size:.7rem">${esc(action.frequency)}</div>`:''}</td><td>${esc(action.owner)}</td><td>${esc(action.fn||'—')}</td><td><span class="status-pill">${esc(action.status||'—')}</span></td><td>${esc(action.source)}</td></tr>`).join(''):'<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--ink-4)">No dated items in this view</td></tr>';
 }
+
 function showTab(name, el) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -1534,6 +1629,7 @@ function showTab(name, el) {
   if (name === 'pipeline') setPipelineView(pipelineView);
   if (name === 'calendar') buildCalendar();
 }
+
 function initialiseAllFilters() {
   const allValueIds = ['action-status','action-due','action-owner','action-function','action-vertical','action-frequency','decision-type','decision-function','decision-status','decision-owner','decision-date','pipeline-owner','pipeline-type','pipeline-quarter','pipeline-calendar-owner','pipeline-calendar-vertical','learning-type','learning-status','learning-owner','learning-quarter','calendar-owner','calendar-function','calendar-status','boulder-owner','boulder-status','boulder-quarter','completed-owner','completed-function'];
   allValueIds.forEach(id => { const element=document.getElementById(id); if(element && [...element.options].some(option=>option.value==='all')) element.value='all'; });
@@ -1542,6 +1638,7 @@ function initialiseAllFilters() {
   learningsTypeFilter='all'; learningsStatusFilter=null;
   Object.keys(pageState).forEach(key => { pageState[key]=1; });
 }
+
 // ── DATE DISPLAY ──
 function updateDateDisplay() {
   const today = new Date();
@@ -1553,6 +1650,7 @@ function updateDateDisplay() {
   const invDate = document.getElementById('investor-date');
   if (invDate) invDate.textContent = today.getDate() + ' ' + months[today.getMonth()] + ' ' + today.getFullYear();
 }
+
 // ── SET LOADING STATE ──
 function setLoadingState() {
   const msg = '<div style="padding:.875rem 1rem;font-size:.78rem;color:var(--ink-4);font-weight:300;font-style:italic;">Loading from Notion…</div>';
@@ -1565,6 +1663,7 @@ function setLoadingState() {
   document.getElementById('decisions-container').innerHTML = msg;
   document.getElementById('learnings-tbody').innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--ink-4);font-weight:300;font-style:italic;">Loading from Notion…</td></tr>';
 }
+
 // ── SYNC / LOAD ALL ──
 let syncing = false;
 async function loadAllData() {
@@ -1573,6 +1672,7 @@ async function loadAllData() {
   const btn = document.getElementById('syncBtn');
   if (btn) { btn.textContent = '↻ Syncing…'; btn.disabled = true; }
   setLoadingState();
+
   try {
     const results = await Promise.allSettled([loadActions(), loadDecisions(), loadLearnings(), loadMilestones(), loadPipeline(), loadBoulders()]);
     results.forEach((r, i) => {
@@ -1609,6 +1709,7 @@ async function loadAllData() {
   }
   syncing = false;
 }
+
 // ── INIT ──
 document.getElementById('syncBtn').addEventListener('click', loadAllData);
 initialiseAllFilters();
@@ -1616,6 +1717,7 @@ updateDateDisplay();
 renderPipeline();
 renderInvestorView();
 loadAllData();
+
 </script>
 </body>
 </html>
