@@ -207,6 +207,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
 .notion-link{color:var(--green);font-weight:500;text-decoration:none}.notion-link:hover{text-decoration:underline;text-underline-offset:3px}.notion-arrow{margin-left:5px;color:var(--amber);font-size:.75rem}.action-check{width:17px;height:17px;accent-color:var(--green);cursor:pointer}.action-check:disabled{cursor:wait;opacity:.55}.action-task-cell{display:flex;align-items:flex-start;gap:9px}.pager{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:11px;border-top:1px solid var(--rule);background:#fff}.pager span{margin-right:auto;color:var(--ink-3);font-size:.75rem}.pager button{border:1px solid var(--rule);border-radius:5px;background:#fff;color:var(--green);padding:6px 9px;font:inherit}.pager button:disabled{opacity:.35;cursor:default}.write-status{position:fixed;right:20px;bottom:20px;z-index:300;max-width:330px;padding:11px 14px;border-radius:6px;background:var(--green);color:#fff;box-shadow:0 8px 30px rgba(0,0,0,.2);font-size:.8rem}.write-status.error{background:#8d3033}
 .completed-section{margin-top:28px;padding-top:19px;border-top:1px solid var(--rule)}.completed-heading-row{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:11px}.completed-heading-row h2{margin:0;color:var(--green);font-family:var(--display);font-size:1.25rem;letter-spacing:.035em;text-transform:uppercase}.completed-heading-row span{display:block;margin-top:3px;color:var(--ink-4);font-size:.75rem}.completed-filters{margin:0}.completed-section .sp-done{white-space:nowrap}
 .overdue-label{display:block;margin-top:4px;color:var(--coral);font-size:.68rem;font-weight:500}.calendar-range{display:flex;align-items:center;padding:0 4px;color:var(--ink-3);font-family:var(--display);font-size:.78rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase}.calendar-scroll{overflow-x:auto}.calendar-week{min-width:max(100%,calc(var(--calendar-days,7) * 135px))}.calendar-week.month-view{min-width:980px}.calendar-week.month-view .cal-day{min-height:145px;border-bottom:1px solid var(--rule)}.calendar-week.month-view .cal-day:nth-child(7n){border-right:0}.cal-day.outside{background:#f7f8f6;color:var(--ink-4)}.cal-day.drag-over{background:#e9f2ed}.cal-event[draggable="true"]{cursor:grab}.cal-event.range-start{border-radius:4px 0 0 4px;margin-right:-6px}.cal-event.range-mid{border-radius:0;margin-left:-6px;margin-right:-6px}.cal-event.range-end{border-radius:0 4px 4px 0;margin-left:-6px}.cal-event.range-start.range-end{border-radius:4px;margin-left:0;margin-right:0}.pipeline-view-toolbar{display:flex;justify-content:flex-end;margin:-48px 0 14px}.pipeline-view-toolbar .view-switch button{font-family:var(--body)}.pipeline-calendar-panel{display:none}.pipeline-calendar-tools{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:11px}.pipeline-calendar-filters{display:flex;gap:7px;flex-wrap:wrap}.committed-only{display:inline-flex;align-items:center;padding:8px 10px;border-radius:6px;background:#e4efe9;color:#175542;font-size:.78rem;font-weight:500}.pipeline-calendar-wrap{overflow-x:auto;border:1px solid var(--rule);background:#fff}.pipeline-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(135px,1fr));min-width:980px}.pipeline-cal-weekday{padding:9px;text-align:center;background:var(--paper);border-right:1px solid var(--rule);font-family:var(--display);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-4)}.pipeline-cal-day{min-height:145px;padding:8px;border-top:1px solid var(--rule);border-right:1px solid var(--rule)}.pipeline-cal-day.outside{background:#f7f8f6;color:var(--ink-4)}.pipeline-cal-date{text-align:right;font-size:.72rem;color:var(--ink-4)}.pipeline-cal-event{display:block;margin-top:6px;padding:6px 7px;border-left:3px solid var(--green);border-radius:3px;background:#e4efe9;color:var(--ink);font-size:.72rem;font-weight:500;text-decoration:none}.pipeline-cal-event small{display:block;margin-top:3px;color:var(--ink-3);font-size:.64rem;font-weight:400}.pipeline-cal-empty{grid-column:1/-1;padding:2rem;text-align:center;color:var(--ink-4)}
+.calendar-week,.pipeline-calendar-grid{display:block;background:#fff}.range-weekday-row{display:grid;grid-template-columns:repeat(7,minmax(135px,1fr));border-bottom:1px solid var(--rule)}.range-week-row{display:grid;grid-template-columns:repeat(var(--range-days),minmax(135px,1fr));grid-template-rows:38px repeat(var(--range-lanes),30px);position:relative;isolation:isolate;border-bottom:1px solid var(--rule);background:#fff}.range-week-row:last-child{border-bottom:0}.range-day-bg{z-index:0;min-width:0;padding:8px;border-right:1px solid var(--rule);background:#fff}.range-day-bg:last-of-type{border-right:0}.range-day-bg.outside{background:#f7f8f6}.range-day-bg.today{background:#fffaf1}.range-day-bg.drag-over{background:#e9f2ed}.range-day-date{font-family:var(--display);font-size:.72rem;font-weight:600;color:var(--ink-4);text-align:right}.range-day-bg.today .range-day-date{color:var(--amber)}.range-bar{z-index:2;display:flex;align-items:center;gap:7px;min-width:0;height:25px;margin:2px 4px;padding:0 9px;border-radius:5px;box-shadow:0 1px 2px rgba(17,48,42,.08);font-size:.7rem;font-weight:500;overflow:hidden}.range-bar a{min-width:0;color:inherit;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:none}.range-bar .range-bar-meta{flex:0 0 auto;margin-left:auto;font-size:.62rem;font-weight:400;opacity:.72;white-space:nowrap}.range-bar.action-range{border-left:3px solid var(--amber);background:#f5e8d8;color:#5d3c16;cursor:grab}.range-bar.pipeline-range{border-left:3px solid var(--green);background:#dfece5;color:#174b3b}.range-bar.continues-left{margin-left:0;border-left:0;border-radius:0 5px 5px 0}.range-bar.continues-right{margin-right:0;border-radius:5px 0 0 5px}.range-bar.continues-left.continues-right{border-radius:0}.range-bar.continuation-only:before{content:'';width:100%;height:2px;border-radius:2px;background:currentColor;opacity:.28}.calendar-week.month-view{min-width:980px}.pipeline-calendar-grid{min-width:980px}
 @media(max-width:900px){.overview-band{grid-template-columns:1fr 1fr}.overview-grid{grid-template-columns:1fr}.overview-wide{grid-column:auto}}
 @media(max-width:760px){.calendar-week{grid-template-columns:repeat(var(--calendar-days,7),minmax(135px,1fr))}.pipeline-view-toolbar{margin:0 0 11px;justify-content:flex-start}}
 @media(max-width:600px){html,body{font-size:14px}.overview-band{grid-template-columns:1fr}.overview-band>div{border-left:0;border-top:1px solid rgba(255,255,255,.13)}.overview-band>div:first-child{border-top:0}.pager{justify-content:center;flex-wrap:wrap}.pager span{width:100%;margin:0;text-align:center}.completed-heading-row{align-items:flex-start;flex-direction:column}.completed-filters{width:100%}.completed-filters .compact-filter{flex:1}.calendar-range{width:100%;order:3}.pipeline-calendar-tools{align-items:flex-start;flex-direction:column}}
@@ -1500,6 +1501,67 @@ function pipelineRange(item){
   if(start>end){const swap=start;start=end;end=swap}
   return {start,end};
 }
+function actionRange(item){
+  let start=localDateFromKey(item.start||item.due),end=localDateFromKey(item.due||item.start);
+  if(!start||!end)return null;
+  if(start>end){const swap=start;start=end;end=swap}
+  return {start,end};
+}
+function rangeWeekLayout(days,entries){
+  const weekStart=days[0],weekEnd=days[days.length-1];
+  const segments=entries.filter(entry=>entry.range.start<=weekEnd&&entry.range.end>=weekStart).map(entry=>{
+    const clippedStart=entry.range.start<weekStart?weekStart:entry.range.start;
+    const clippedEnd=entry.range.end>weekEnd?weekEnd:entry.range.end;
+    return {
+      entry,
+      startIndex:Math.max(0,Math.round((clippedStart-weekStart)/86400000)),
+      endIndex:Math.min(days.length-1,Math.round((clippedEnd-weekStart)/86400000)),
+      continuesLeft:entry.range.start<weekStart,
+      continuesRight:entry.range.end>weekEnd,
+      lane:0,
+    };
+  }).sort((left,right)=>left.startIndex-right.startIndex||right.endIndex-left.endIndex);
+  const laneEnds=[];
+  segments.forEach(segment=>{
+    let lane=laneEnds.findIndex(endIndex=>endIndex<segment.startIndex);
+    if(lane===-1){lane=laneEnds.length;laneEnds.push(segment.endIndex)}else laneEnds[lane]=segment.endIndex;
+    segment.lane=lane;
+  });
+  return {segments,laneCount:Math.max(1,laneEnds.length)};
+}
+function rangeDayBackgrounds(days,laneCount,monthStart,allowDrop,compactDates){
+  const today=todayAtMidnight();
+  return days.map((date,index)=>{
+    const key=localDateKey(date),outside=monthStart&&date.getMonth()!==monthStart.getMonth();
+    const label=compactDates?`${date.getDate()}${outside?` ${date.toLocaleDateString('en-GB',{month:'short'})}`:''}`:date.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+    const dropAttributes=allowDrop?` ondragover="calendarDragOver(event)" ondragleave="calendarDragLeave(event)" ondrop="calendarDrop(event,'${key}')"`:'';
+    return `<div class="range-day-bg${outside?' outside':''}${date.getTime()===today.getTime()?' today':''}" style="grid-column:${index+1};grid-row:1/${laneCount+2}"${dropAttributes}><div class="range-day-date">${label}</div></div>`;
+  }).join('');
+}
+function continuationClasses(segment){return `${segment.continuesLeft?' continues-left':''}${segment.continuesRight?' continues-right':''}`}
+function renderPipelineRangeWeek(days,entries,labelled,monthStart){
+  const layout=rangeWeekLayout(days,entries);
+  const backgrounds=rangeDayBackgrounds(days,layout.laneCount,monthStart,false,true);
+  const bars=layout.segments.map(segment=>{
+    const item=segment.entry.item,key=`pipeline:${item.id||item.name}`,showLabel=!labelled.has(key);
+    if(showLabel)labelled.add(key);
+    const content=showLabel?`${notionAnchor(item,item.name)}<span class="range-bar-meta">${esc(item.owner)} · ${fmtDate(item.start)}–${fmtDate(item.due)}</span>`:'';
+    return `<div class="range-bar pipeline-range${continuationClasses(segment)}${showLabel?'':' continuation-only'}" style="grid-column:${segment.startIndex+1}/${segment.endIndex+2};grid-row:${segment.lane+2}" title="${esc(item.name)} · ${fmtDate(item.start)}–${fmtDate(item.due)}" aria-label="${esc(item.name)}">${content}</div>`;
+  }).join('');
+  return `<div class="range-week-row" style="--range-days:${days.length};--range-lanes:${layout.laneCount}">${backgrounds}${bars}</div>`;
+}
+function renderActionRangeWeek(days,entries,labelled,monthStart){
+  const layout=rangeWeekLayout(days,entries);
+  const backgrounds=rangeDayBackgrounds(days,layout.laneCount,monthStart,true,false);
+  const bars=layout.segments.map(segment=>{
+    const action=segment.entry.item;
+    const key=`action:${action.source}:${action.id}`,showLabel=!labelled.has(key);
+    if(showLabel)labelled.add(key);
+    const content=showLabel?`${notionAnchor(action,action.task)}<span class="range-bar-meta">${esc(action.owner)} · due ${fmtDate(action.due)}</span>`:'';
+    return `<div class="range-bar action-range${continuationClasses(segment)}${showLabel?'':' continuation-only'}" style="grid-column:${segment.startIndex+1}/${segment.endIndex+2};grid-row:${segment.lane+2}" draggable="true" title="${esc(action.task)} · ${fmtDate(action.start||action.due)}–${fmtDate(action.due)} · drag to change due date" aria-label="${esc(action.task)}" ondragstart="calendarDragStart(event,'${esc(action.id)}','${esc(action.source)}')">${content}</div>`;
+  }).join('');
+  return `<div class="range-week-row" style="--range-days:${days.length};--range-lanes:${layout.laneCount}">${backgrounds}${bars}</div>`;
+}
 function initialisePipelineCalendarMonth(){
   if(pipelineCalendarInitialised)return;
   pipelineCalendarInitialised=true;
@@ -1531,11 +1593,8 @@ function buildPipelineCalendar(){
   const items=PIPELINE.map(item=>({item,range:pipelineRange(item)})).filter(entry=>statusMatches(entry.item.stage,'Committed')&&entry.range&&ownerMatches(entry.item.owner,owner)&&(vertical==='all'||valueIncludes(entry.item.vertical,vertical)));
   const weekdays=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
   document.getElementById('pipeline-calendar-range').textContent=first.toLocaleDateString('en-GB',{month:'long',year:'numeric'});
-  grid.innerHTML=weekdays.map(day=>`<div class="pipeline-cal-weekday">${day}</div>`).join('')+days.map(date=>{
-    const key=localDateKey(date),outside=date.getMonth()!==first.getMonth();
-    const events=items.filter(entry=>date>=entry.range.start&&date<=entry.range.end).sort((a,b)=>a.item.name.localeCompare(b.item.name));
-    return `<div class="pipeline-cal-day${outside?' outside':''}"><div class="pipeline-cal-date">${date.getDate()}${outside?` ${date.toLocaleDateString('en-GB',{month:'short'})}`:''}</div>${events.map(entry=>{const item=entry.item,startKey=localDateKey(entry.range.start),dueKey=localDateKey(entry.range.end),marker=key===startKey&&key===dueKey?'Target':key===startKey?'Starts':key===dueKey?'Due':'';return `<div class="pipeline-cal-event">${notionAnchor(item,item.name)}<small>${esc(item.owner)}${marker?` · ${marker}`:''}</small></div>`}).join('')}</div>`;
-  }).join('');
+  const labelled=new Set(),weeks=Array.from({length:6},(_,weekIndex)=>days.slice(weekIndex*7,weekIndex*7+7));
+  grid.innerHTML=`<div class="range-weekday-row">${weekdays.map(day=>`<div class="pipeline-cal-weekday">${day}</div>`).join('')}</div>`+weeks.map(week=>renderPipelineRangeWeek(week,items,labelled,first)).join('');
 }
 
 function renderBoulders(){const container=document.getElementById('boulders-container');if(!container)return;const owner=document.getElementById('boulder-owner')?.value||'all',status=document.getElementById('boulder-status')?.value||'all',quarter=document.getElementById('boulder-quarter')?.value||'all';const rows=BOULDERS.filter(b=>ownerMatches(b.owner,owner)&&(status==='all'||b.status===status)&&(quarter==='all'||b.quarter===quarter));const page=pageRows('boulders',rows);container.innerHTML=page.visible.length?`<div class="boulder-list"><div class="boulder-line head"><span>Boulder</span><span>Owner</span><span>Status</span><span>Quarter</span></div>${page.visible.map(b=>`<div class="boulder-line"><strong>${notionAnchor(b,b.name)}</strong><span>${esc(b.owner)}</span><span class="status-pill ${b.status==='Completed'?'sp-done':b.status==='At risk'?'sp-onhold':'sp-thisweek'}">${esc(b.status||'Active')}</span><small>${esc(b.quarter||'—')}</small></div>`).join('')}</div>${pagerHTML('boulders',rows.length,page.start,page.pages)}`:'<div class="section-block full"><div style="padding:1.5rem;color:var(--ink-4)">No boulders match these filters</div></div>'+pagerHTML('boulders',0,0,1)}
@@ -1601,7 +1660,7 @@ function populateDataFilters(){
 }
 
 function buildCalendar(){
-  const today=todayAtMidnight(),anchor=new Date(calendarAnchor),monthStart=new Date(anchor.getFullYear(),anchor.getMonth(),1);
+  const anchor=new Date(calendarAnchor),monthStart=new Date(anchor.getFullYear(),anchor.getMonth(),1);
   let count=calendarView==='day'?1:calendarView==='three'?3:7,start=new Date(anchor);
   if(calendarView==='week'){start.setDate(anchor.getDate()-((anchor.getDay()+6)%7));}
   if(calendarView==='month'){start=new Date(monthStart);start.setDate(monthStart.getDate()-((monthStart.getDay()+6)%7));count=42;}
@@ -1610,11 +1669,11 @@ function buildCalendar(){
   const fn=document.getElementById('calendar-function')?.value||'all';
   const status=document.getElementById('calendar-status')?.value||'all';
   const items=ALL_ACTIONS.filter(action=>action.source!=='Bug Log'&&action.due&&ownerMatches(action.owner,owner)&&functionMatches(action.fn,fn)&&(status==='all'||statusMatches(action.status,status)));
-  const visibleKeys=new Set(days.map(localDateKey));
-  const actionStartKey=action=>{const startKey=String(action.start||'').substring(0,10),dueKey=String(action.due||'').substring(0,10);return startKey&&startKey<=dueKey?startKey:dueKey};
-  const visibleItems=items.filter(action=>{const startKey=actionStartKey(action),dueKey=String(action.due).substring(0,10);return days.some(date=>{const key=localDateKey(date);return key>=startKey&&key<=dueKey})}).sort((left,right)=>(left.due||'').localeCompare(right.due||''));
+  const entries=items.map(item=>({item,range:actionRange(item)})).filter(entry=>entry.range);
+  const visibleItems=entries.filter(entry=>entry.range.start<=days[days.length-1]&&entry.range.end>=days[0]).map(entry=>entry.item).sort((left,right)=>(left.due||'').localeCompare(right.due||''));
   const grid=document.getElementById('week-grid');grid.style.setProperty('--calendar-days',calendarView==='month'?7:count);grid.classList.toggle('month-view',calendarView==='month');
-  grid.innerHTML=days.map((date,index)=>{const key=localDateKey(date),outside=calendarView==='month'&&date.getMonth()!==monthStart.getMonth(),events=visibleItems.filter(action=>key>=actionStartKey(action)&&key<=String(action.due).substring(0,10)).sort((a,b)=>a.task.localeCompare(b.task));return `<div class="cal-day${date.getTime()===today.getTime()?' today':''}${outside?' outside':''}" ondragover="calendarDragOver(event)" ondragleave="calendarDragLeave(event)" ondrop="calendarDrop(event,'${key}')"><div class="cal-day-header">${date.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}</div>${events.map(action=>{const startKey=actionStartKey(action),dueKey=String(action.due).substring(0,10),isRange=startKey!==dueKey,segmentStart=key===startKey||index===0||(calendarView==='month'&&index%7===0),segmentEnd=key===dueKey||index===days.length-1||(calendarView==='month'&&index%7===6),rangeClass=isRange?`${segmentStart?' range-start':''}${!segmentStart&&!segmentEnd?' range-mid':''}${segmentEnd?' range-end':''}`:'';return `<div class="cal-event due${rangeClass}" draggable="true" title="Drag to change the due date" ondragstart="calendarDragStart(event,'${esc(action.id)}','${esc(action.source)}')">${notionAnchor(action,action.task)}<div style="font-size:.68rem;color:var(--ink-4);margin-top:4px">${esc(action.owner)} · due ${fmtDate(action.due)}</div></div>`}).join('')}</div>`}).join('');
+  const labelled=new Set(),weeks=calendarView==='month'?Array.from({length:6},(_,weekIndex)=>days.slice(weekIndex*7,weekIndex*7+7)):[days];
+  grid.innerHTML=weeks.map(week=>renderActionRangeWeek(week,entries,labelled,calendarView==='month'?monthStart:null)).join('');
   const first=days[0],last=days[days.length-1],range=document.getElementById('calendar-range');
   if(range)range.textContent=calendarView==='month'?monthStart.toLocaleDateString('en-GB',{month:'long',year:'numeric'}):first.getTime()===last.getTime()?first.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):`${first.toLocaleDateString('en-GB',{day:'numeric',month:'short'})} – ${last.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}`;
   const tbody=document.getElementById('calendar-tbody');
