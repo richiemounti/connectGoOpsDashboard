@@ -524,9 +524,31 @@ function normaliseOwnerName(name) {
   return String(name || '').replace(/\bSumaya\b/g, 'Sumaiya');
 }
 
+function canonicalOwnerName(name) {
+  const cleaned = normaliseOwnerName(name).trim();
+  const aliases = {
+    'belinda mziray': 'Belinda',
+    'kate mcalpine': 'Kate',
+    'hope reflect': 'Hope',
+    'sumaiya': 'Sumaiya',
+    'emma': 'Emma',
+    'hannah lapsley': 'Hannah',
+    'hannah': 'Hannah',
+    'evie booton': 'Evie',
+    'samuel mounsey': 'Sam',
+    'sam': 'Sam',
+  };
+  return aliases[cleaned.toLowerCase()] || cleaned.split(/\s+/)[0] || '';
+}
+
+function canonicalOwnerList(value) {
+  const names = String(value || '').split(',').map(canonicalOwnerName).filter(Boolean);
+  return [...new Set(names)].join(', ') || '—';
+}
+
 function mapPeople(arr) {
   if (!arr || !arr.length) return '—';
-  return arr.map(u => normaliseOwnerName(u.name || OWNERS['user://' + u.id] || '?')).join(', ');
+  return canonicalOwnerList(arr.map(u => u.name || OWNERS['user://' + u.id] || '?').join(', '));
 }
 
 function dueCls(dateStr) {
@@ -559,10 +581,10 @@ function p_people(prop) { return mapPeople(prop?.people); }
 function p_owner_value(prop) {
   if (!prop) return '—';
   if (prop.people?.length) return mapPeople(prop.people);
-  if (prop.select?.name) return normaliseOwnerName(prop.select.name);
-  if (prop.multi_select?.length) return prop.multi_select.map(option => normaliseOwnerName(option.name)).join(', ');
+  if (prop.select?.name) return canonicalOwnerList(prop.select.name);
+  if (prop.multi_select?.length) return canonicalOwnerList(prop.multi_select.map(option => option.name).join(', '));
   const text = (prop.rich_text || []).map(value => value.plain_text).join('');
-  return normaliseOwnerName(text) || '—';
+  return canonicalOwnerList(text);
 }
 function p_owner(prop)  { const people = mapPeople(prop?.people); return people !== 'â€”' ? people : (prop?.rich_text || []).map(value => value.plain_text).join('') || 'â€”'; }
 function p_date(prop)   { return prop?.date?.start || ''; }
@@ -1226,6 +1248,11 @@ function actionDisplayStatus(action) {
 }
 function isCompletedAction(action) { return actionStatusKey(action.status)==='done'; }
 function valueIncludes(value, selected) { return String(value || '').split(',').map(item=>item.trim()).includes(selected); }
+function ownerMatches(value, selected) {
+  if (!selected || selected === 'all') return true;
+  const expected = canonicalOwnerName(selected);
+  return canonicalOwnerList(value).split(',').map(item=>item.trim()).includes(expected);
+}
 function statusMatches(value, selected) { return actionStatusKey(value) === actionStatusKey(selected); }
 function functionMatches(value, selected) {
   if (!selected || selected === 'all') return true;
@@ -1257,7 +1284,7 @@ function filteredActions() {
   else if(activeFilters.status==='__inbox')rows=rows.filter(row=>INBOX.some(item=>item.id===row.id));
   else if(activeFilters.status==='__attention')rows=rows.filter(row=>BLOCKED.some(item=>item.id===row.id));
   else if(activeFilters.status&&activeFilters.status!=='all')rows=rows.filter(row=>statusMatches(row.status,activeFilters.status));
-  if(activeFilters.owner)rows=rows.filter(row=>valueIncludes(row.owner,activeFilters.owner));
+  if(activeFilters.owner)rows=rows.filter(row=>ownerMatches(row.owner,activeFilters.owner));
   if(activeFilters.function)rows=rows.filter(row=>functionMatches(row.fn,activeFilters.function));
   if(activeFilters.vertical)rows=rows.filter(row=>valueIncludes(row.vertical,activeFilters.vertical));
   if(activeFilters.frequency)rows=rows.filter(row=>valueIncludes(row.frequency,activeFilters.frequency));
@@ -1280,7 +1307,7 @@ function openActionStatus(status){const mapped={thisweek:'__this_week',inbox:'__
 
 function renderCompletedTable() {
   const owner=document.getElementById('completed-owner')?.value||'all',fn=document.getElementById('completed-function')?.value||'all';
-  const rows=DONE.filter(item=>(owner==='all'||valueIncludes(item.owner,owner))&&functionMatches(item.fn,fn)).sort((a,b)=>(b.completed||b.due||'').localeCompare(a.completed||a.due||''));
+  const rows=DONE.filter(item=>ownerMatches(item.owner,owner)&&functionMatches(item.fn,fn)).sort((a,b)=>(b.completed||b.due||'').localeCompare(a.completed||a.due||''));
   const page=pageRows('completed',rows),tbody=document.getElementById('completed-tbody'),wrap=document.getElementById('completed-table-wrap'),count=document.getElementById('completed-count');
   if(!tbody||!wrap)return;
   if(count)count.textContent=`${rows.length} completed`;
@@ -1311,19 +1338,19 @@ function renderDecisions(filter='all') {
   if(type!=='all')rows=rows.filter(d=>d.rev===type);
   if(fn!=='all')rows=rows.filter(d=>d.fn===fn);
   if(status!=='all')rows=rows.filter(d=>statusMatches(d.status,status));
-  if(owner!=='all')rows=rows.filter(d=>valueIncludes(d.owner,owner));
+  if(owner!=='all')rows=rows.filter(d=>ownerMatches(d.owner,owner));
   if(days!=='all'){const cutoff=new Date();cutoff.setDate(cutoff.getDate()-Number(days));rows=rows.filter(d=>d.created&&new Date(d.created)>=cutoff)}
   const page=pageRows('decisions',rows),container=document.getElementById('decisions-container');
   container.innerHTML=page.visible.length?`<table class="data-table"><thead><tr><th>ID</th><th>Decision</th><th>Function</th><th>Type</th><th>Status</th><th>Made By</th><th>Date</th></tr></thead><tbody>${page.visible.map(d=>`<tr><td>${d.id?'ID-'+d.id:'—'}</td><td>${notionAnchor(d,d.text)}</td><td>${esc(d.fn||'—')}</td><td><span class="dtag ${d.rev==='Strategic commitment'?'dtag-strategic':'dtag-operational'}">${esc(d.rev||'—')}</span></td><td><span class="status-pill ${statusMatches(d.status,'Superseded')?'sp-onhold':'sp-done'}">${esc(d.status||'—')}</span></td><td>${esc(d.owner||'—')}</td><td>${fmtDate(d.created)}</td></tr>`).join('')}</tbody></table>${pagerHTML('decisions',rows.length,page.start,page.pages)}`:'<div style="padding:1.5rem;text-align:center;color:var(--ink-4)">No decisions match these filters</div>'+pagerHTML('decisions',0,0,1);
 }
 function setDecisionFilters(){pageState.decisions=1;renderDecisions('all')}
 
-function renderLearnings(filter,statusFilter){let rows=LEARNINGS;if(filter&&filter!=='all')rows=rows.filter(l=>l.type===filter);if(statusFilter)rows=rows.filter(l=>l.status===statusFilter);const owner=document.getElementById('learning-owner')?.value||'all',quarter=document.getElementById('learning-quarter')?.value||'all';if(owner!=='all')rows=rows.filter(l=>(l.owner||'').includes(owner));if(quarter!=='all')rows=rows.filter(l=>l.quarter===quarter);const page=pageRows('learnings',rows),tbody=document.getElementById('learnings-tbody');tbody.innerHTML=page.visible.length?page.visible.map(l=>`<tr><td>${notionAnchor(l,l.q)}</td><td><span class="type-pill ${typeClass[l.type]||''}">${esc(l.type)}</span></td><td><span class="${statusClass[l.status]||''}">${esc(l.status)}</span></td><td>${esc(l.trl||'—')}</td><td>${esc(l.outcome||'—')}</td><td>${esc(l.quarter||'—')}</td></tr>`).join(''):'<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--ink-4)">No learnings match these filters</td></tr>';let pager=tbody.closest('.section-block').querySelector('.pager');if(pager)pager.remove();tbody.closest('.section-block').insertAdjacentHTML('beforeend',pagerHTML('learnings',rows.length,page.start,page.pages))}
+function renderLearnings(filter,statusFilter){let rows=LEARNINGS;if(filter&&filter!=='all')rows=rows.filter(l=>l.type===filter);if(statusFilter)rows=rows.filter(l=>l.status===statusFilter);const owner=document.getElementById('learning-owner')?.value||'all',quarter=document.getElementById('learning-quarter')?.value||'all';if(owner!=='all')rows=rows.filter(l=>ownerMatches(l.owner,owner));if(quarter!=='all')rows=rows.filter(l=>l.quarter===quarter);const page=pageRows('learnings',rows),tbody=document.getElementById('learnings-tbody');tbody.innerHTML=page.visible.length?page.visible.map(l=>`<tr><td>${notionAnchor(l,l.q)}</td><td><span class="type-pill ${typeClass[l.type]||''}">${esc(l.type)}</span></td><td><span class="${statusClass[l.status]||''}">${esc(l.status)}</span></td><td>${esc(l.trl||'—')}</td><td>${esc(l.outcome||'—')}</td><td>${esc(l.quarter||'—')}</td></tr>`).join(''):'<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--ink-4)">No learnings match these filters</td></tr>';let pager=tbody.closest('.section-block').querySelector('.pager');if(pager)pager.remove();tbody.closest('.section-block').insertAdjacentHTML('beforeend',pagerHTML('learnings',rows.length,page.start,page.pages))}
 function setLearningFilters(){learningsTypeFilter=document.getElementById('learning-type').value;const status=document.getElementById('learning-status').value;learningsStatusFilter=status==='all'?null:status;pageState.learnings=1;renderLearningsFiltered()}
 
-function renderPipeline(){let rows=PIPELINE;if(pipelineFilters.stage!=='all')rows=rows.filter(p=>p.stage===pipelineFilters.stage);if(pipelineFilters.type)rows=rows.filter(p=>p.type===pipelineFilters.type);if(pipelineFilters.quarter)rows=rows.filter(p=>p.quarter.includes(pipelineFilters.quarter));if(pipelineFilters.owner)rows=rows.filter(p=>(p.owner||'').includes(pipelineFilters.owner));const board=document.getElementById('pipeline-board');if(board)board.innerHTML=['Idea','Exploring','Committed','Parked'].map(stage=>`<section class="pipeline-column"><h3>${stage} · ${rows.filter(p=>p.stage===stage).length}</h3>${rows.filter(p=>p.stage===stage).map(p=>`<article class="pipeline-card"><strong>${notionAnchor(p,p.name)}</strong><small>${esc(p.owner)} · ${esc(p.quarter||'Unscheduled')}</small></article>`).join('')||'<div style="padding:12px;color:var(--ink-4);font-size:.75rem">No items</div>'}</section>`).join('')}
+function renderPipeline(){let rows=PIPELINE;if(pipelineFilters.stage!=='all')rows=rows.filter(p=>p.stage===pipelineFilters.stage);if(pipelineFilters.type)rows=rows.filter(p=>p.type===pipelineFilters.type);if(pipelineFilters.quarter)rows=rows.filter(p=>p.quarter.includes(pipelineFilters.quarter));if(pipelineFilters.owner)rows=rows.filter(p=>ownerMatches(p.owner,pipelineFilters.owner));const board=document.getElementById('pipeline-board');if(board)board.innerHTML=['Idea','Exploring','Committed','Parked'].map(stage=>`<section class="pipeline-column"><h3>${stage} · ${rows.filter(p=>p.stage===stage).length}</h3>${rows.filter(p=>p.stage===stage).map(p=>`<article class="pipeline-card"><strong>${notionAnchor(p,p.name)}</strong><small>${esc(p.owner)} · ${esc(p.quarter||'Unscheduled')}</small></article>`).join('')||'<div style="padding:12px;color:var(--ink-4);font-size:.75rem">No items</div>'}</section>`).join('')}
 
-function renderBoulders(){const container=document.getElementById('boulders-container');if(!container)return;const owner=document.getElementById('boulder-owner')?.value||'all',status=document.getElementById('boulder-status')?.value||'all',quarter=document.getElementById('boulder-quarter')?.value||'all';const rows=BOULDERS.filter(b=>(owner==='all'||(b.owner||'').includes(owner))&&(status==='all'||b.status===status)&&(quarter==='all'||b.quarter===quarter));const page=pageRows('boulders',rows);container.innerHTML=page.visible.length?`<div class="boulder-list"><div class="boulder-line head"><span>Boulder</span><span>Owner</span><span>Status</span><span>Quarter</span></div>${page.visible.map(b=>`<div class="boulder-line"><strong>${notionAnchor(b,b.name)}</strong><span>${esc(b.owner)}</span><span class="status-pill ${b.status==='Completed'?'sp-done':b.status==='At risk'?'sp-onhold':'sp-thisweek'}">${esc(b.status||'Active')}</span><small>${esc(b.quarter||'—')}</small></div>`).join('')}</div>${pagerHTML('boulders',rows.length,page.start,page.pages)}`:'<div class="section-block full"><div style="padding:1.5rem;color:var(--ink-4)">No boulders match these filters</div></div>'+pagerHTML('boulders',0,0,1)}
+function renderBoulders(){const container=document.getElementById('boulders-container');if(!container)return;const owner=document.getElementById('boulder-owner')?.value||'all',status=document.getElementById('boulder-status')?.value||'all',quarter=document.getElementById('boulder-quarter')?.value||'all';const rows=BOULDERS.filter(b=>ownerMatches(b.owner,owner)&&(status==='all'||b.status===status)&&(quarter==='all'||b.quarter===quarter));const page=pageRows('boulders',rows);container.innerHTML=page.visible.length?`<div class="boulder-list"><div class="boulder-line head"><span>Boulder</span><span>Owner</span><span>Status</span><span>Quarter</span></div>${page.visible.map(b=>`<div class="boulder-line"><strong>${notionAnchor(b,b.name)}</strong><span>${esc(b.owner)}</span><span class="status-pill ${b.status==='Completed'?'sp-done':b.status==='At risk'?'sp-onhold':'sp-thisweek'}">${esc(b.status||'Active')}</span><small>${esc(b.quarter||'—')}</small></div>`).join('')}</div>${pagerHTML('boulders',rows.length,page.start,page.pages)}`:'<div class="section-block full"><div style="padding:1.5rem;color:var(--ink-4)">No boulders match these filters</div></div>'+pagerHTML('boulders',0,0,1)}
 
 function buildCalendar(){const today=new Date();today.setHours(0,0,0,0);const dow=today.getDay(),monday=new Date(today);monday.setDate(today.getDate()-(dow===0?6:dow-1));const count=calendarView==='day'?1:calendarView==='three'?3:7,start=new Date(monday);start.setDate(monday.getDate()+calendarShift+(calendarView==='day'?(dow===0?6:dow-1):0));const days=Array.from({length:count},(_,i)=>{const d=new Date(start);d.setDate(start.getDate()+i);return d}),owner=document.getElementById('calendar-owner')?.value||'all',fn=document.getElementById('calendar-function')?.value||'all',items=[...THIS_WEEK,...INBOX].filter(a=>(owner==='all'||(a.owner||'').includes(owner))&&(fn==='all'||a.fn===fn)),grid=document.getElementById('week-grid');grid.style.setProperty('--calendar-days',count);grid.innerHTML=days.map(d=>{const key=d.toISOString().substring(0,10),events=items.filter(a=>(a.due||'').substring(0,10)===key);return `<div class="cal-day${d.getTime()===today.getTime()?' today':''}"><div class="cal-day-header">${d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}</div>${events.map(a=>`<div class="cal-event due">${notionAnchor(a,a.task)}<div style="font-size:.68rem;color:var(--ink-4);margin-top:4px">${esc(a.owner)}</div></div>`).join('')}</div>`}).join('')}
 
@@ -1389,7 +1416,7 @@ function buildCalendar(){
   const owner=document.getElementById('calendar-owner')?.value||'all';
   const fn=document.getElementById('calendar-function')?.value||'all';
   const status=document.getElementById('calendar-status')?.value||'all';
-  const items=ALL_ACTIONS.filter(action=>action.due&&(owner==='all'||valueIncludes(action.owner,owner))&&functionMatches(action.fn,fn)&&(status==='all'||statusMatches(action.status,status)));
+  const items=ALL_ACTIONS.filter(action=>action.due&&ownerMatches(action.owner,owner)&&functionMatches(action.fn,fn)&&(status==='all'||statusMatches(action.status,status)));
   const visibleKeys=new Set(days.map(localDateKey));
   const visibleItems=items.filter(action=>visibleKeys.has((action.due||'').substring(0,10))).sort((left,right)=>(left.due||'').localeCompare(right.due||''));
   const grid=document.getElementById('week-grid');grid.style.setProperty('--calendar-days',count);
