@@ -5,6 +5,7 @@ const notion = new Client({ auth: process.env.NOTION_TOKEN });
 const DB_IDS = {
   actions: '9ad685dca6294a8e8978f1314d0b1ada',
   governance: '0a17cd5ae06b44f49a0b71df06c3e71e',
+  bugs: '752c1cbb11534520a47b7411e0ba9e57',
   decisions: '216c56074fcb42d5b2b0ace5f606e1a0',
   learnings: '29360bfb014e80d68dc7fdd8ceb21875',
   milestones: '30560bfb014e80568a6dd1d280d91c88',
@@ -78,8 +79,9 @@ async function completePage(pageId) {
   const databaseId = normaliseId(page.parent && page.parent.database_id);
   const actionsId = normaliseId(DB_IDS.actions);
   const governanceId = normaliseId(DB_IDS.governance);
+  const bugsId = normaliseId(DB_IDS.bugs);
 
-  if (![actionsId, governanceId].includes(databaseId)) {
+  if (![actionsId, governanceId, bugsId].includes(databaseId)) {
     const error = new Error('This page is not in an approved action database.');
     error.statusCode = 403;
     throw error;
@@ -92,14 +94,16 @@ async function completePage(pageId) {
     throw error;
   }
 
+  const completionStatus = databaseId === bugsId ? 'Resolved' : 'Done';
+  const completionDateProperty = databaseId === bugsId ? 'Date Resolved' : 'Completed Date';
   const properties = {
     Status: statusProperty.type === 'status'
-      ? { status: { name: 'Done' } }
-      : { select: { name: 'Done' } },
+      ? { status: { name: completionStatus } }
+      : { select: { name: completionStatus } },
   };
 
-  if (page.properties['Completed Date'] && page.properties['Completed Date'].type === 'date') {
-    properties['Completed Date'] = {
+  if (page.properties[completionDateProperty] && page.properties[completionDateProperty].type === 'date') {
+    properties[completionDateProperty] = {
       date: { start: new Date().toISOString().slice(0, 10) },
     };
   }
@@ -110,6 +114,40 @@ async function completePage(pageId) {
   });
 
   return { ok: true, id: updated.id, url: updated.url };
+}
+
+async function reschedulePage(pageId, dueDate) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(dueDate || ''))) {
+    const error = new Error('due_date must use YYYY-MM-DD format.');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const page = await notion.pages.retrieve({ page_id: pageId });
+  const databaseId = normaliseId(page.parent && page.parent.database_id);
+  const approvedIds = [DB_IDS.actions, DB_IDS.governance].map(normaliseId);
+
+  if (!approvedIds.includes(databaseId)) {
+    const error = new Error('This page is not in an approved calendar database.');
+    error.statusCode = 403;
+    throw error;
+  }
+
+  const dueDateName = ['Due Date', 'Due'].find(name => page.properties?.[name]?.type === 'date');
+  if (!dueDateName) {
+    const error = new Error('The Notion page does not have an editable Due Date property.');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const updated = await notion.pages.update({
+    page_id: pageId,
+    properties: {
+      [dueDateName]: { date: { start: dueDate } },
+    },
+  });
+
+  return { ok: true, id: updated.id, url: updated.url, due_date: dueDate };
 }
 
 exports.handler = async event => {
@@ -142,6 +180,14 @@ exports.handler = async event => {
       }
 
       return response(200, await completePage(body.page_id));
+    }
+
+    if (body.operation === 'reschedule') {
+      if (!body.page_id || !body.due_date) {
+        return response(400, { error: 'Missing page_id or due_date.' });
+      }
+
+      return response(200, await reschedulePage(body.page_id, body.due_date));
     }
 
     if (!body.db || !DB_IDS[body.db]) {
