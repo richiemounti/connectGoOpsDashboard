@@ -50,6 +50,29 @@ async function queryAll(databaseId, filter, sorts, pageSize = 100) {
   };
 }
 
+async function getDatabaseSchema(databaseId) {
+  const database = await notion.databases.retrieve({ database_id: databaseId });
+  const properties = {};
+
+  Object.entries(database.properties || {}).forEach(([name, property]) => {
+    const configuration = property[property.type] || {};
+    const options = Array.isArray(configuration.options)
+      ? configuration.options.map(option => option.name).filter(Boolean)
+      : [];
+
+    properties[name] = {
+      id: property.id,
+      type: property.type,
+      options,
+    };
+  });
+
+  return {
+    id: database.id,
+    properties,
+  };
+}
+
 async function completePage(pageId) {
   const page = await notion.pages.retrieve({ page_id: pageId });
   const databaseId = normaliseId(page.parent && page.parent.database_id);
@@ -75,11 +98,7 @@ async function completePage(pageId) {
       : { select: { name: 'Done' } },
   };
 
-  if (
-    databaseId === governanceId &&
-    page.properties['Completed Date'] &&
-    page.properties['Completed Date'].type === 'date'
-  ) {
+  if (page.properties['Completed Date'] && page.properties['Completed Date'].type === 'date') {
     properties['Completed Date'] = {
       date: { start: new Date().toISOString().slice(0, 10) },
     };
@@ -108,6 +127,14 @@ exports.handler = async event => {
 
   try {
     const body = JSON.parse(event.body || '{}');
+
+    if (body.operation === 'schema') {
+      if (!body.db || !DB_IDS[body.db]) {
+        return response(400, { error: `Unknown database: ${body.db || 'missing'}` });
+      }
+
+      return response(200, await getDatabaseSchema(DB_IDS[body.db]));
+    }
 
     if (body.operation === 'complete') {
       if (!body.page_id) {
