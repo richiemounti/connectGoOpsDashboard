@@ -208,8 +208,58 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
 .completed-section{margin-top:28px;padding-top:19px;border-top:1px solid var(--rule)}.completed-heading-row{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:11px}.completed-heading-row h2{margin:0;color:var(--green);font-family:var(--display);font-size:1.25rem;letter-spacing:.035em;text-transform:uppercase}.completed-heading-row span{display:block;margin-top:3px;color:var(--ink-4);font-size:.75rem}.completed-filters{margin:0}.completed-section .sp-done{white-space:nowrap}
 .overdue-label{display:block;margin-top:4px;color:var(--coral);font-size:.68rem;font-weight:500}.calendar-range{display:flex;align-items:center;padding:0 4px;color:var(--ink-3);font-family:var(--display);font-size:.78rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase}.calendar-scroll{overflow-x:auto}.calendar-week{min-width:max(100%,calc(var(--calendar-days,7) * 135px))}.calendar-week.month-view{min-width:980px}.calendar-week.month-view .cal-day{min-height:145px;border-bottom:1px solid var(--rule)}.calendar-week.month-view .cal-day:nth-child(7n){border-right:0}.cal-day.outside{background:#f7f8f6;color:var(--ink-4)}.cal-day.drag-over{background:#e9f2ed}.cal-event[draggable="true"]{cursor:grab}.cal-event.range-start{border-radius:4px 0 0 4px;margin-right:-6px}.cal-event.range-mid{border-radius:0;margin-left:-6px;margin-right:-6px}.cal-event.range-end{border-radius:0 4px 4px 0;margin-left:-6px}.cal-event.range-start.range-end{border-radius:4px;margin-left:0;margin-right:0}.pipeline-view-toolbar{display:flex;justify-content:flex-end;margin:-48px 0 14px}.pipeline-view-toolbar .view-switch button{font-family:var(--body)}.pipeline-calendar-panel{display:none}.pipeline-calendar-tools{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:11px}.pipeline-calendar-filters{display:flex;gap:7px;flex-wrap:wrap}.committed-only{display:inline-flex;align-items:center;padding:8px 10px;border-radius:6px;background:#e4efe9;color:#175542;font-size:.78rem;font-weight:500}.pipeline-calendar-wrap{overflow-x:auto;border:1px solid var(--rule);background:#fff}.pipeline-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(135px,1fr));min-width:980px}.pipeline-cal-weekday{padding:9px;text-align:center;background:var(--paper);border-right:1px solid var(--rule);font-family:var(--display);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-4)}.pipeline-cal-day{min-height:145px;padding:8px;border-top:1px solid var(--rule);border-right:1px solid var(--rule)}.pipeline-cal-day.outside{background:#f7f8f6;color:var(--ink-4)}.pipeline-cal-date{text-align:right;font-size:.72rem;color:var(--ink-4)}.pipeline-cal-event{display:block;margin-top:6px;padding:6px 7px;border-left:3px solid var(--green);border-radius:3px;background:#e4efe9;color:var(--ink);font-size:.72rem;font-weight:500;text-decoration:none}.pipeline-cal-event small{display:block;margin-top:3px;color:var(--ink-3);font-size:.64rem;font-weight:400}.pipeline-cal-empty{grid-column:1/-1;padding:2rem;text-align:center;color:var(--ink-4)}
 .calendar-week,.pipeline-calendar-grid{display:block;background:#fff}.range-weekday-row{display:grid;grid-template-columns:repeat(7,minmax(135px,1fr));border-bottom:1px solid var(--rule)}.range-week-row{display:grid;grid-template-columns:repeat(var(--range-days),minmax(135px,1fr));grid-template-rows:38px repeat(var(--range-lanes),30px);position:relative;isolation:isolate;border-bottom:1px solid var(--rule);background:#fff}.range-week-row:last-child{border-bottom:0}.range-day-bg{z-index:0;min-width:0;padding:8px;border-right:1px solid var(--rule);background:#fff}.range-day-bg:last-of-type{border-right:0}.range-day-bg.outside{background:#f7f8f6}.range-day-bg.today{background:#fffaf1}.range-day-bg.drag-over{background:#e9f2ed}.range-day-date{font-family:var(--display);font-size:.72rem;font-weight:600;color:var(--ink-4);text-align:right}.range-day-bg.today .range-day-date{color:var(--amber)}.range-bar{z-index:2;display:flex;align-items:center;gap:7px;min-width:0;height:25px;margin:2px 4px;padding:0 9px;border-radius:5px;box-shadow:0 1px 2px rgba(17,48,42,.08);font-size:.7rem;font-weight:500;overflow:hidden}.range-bar a{min-width:0;color:inherit;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:none}.range-bar .range-bar-meta{flex:0 0 auto;margin-left:auto;font-size:.62rem;font-weight:400;opacity:.72;white-space:nowrap}.range-bar.action-range{border-left:3px solid var(--amber);background:#f5e8d8;color:#5d3c16;cursor:grab}.range-bar.pipeline-range{border-left:3px solid var(--green);background:#dfece5;color:#174b3b}.range-bar.continues-left{margin-left:0;border-left:0;border-radius:0 5px 5px 0}.range-bar.continues-right{margin-right:0;border-radius:5px 0 0 5px}.range-bar.continues-left.continues-right{border-radius:0}.range-bar.continuation-only:before{content:'';width:100%;height:2px;border-radius:2px;background:currentColor;opacity:.28}.calendar-week.month-view{min-width:980px}.pipeline-calendar-grid{min-width:980px}
+.calendar-shell{overflow:hidden;border:1px solid var(--rule);border-radius:8px;background:#fff;box-shadow:0 1px 4px rgba(17,48,42,.04)}.calendar-toolbar-primary{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:12px 14px}.calendar-toolbar-primary .cal-nav{justify-self:start}.calendar-toolbar-primary .view-switch{justify-self:end}.calendar-toolbar-primary .calendar-range{justify-content:center;padding:0;color:var(--ink);font-size:.92rem;letter-spacing:.025em}.calendar-toolbar-filters{display:flex;gap:7px;flex-wrap:wrap;padding:9px 14px;border-top:1px solid var(--rule);background:var(--paper)}.calendar-toolbar-filters .compact-filter{min-width:150px;background:#fff}.calendar-shell .calendar-week{margin:0;border:0;border-top:1px solid var(--rule)}.calendar-shell .calendar-scroll{background:#fff}.range-weekday-row{background:var(--paper)}.range-week-row{grid-template-rows:40px repeat(var(--range-lanes),34px)}.range-day-bg{padding:8px 9px;border-right-color:#e7e8e2}.range-day-bg.weekend{background:#fafaf8}.range-day-bg.outside{background:#f5f6f3}.range-day-bg.today{background:#fff9ef}.range-day-date{font-size:.74rem}.range-day-bg.today .range-day-date{display:inline-flex;float:right;min-width:24px;height:24px;align-items:center;justify-content:center;margin-top:-2px;border-radius:999px;background:var(--amber);color:#fff}.range-bar{height:28px;margin:3px 5px;padding:0 10px;border-radius:6px;box-shadow:none;font-size:.73rem}.range-bar.action-range{background:#f2e5d5}.range-bar.pipeline-range{background:#dceae3}.range-bar:hover{filter:saturate(1.08);box-shadow:0 2px 7px rgba(17,48,42,.12)}.calendar-week.month-view .range-day-date{font-size:.7rem}.calendar-week.month-view .range-week-row{min-height:78px}
+/* Modern calendar */
+#tab-calendar{--cal-line:#e7ebe8;--cal-muted:#f7f9f8;--cal-shadow:0 16px 44px rgba(25,54,47,.09)}
+#tab-calendar .page-header{margin-bottom:18px}
+#tab-calendar .calendar-shell{overflow:hidden;border:1px solid rgba(24,68,57,.09);border-radius:16px;background:#fff;box-shadow:var(--cal-shadow)}
+#tab-calendar .calendar-toolbar-primary{grid-template-columns:1fr auto 1fr;min-height:70px;padding:14px 18px;background:linear-gradient(180deg,#fff 0%,#fcfdfc 100%)}
+#tab-calendar .cal-nav,#tab-calendar .view-switch{gap:3px;padding:4px;border:0;border-radius:10px;background:#f0f3f1}
+#tab-calendar .cal-nav button,#tab-calendar .view-switch button{min-height:34px;border:0!important;border-radius:7px;padding:7px 12px;background:transparent;color:#53645f;font-size:.8rem;font-weight:500;transition:background .16s ease,color .16s ease,box-shadow .16s ease,transform .16s ease}
+#tab-calendar .cal-nav button:hover,#tab-calendar .view-switch button:hover{background:#fff;color:var(--green);box-shadow:0 2px 7px rgba(17,48,42,.08)}
+#tab-calendar .cal-nav button:active,#tab-calendar .view-switch button:active{transform:translateY(1px)}
+#tab-calendar .view-switch button.active{background:var(--green);color:#fff;box-shadow:0 3px 9px rgba(24,78,62,.22)}
+#tab-calendar .calendar-range{justify-content:center;color:var(--ink);font-family:var(--body);font-size:1rem;font-weight:600;letter-spacing:-.01em;text-transform:none}
+#tab-calendar .calendar-toolbar-filters{gap:8px;padding:11px 18px;border-top:1px solid #edf0ed;background:#f8faf9}
+#tab-calendar .calendar-toolbar-filters .compact-filter{min-width:158px;border-color:transparent;border-radius:9px;background:#fff;box-shadow:0 0 0 1px rgba(25,68,58,.11);color:#465650;font-size:.8rem}
+#tab-calendar .calendar-toolbar-filters .compact-filter:focus{outline:2px solid rgba(200,139,54,.28);outline-offset:1px;box-shadow:0 0 0 1px var(--amber)}
+#tab-calendar .calendar-scroll{border-top:1px solid var(--cal-line);background:#fff}
+#tab-calendar .calendar-week{border:0!important;background:#fff}
+#tab-calendar .range-weekday-row{border-bottom:1px solid var(--cal-line);background:#f8faf9}
+#tab-calendar .pipeline-cal-weekday{padding:11px 8px;border-right:1px solid var(--cal-line);background:transparent;color:#7a8883;font-family:var(--body);font-size:.65rem;font-weight:600;letter-spacing:.09em}
+#tab-calendar .pipeline-cal-weekday:last-child{border-right:0}
+#tab-calendar .range-week-row{grid-template-rows:46px repeat(var(--range-lanes),38px) minmax(34px,1fr);min-height:240px;border-bottom:1px solid var(--cal-line);background:#fff}
+#tab-calendar .calendar-week[data-view="day"] .range-week-row{min-height:420px}
+#tab-calendar .calendar-week[data-view="three"] .range-week-row{min-height:330px}
+#tab-calendar .calendar-week[data-view="week"] .range-week-row{min-height:260px}
+#tab-calendar .calendar-week[data-view="month"] .range-week-row{min-height:118px}
+.pipeline-calendar-grid .range-week-row{grid-template-rows:42px repeat(var(--range-lanes),36px) minmax(28px,1fr);min-height:112px}
+#tab-calendar .range-day-bg{padding:11px 12px;border-right:1px solid var(--cal-line);background:#fff;transition:background .14s ease}
+#tab-calendar .range-day-bg.last-day{border-right:0}
+#tab-calendar .range-day-bg.weekend{background:#fafbfa}
+#tab-calendar .range-day-bg.outside{background:#f4f6f4}
+#tab-calendar .range-day-bg.drag-over{background:#e8f2ed;box-shadow:inset 0 0 0 2px rgba(28,95,75,.28)}
+#tab-calendar .range-day-date{color:#77857f;font-family:var(--body);font-size:.72rem;font-weight:550;text-align:right}
+#tab-calendar .range-day-bg.today{background:#fffaf2}
+#tab-calendar .range-day-bg.today .range-day-date{display:inline-flex;float:right;min-width:28px;height:28px;align-items:center;justify-content:center;margin:-3px -3px 0 0;padding:0 7px;border-radius:999px;background:var(--green);color:#fff;box-shadow:0 3px 9px rgba(24,78,62,.22)}
+#tab-calendar .range-bar{height:31px;margin:3px 6px;padding:0 10px;border:0;border-radius:8px;box-shadow:0 2px 5px rgba(29,54,47,.07);font-size:.72rem;font-weight:550;transition:transform .15s ease,box-shadow .15s ease,filter .15s ease}
+#tab-calendar .range-bar:hover{z-index:4;filter:saturate(1.06);transform:translateY(-1px);box-shadow:0 6px 14px rgba(29,54,47,.14)}
+#tab-calendar .range-bar a{color:inherit;font-weight:600}
+#tab-calendar .range-bar .notion-arrow{display:none}
+#tab-calendar .range-bar-meta{padding-left:8px;border-left:1px solid currentColor;font-size:.61rem;opacity:.58}
+#tab-calendar .range-bar.action-range.database-range{border-left:3px solid #c68a3a;background:#f6ead9;color:#65451e}
+#tab-calendar .range-bar.action-range.governance-range{border-left:3px solid #765b91;background:#ebe6f2;color:#49385c}
+#tab-calendar .range-bar.action-range.bug-range{border-left:3px solid #b9565c;background:#f6e5e6;color:#74383d}
+#tab-calendar .range-bar.continues-left{margin-left:0;border-left:0!important;border-radius:0 8px 8px 0}
+#tab-calendar .range-bar.continues-right{margin-right:0;border-radius:8px 0 0 8px}
+#tab-calendar .range-bar.continues-left.continues-right{border-radius:0}
+#tab-calendar .calendar-agenda{overflow:hidden;margin-top:18px!important;border:1px solid rgba(24,68,57,.09);border-radius:14px;box-shadow:0 8px 26px rgba(25,54,47,.06)}
+#tab-calendar .calendar-agenda .data-table th{padding:12px 14px;background:#f8faf9;color:#71807b;font-family:var(--body);font-size:.65rem;letter-spacing:.07em}
+#tab-calendar .calendar-agenda .data-table td{padding:13px 14px;border-color:#edf0ed}
+#tab-calendar .calendar-agenda .data-table tbody tr{transition:background .14s ease}
+#tab-calendar .calendar-agenda .data-table tbody tr:hover{background:#fbfcfb}
 @media(max-width:900px){.overview-band{grid-template-columns:1fr 1fr}.overview-grid{grid-template-columns:1fr}.overview-wide{grid-column:auto}}
-@media(max-width:760px){.calendar-week{grid-template-columns:repeat(var(--calendar-days,7),minmax(135px,1fr))}.pipeline-view-toolbar{margin:0 0 11px;justify-content:flex-start}}
+@media(max-width:760px){.calendar-week{grid-template-columns:repeat(var(--calendar-days,7),minmax(135px,1fr))}.pipeline-view-toolbar{margin:0 0 11px;justify-content:flex-start}.calendar-toolbar-primary{grid-template-columns:1fr auto}.calendar-toolbar-primary .calendar-range{grid-column:1/-1;grid-row:2;justify-content:flex-start}.calendar-toolbar-filters .compact-filter{flex:1;min-width:135px}}
 @media(max-width:600px){html,body{font-size:14px}.overview-band{grid-template-columns:1fr}.overview-band>div{border-left:0;border-top:1px solid rgba(255,255,255,.13)}.overview-band>div:first-child{border-top:0}.pager{justify-content:center;flex-wrap:wrap}.pager span{width:100%;margin:0;text-align:center}.completed-heading-row{align-items:flex-start;flex-direction:column}.completed-filters{width:100%}.completed-filters .compact-filter{flex:1}.calendar-range{width:100%;order:3}.pipeline-calendar-tools{align-items:flex-start;flex-direction:column}}
 </style>
 </head>
@@ -302,6 +352,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
   <div class="filter-section">
     <select class="compact-filter" id="action-status" onchange="setActionFilter('status',this.value)"><option value="all">All statuses</option></select>
     <select class="compact-filter" id="action-due" onchange="setActionFilter('due',this.value)"><option value="all">All dates</option><option value="overdue">Overdue</option><option value="today">Due today</option><option value="this-week">This week</option><option value="upcoming">Upcoming</option><option value="no-date">No due date</option></select>
+    <select class="compact-filter" id="action-source" onchange="setActionFilter('source',this.value)"><option value="all">All sources</option><option>Action Database</option><option>Governance Tracker</option><option>Bug Log</option></select>
     <select class="compact-filter" id="action-owner" onchange="setActionFilter('owner',this.value)"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaiya</option><option>Emma</option><option>Hope</option><option>Evie</option></select>
     <select class="compact-filter" id="action-function" onchange="setActionFilter('function',this.value)"><option value="all">All functions</option><option value="Product Development">Product Development</option><option value="Marketing & Sales">Marketing & Sales</option><option value="Compliance">Compliance</option><option value="Knowledge Base">Knowledge Base</option><option value="Commercials">Commercials</option><option value="Client work">Client work</option><option value="Writing">Writing</option></select>
     <select class="compact-filter" id="action-vertical" onchange="setActionFilter('vertical',this.value)"><option value="all">All verticals</option></select>
@@ -319,6 +370,7 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
       <div class="filter-section completed-filters">
         <select class="compact-filter" id="completed-owner" onchange="setCompletedFilters()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaiya</option><option>Emma</option><option>Hope</option><option>Evie</option></select>
         <select class="compact-filter" id="completed-function" onchange="setCompletedFilters()"><option value="all">All functions</option><option value="Product Development">Product Development</option><option value="Marketing & Sales">Marketing & Sales</option><option value="Compliance">Compliance</option><option value="Knowledge Base">Knowledge Base</option><option value="Commercials">Commercials</option><option value="Client work">Client work</option><option value="Writing">Writing</option></select>
+        <select class="compact-filter" id="completed-date" onchange="setCompletedFilters()"><option value="this-week" selected>This week</option><option value="today">Today</option><option value="this-month">This month</option><option value="last-30-days">Last 30 days</option><option value="all">All time</option><option value="no-date">Missing date</option></select>
       </div>
     </div>
     <div class="section-block full" id="completed-table-wrap">
@@ -448,8 +500,20 @@ html,body{font-size:15px}.topbar-title,.sync-btn,.nav-label,.page-title,.stat-la
   <div class="page-header">
     <div><div class="page-title">Calendar</div><div class="page-sub">Team week — actions due and meetings scheduled</div></div>
   </div>
-  <div class="calendar-tools"><div class="cal-nav"><button onclick="moveCalendar(-1)" aria-label="Previous period">‹</button><button onclick="resetCalendar()">Today</button><button onclick="moveCalendar(1)" aria-label="Next period">›</button></div><div class="view-switch"><button onclick="setCalendarView('day',this)">Day</button><button onclick="setCalendarView('three',this)">3 days</button><button class="active" onclick="setCalendarView('week',this)">Week</button><button onclick="setCalendarView('month',this)">Month</button></div><div class="calendar-range" id="calendar-range"></div><select class="compact-filter" id="calendar-owner" onchange="buildCalendar()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaiya</option><option>Emma</option><option>Hope</option><option>Evie</option></select><select class="compact-filter" id="calendar-function" onchange="buildCalendar()"><option value="all">All functions</option><option>Product Development</option><option>Marketing & Sales</option><option>Compliance</option><option>Knowledge Base</option><option>Commercials</option><option>Client work</option><option>Writing</option></select><select class="compact-filter" id="calendar-status" onchange="buildCalendar()"><option value="all">All statuses</option></select></div><div class="calendar-scroll"><div class="calendar-week" id="week-grid"></div></div>
-  <div class="section-block full" style="margin-top:1rem">
+  <div class="calendar-shell">
+    <div class="calendar-toolbar-primary">
+      <div class="cal-nav"><button onclick="moveCalendar(-1)" aria-label="Previous period">‹</button><button onclick="resetCalendar()">Today</button><button onclick="moveCalendar(1)" aria-label="Next period">›</button></div>
+      <div class="calendar-range" id="calendar-range"></div>
+      <div class="view-switch"><button onclick="setCalendarView('day',this)">Day</button><button onclick="setCalendarView('three',this)">3 days</button><button class="active" onclick="setCalendarView('week',this)">Week</button><button onclick="setCalendarView('month',this)">Month</button></div>
+    </div>
+    <div class="calendar-toolbar-filters">
+      <select class="compact-filter" id="calendar-owner" onchange="buildCalendar()"><option value="all">All owners</option><option>Kate</option><option>Sam</option><option>Hannah</option><option>Belinda</option><option>Sumaiya</option><option>Emma</option><option>Hope</option><option>Evie</option></select>
+      <select class="compact-filter" id="calendar-function" onchange="buildCalendar()"><option value="all">All functions</option><option>Product Development</option><option>Marketing & Sales</option><option>Compliance</option><option>Knowledge Base</option><option>Commercials</option><option>Client work</option><option>Writing</option></select>
+      <select class="compact-filter" id="calendar-status" onchange="buildCalendar()"><option value="all">All statuses</option></select>
+    </div>
+    <div class="calendar-scroll"><div class="calendar-week" id="week-grid"></div></div>
+  </div>
+  <div class="section-block full calendar-agenda" style="margin-top:1rem">
     <table class="data-table" id="calendar-table">
       <thead><tr><th>Start</th><th>Due</th><th>Task</th><th>Owner</th><th>Function</th><th>Status</th><th>Source</th></tr></thead>
       <tbody id="calendar-tbody"></tbody>
@@ -604,6 +668,24 @@ function dueFilterMatches(action,filter){
   if(filter==='upcoming')return due>endOfWeek;
   return true;
 }
+function completionDateMatches(action,filter){
+  if(!filter||filter==='all')return true;
+  if(filter==='no-date')return !action.completed;
+  const completed=localDateFromKey(action.completed);if(!completed)return false;
+  const today=todayAtMidnight(),tomorrow=new Date(today);tomorrow.setDate(today.getDate()+1);
+  if(filter==='today')return completed.getTime()===today.getTime();
+  if(filter==='this-week'){
+    const monday=new Date(today);monday.setDate(today.getDate()-((today.getDay()+6)%7));
+    const nextMonday=new Date(monday);nextMonday.setDate(monday.getDate()+7);
+    return completed>=monday&&completed<nextMonday;
+  }
+  if(filter==='this-month')return completed.getMonth()===today.getMonth()&&completed.getFullYear()===today.getFullYear();
+  if(filter==='last-30-days'){
+    const cutoff=new Date(today);cutoff.setDate(today.getDate()-29);
+    return completed>=cutoff&&completed<tomorrow;
+  }
+  return true;
+}
 function dueCell(action){const days=overdueDays(action.due);return `<span class="action-due ${dueCls(action.due)}">${fmtDate(action.due)}</span>${days?`<span class="overdue-label">Overdue by ${days} day${days===1?'':'s'}</span>`:''}`}
 
 function fnTag(fn) {
@@ -682,7 +764,7 @@ async function notionComplete(pageId, source) {
   const response = await fetch('/.netlify/functions/notion', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ operation: 'complete', page_id: pageId, source }),
+    body: JSON.stringify({ operation: 'complete', page_id: pageId, source, completion_date: localDateKey(todayAtMidnight()) }),
   });
   const data = await response.json().catch(() => ({}));
   if (!response.ok) throw new Error(data.error || 'Notion update failed');
@@ -719,12 +801,12 @@ function mapAction(page) {
   return {
     id:       page.id,
     url:      page.url,
-    source:   p_select(tryProp(p, 'Source')) || 'Action Database',
+    source:   'Action Database',
     task:     p_title(tryProp(p, 'Task', 'Name', 'Action')),
     owner:    p_owner_value(tryProp(p, 'Owner', 'Assigned to')),
     start:    p_date(tryProp(p, 'Start Date', 'Start')),
     due:      p_date(tryProp(p, 'Due Date', 'Due')),
-    completed:p_date(tryProp(p, 'Completed Date', 'Date Completed')),
+    completed:p_date(tryProp(p, 'Completion Date', 'Completed Date', 'Date Completed')),
     blocked:  p_check(tryProp(p, 'Blocked?', 'Blocked')),
     fn:       p_choice(tryProp(p, 'Function', 'Area')),
     vertical: p_choice(tryProp(p, 'Vertical')),
@@ -828,7 +910,7 @@ function mapGovernanceAction(page) {
     owner: normaliseOwnerName(p_owner_value(tryProp(p, 'Owner'))),
     start: p_date(tryProp(p, 'Start Date', 'Start')),
     due: p_date(tryProp(p, 'Due Date')),
-    completed: p_date(tryProp(p, 'Completed Date')),
+    completed: p_date(tryProp(p, 'Completion Date', 'Completed Date')),
     blocked: rawStatus === 'Overdue',
     fn: domain ? `Compliance – ${domain}` : 'Compliance',
     vertical: '',
@@ -1059,7 +1141,7 @@ function renderInvestorView() {
 }
 
 // ── RENDER ACTIONS TABLE ──
-const activeFilters = {status:'all', due:'all', owner:null, function:null, vertical:null, frequency:null};
+const activeFilters = {status:'all', due:'all', owner:null, function:null, vertical:null, frequency:null, source:null};
 
 function renderActionsTable() {
   const tbody = document.getElementById('actions-tbody');
@@ -1388,6 +1470,16 @@ function functionMatches(value, selected) {
   const actual = String(value || '').trim();
   return actual === selected || (selected === 'Compliance' && actual.startsWith('Compliance –'));
 }
+function actionStatusGroupMatches(action,group){
+  if(!group||group==='all')return true;
+  const status=actionStatusKey(action.status);
+  if(group==='__not_started')return ['inbox','to do','open'].includes(status);
+  if(group==='__in_progress')return ['this week','in progress','investigating','workaround in place','fix in progress','review fix (hope)'].includes(status);
+  if(group==='__attention')return Boolean(action.blocked)||['on hold','overdue'].includes(status)||overdueDays(action.due)>0;
+  if(group==='__skipped')return status==='skipped';
+  if(group==='__closed')return status==='closed';
+  return false;
+}
 
 async function loadActions() {
   const [actionsData,governance,bugs,actionsSchema,governanceSchema,bugsSchema] = await Promise.all([
@@ -1420,15 +1512,13 @@ async function loadActions() {
 
 function filteredActions() {
   let rows=ACTIVE_ACTIONS.map(action=>({...action,status:actionDisplayStatus(action)}));
-  if(activeFilters.status==='__this_week')rows=rows.filter(row=>THIS_WEEK.some(item=>item.id===row.id));
-  else if(activeFilters.status==='__inbox')rows=rows.filter(row=>INBOX.some(item=>item.id===row.id));
-  else if(activeFilters.status==='__attention')rows=rows.filter(row=>BLOCKED.some(item=>item.id===row.id));
-  else if(activeFilters.status&&activeFilters.status!=='all')rows=rows.filter(row=>statusMatches(row.status,activeFilters.status));
+  if(activeFilters.status&&activeFilters.status!=='all')rows=rows.filter(row=>actionStatusGroupMatches(row,activeFilters.status));
   if(activeFilters.due&&activeFilters.due!=='all')rows=rows.filter(row=>dueFilterMatches(row,activeFilters.due));
   if(activeFilters.owner)rows=rows.filter(row=>ownerMatches(row.owner,activeFilters.owner));
   if(activeFilters.function)rows=rows.filter(row=>functionMatches(row.fn,activeFilters.function));
   if(activeFilters.vertical)rows=rows.filter(row=>valueIncludes(row.vertical,activeFilters.vertical));
   if(activeFilters.frequency)rows=rows.filter(row=>valueIncludes(row.frequency,activeFilters.frequency));
+  if(activeFilters.source)rows=rows.filter(row=>row.source===activeFilters.source);
   return rows.sort((left,right)=>(left.due||'9999').localeCompare(right.due||'9999'));
 }
 function renderActionsTable() {
@@ -1444,15 +1534,16 @@ function renderActionsTable() {
   let pager=tbody.closest('.section-block').querySelector('.pager'); if(pager)pager.remove(); tbody.closest('.section-block').insertAdjacentHTML('beforeend',pagerHTML('actions',rows.length,page.start,page.pages));
 }
 function setActionFilter(group,value){activeFilters[group]=(value==='all'||value==='')?(group==='status'?'all':null):value;pageState.actions=1;renderActionsTable()}
-function openActionStatus(status){const mapped={thisweek:'__this_week',inbox:'__inbox',blocked:'__attention'}[status]||status;const select=document.getElementById('action-status');if(select)select.value=mapped;setActionFilter('status',mapped);showTab('actions',document.querySelector("[onclick*='actions']"))}
+function openActionStatus(status){const mapped={thisweek:'__in_progress',inbox:'__not_started',blocked:'__attention'}[status]||status;const select=document.getElementById('action-status');if(select)select.value=mapped;setActionFilter('status',mapped);showTab('actions',document.querySelector("[onclick*='actions']"))}
 
 function renderCompletedTable() {
-  const owner=document.getElementById('completed-owner')?.value||'all',fn=document.getElementById('completed-function')?.value||'all';
-  const rows=DONE.filter(item=>ownerMatches(item.owner,owner)&&functionMatches(item.fn,fn)).sort((a,b)=>(b.completed||b.due||'').localeCompare(a.completed||a.due||''));
+  const owner=document.getElementById('completed-owner')?.value||'all',fn=document.getElementById('completed-function')?.value||'all',dateFilter=document.getElementById('completed-date')?.value||'this-week';
+  const rows=DONE.filter(item=>ownerMatches(item.owner,owner)&&functionMatches(item.fn,fn)&&completionDateMatches(item,dateFilter)).sort((a,b)=>(b.completed||'').localeCompare(a.completed||''));
   const page=pageRows('completed',rows),tbody=document.getElementById('completed-tbody'),wrap=document.getElementById('completed-table-wrap'),count=document.getElementById('completed-count');
   if(!tbody||!wrap)return;
-  if(count)count.textContent=`${rows.length} completed`;
-  tbody.innerHTML=page.visible.length?page.visible.map(a=>`<tr><td>${notionAnchor(a,a.task)}<div style="margin-top:4px;color:var(--ink-4);font-size:.7rem">${esc(actionMeta(a))}</div></td><td>${esc(a.owner)}</td><td>${esc(a.fn||'—')}</td><td>${esc(a.vertical||'—')}</td><td><span class="status-pill sp-done">${fmtDate(a.completed||a.due)}</span></td><td>${esc(a.source||'Action Database')}</td></tr>`).join(''):'<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--ink-4)">No completed tasks match these filters</td></tr>';
+  const countLabels={today:'today','this-week':'this week','this-month':'this month','last-30-days':'in the last 30 days',all:'across all dates','no-date':'without a completion date'};
+  if(count)count.textContent=`${rows.length} completed ${countLabels[dateFilter]||''}`.trim();
+  tbody.innerHTML=page.visible.length?page.visible.map(a=>`<tr><td>${notionAnchor(a,a.task)}<div style="margin-top:4px;color:var(--ink-4);font-size:.7rem">${esc(actionMeta(a))}</div></td><td>${esc(a.owner)}</td><td>${esc(a.fn||'—')}</td><td>${esc(a.vertical||'—')}</td><td><span class="status-pill sp-done">${a.completed?fmtDate(a.completed):'Not set'}</span></td><td>${esc(a.source||'Action Database')}</td></tr>`).join(''):'<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--ink-4)">No completed tasks match these filters</td></tr>';
   const oldPager=wrap.querySelector('.pager');if(oldPager)oldPager.remove();wrap.insertAdjacentHTML('beforeend',pagerHTML('completed',rows.length,page.start,page.pages));
 }
 function setCompletedFilters(){pageState.completed=1;renderCompletedTable()}
@@ -1532,10 +1623,10 @@ function rangeWeekLayout(days,entries){
 function rangeDayBackgrounds(days,laneCount,monthStart,allowDrop,compactDates){
   const today=todayAtMidnight();
   return days.map((date,index)=>{
-    const key=localDateKey(date),outside=monthStart&&date.getMonth()!==monthStart.getMonth();
+    const key=localDateKey(date),outside=monthStart&&date.getMonth()!==monthStart.getMonth(),weekend=date.getDay()===0||date.getDay()===6;
     const label=compactDates?`${date.getDate()}${outside?` ${date.toLocaleDateString('en-GB',{month:'short'})}`:''}`:date.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
     const dropAttributes=allowDrop?` ondragover="calendarDragOver(event)" ondragleave="calendarDragLeave(event)" ondrop="calendarDrop(event,'${key}')"`:'';
-    return `<div class="range-day-bg${outside?' outside':''}${date.getTime()===today.getTime()?' today':''}" style="grid-column:${index+1};grid-row:1/${laneCount+2}"${dropAttributes}><div class="range-day-date">${label}</div></div>`;
+    return `<div class="range-day-bg${outside?' outside':''}${weekend?' weekend':''}${date.getTime()===today.getTime()?' today':''}${index===days.length-1?' last-day':''}" style="grid-column:${index+1};grid-row:1/${laneCount+3}"${dropAttributes}><div class="range-day-date">${label}</div></div>`;
   }).join('');
 }
 function continuationClasses(segment){return `${segment.continuesLeft?' continues-left':''}${segment.continuesRight?' continues-right':''}`}
@@ -1552,13 +1643,14 @@ function renderPipelineRangeWeek(days,entries,labelled,monthStart){
 }
 function renderActionRangeWeek(days,entries,labelled,monthStart){
   const layout=rangeWeekLayout(days,entries);
-  const backgrounds=rangeDayBackgrounds(days,layout.laneCount,monthStart,true,false);
+  const backgrounds=rangeDayBackgrounds(days,layout.laneCount,monthStart,true,Boolean(monthStart));
   const bars=layout.segments.map(segment=>{
     const action=segment.entry.item;
     const key=`action:${action.source}:${action.id}`,showLabel=!labelled.has(key);
     if(showLabel)labelled.add(key);
-    const content=showLabel?`${notionAnchor(action,action.task)}<span class="range-bar-meta">${esc(action.owner)} · due ${fmtDate(action.due)}</span>`:'';
-    return `<div class="range-bar action-range${continuationClasses(segment)}${showLabel?'':' continuation-only'}" style="grid-column:${segment.startIndex+1}/${segment.endIndex+2};grid-row:${segment.lane+2}" draggable="true" title="${esc(action.task)} · ${fmtDate(action.start||action.due)}–${fmtDate(action.due)} · drag to change due date" aria-label="${esc(action.task)}" ondragstart="calendarDragStart(event,'${esc(action.id)}','${esc(action.source)}')">${content}</div>`;
+    const sourceClass=action.source==='Governance Tracker'?'governance-range':action.source==='Bug Log'?'bug-range':'database-range';
+    const content=showLabel?`${notionAnchor(action,action.task)}<span class="range-bar-meta">${esc(action.owner)}</span>`:'';
+    return `<div class="range-bar action-range ${sourceClass}${continuationClasses(segment)}${showLabel?'':' continuation-only'}" style="grid-column:${segment.startIndex+1}/${segment.endIndex+2};grid-row:${segment.lane+2}" draggable="true" title="${esc(action.task)} · ${fmtDate(action.start||action.due)}–${fmtDate(action.due)} · drag to change due date" aria-label="${esc(action.task)}" ondragstart="calendarDragStart(event,'${esc(action.id)}','${esc(action.source)}')">${content}</div>`;
   }).join('');
   return `<div class="range-week-row" style="--range-days:${days.length};--range-lanes:${layout.laneCount}">${backgrounds}${bars}</div>`;
 }
@@ -1619,6 +1711,7 @@ function populateSelect(id,values,allValue,allLabel){
 }
 function populateDataFilters(){
   ['action-owner','completed-owner','calendar-owner','decision-owner','pipeline-owner','pipeline-calendar-owner','learning-owner','boulder-owner'].forEach(id=>populateSelect(id,TEAM_MEMBERS,'all','All owners'));
+  populateSelect('action-source',['Action Database','Governance Tracker','Bug Log'],'all','All sources');
   const actionFunctions=schemaOptions('actions','Function').length?schemaOptions('actions','Function'):ACTION_FUNCTION_OPTIONS;
   populateSelect('action-function',actionFunctions,'all','All functions');
   populateSelect('completed-function',actionFunctions,'all','All functions');
@@ -1631,14 +1724,19 @@ function populateDataFilters(){
     ...(governanceStatuses.length?governanceStatuses:['To Do','In Progress','Done','Overdue','Skipped']),
     ...(bugStatuses.length?bugStatuses:['Open','Investigating','Workaround in Place','Fix in Progress','Resolved','Review Fix (Hope)','Closed']),
   ];
-  const activeStatuses=uniqueOptions([
-    ...configuredStatuses,
-    ...uniqueFieldValues(ACTIVE_ACTIONS,'status'),
-  ]).filter(status=>!['done','resolved'].includes(actionStatusKey(status)));
-  populateSelect('action-status',activeStatuses,'all','All statuses');
   const actionStatusSelect=document.getElementById('action-status');
   if(actionStatusSelect){
-    [['__this_week','This week (combined)'],['__inbox','Inbox (combined)'],['__attention','Blocked / overdue']].reverse().forEach(([value,label])=>actionStatusSelect.options.add(new Option(label,value),1));
+    const previous=actionStatusSelect.value;
+    const groups=[
+      ['all','All active statuses'],
+      ['__not_started','Not started'],
+      ['__in_progress','In progress / this week'],
+      ['__attention','Blocked / overdue'],
+      ['__skipped','Skipped'],
+      ['__closed','Closed'],
+    ];
+    actionStatusSelect.innerHTML=groups.map(([value,label])=>`<option value="${value}">${label}</option>`).join('');
+    actionStatusSelect.value=groups.some(([value])=>value===previous)?previous:'all';
   }
   const allStatuses=uniqueOptions([...configuredStatuses,...uniqueFieldValues(ALL_ACTIONS,'status')]);
   populateSelect('calendar-status',allStatuses,'all','All statuses');
@@ -1671,9 +1769,10 @@ function buildCalendar(){
   const items=ALL_ACTIONS.filter(action=>action.source!=='Bug Log'&&action.due&&ownerMatches(action.owner,owner)&&functionMatches(action.fn,fn)&&(status==='all'||statusMatches(action.status,status)));
   const entries=items.map(item=>({item,range:actionRange(item)})).filter(entry=>entry.range);
   const visibleItems=entries.filter(entry=>entry.range.start<=days[days.length-1]&&entry.range.end>=days[0]).map(entry=>entry.item).sort((left,right)=>(left.due||'').localeCompare(right.due||''));
-  const grid=document.getElementById('week-grid');grid.style.setProperty('--calendar-days',calendarView==='month'?7:count);grid.classList.toggle('month-view',calendarView==='month');
+  const grid=document.getElementById('week-grid');grid.style.setProperty('--calendar-days',calendarView==='month'?7:count);grid.classList.toggle('month-view',calendarView==='month');grid.dataset.view=calendarView;
   const labelled=new Set(),weeks=calendarView==='month'?Array.from({length:6},(_,weekIndex)=>days.slice(weekIndex*7,weekIndex*7+7)):[days];
-  grid.innerHTML=weeks.map(week=>renderActionRangeWeek(week,entries,labelled,calendarView==='month'?monthStart:null)).join('');
+  const weekdayHeader=calendarView==='month'?`<div class="range-weekday-row">${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(day=>`<div class="pipeline-cal-weekday">${day}</div>`).join('')}</div>`:'';
+  grid.innerHTML=weekdayHeader+weeks.map(week=>renderActionRangeWeek(week,entries,labelled,calendarView==='month'?monthStart:null)).join('');
   const first=days[0],last=days[days.length-1],range=document.getElementById('calendar-range');
   if(range)range.textContent=calendarView==='month'?monthStart.toLocaleDateString('en-GB',{month:'long',year:'numeric'}):first.getTime()===last.getTime()?first.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):`${first.toLocaleDateString('en-GB',{day:'numeric',month:'short'})} – ${last.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}`;
   const tbody=document.getElementById('calendar-tbody');
@@ -1690,9 +1789,10 @@ function showTab(name, el) {
 }
 
 function initialiseAllFilters() {
-  const allValueIds = ['action-status','action-due','action-owner','action-function','action-vertical','action-frequency','decision-type','decision-function','decision-status','decision-owner','decision-date','pipeline-owner','pipeline-type','pipeline-quarter','pipeline-calendar-owner','pipeline-calendar-vertical','learning-type','learning-status','learning-owner','learning-quarter','calendar-owner','calendar-function','calendar-status','boulder-owner','boulder-status','boulder-quarter','completed-owner','completed-function'];
+  const allValueIds = ['action-status','action-due','action-owner','action-function','action-vertical','action-frequency','action-source','decision-type','decision-function','decision-status','decision-owner','decision-date','pipeline-owner','pipeline-type','pipeline-quarter','pipeline-calendar-owner','pipeline-calendar-vertical','learning-type','learning-status','learning-owner','learning-quarter','calendar-owner','calendar-function','calendar-status','boulder-owner','boulder-status','boulder-quarter','completed-owner','completed-function'];
   allValueIds.forEach(id => { const element=document.getElementById(id); if(element && [...element.options].some(option=>option.value==='all')) element.value='all'; });
-  activeFilters.status='all'; activeFilters.due='all'; activeFilters.owner=null; activeFilters.function=null; activeFilters.vertical=null; activeFilters.frequency=null;
+  const completedDate=document.getElementById('completed-date');if(completedDate)completedDate.value='this-week';
+  activeFilters.status='all'; activeFilters.due='all'; activeFilters.owner=null; activeFilters.function=null; activeFilters.vertical=null; activeFilters.frequency=null; activeFilters.source=null;
   pipelineFilters.stage='all'; pipelineFilters.owner=null; pipelineFilters.type=null; pipelineFilters.quarter=null;
   learningsTypeFilter='all'; learningsStatusFilter=null;
   Object.keys(pageState).forEach(key => { pageState[key]=1; });
