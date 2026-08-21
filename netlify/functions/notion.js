@@ -74,7 +74,7 @@ async function getDatabaseSchema(databaseId) {
   };
 }
 
-async function completePage(pageId) {
+async function completePage(pageId, requestedCompletionDate) {
   const page = await notion.pages.retrieve({ page_id: pageId });
   const databaseId = normaliseId(page.parent && page.parent.database_id);
   const actionsId = normaliseId(DB_IDS.actions);
@@ -95,16 +95,25 @@ async function completePage(pageId) {
   }
 
   const completionStatus = databaseId === bugsId ? 'Resolved' : 'Done';
-  const completionDateProperty = databaseId === bugsId ? 'Date Resolved' : 'Completed Date';
+  if (requestedCompletionDate && !/^\d{4}-\d{2}-\d{2}$/.test(String(requestedCompletionDate))) {
+    const error = new Error('completion_date must use YYYY-MM-DD format.');
+    error.statusCode = 400;
+    throw error;
+  }
+  const completionDate = requestedCompletionDate || new Date().toISOString().slice(0, 10);
+  const completionDateCandidates = databaseId === bugsId
+    ? ['Date Resolved']
+    : ['Completion Date', 'Completed Date'];
+  const completionDateProperty = completionDateCandidates.find(name => page.properties?.[name]?.type === 'date');
   const properties = {
     Status: statusProperty.type === 'status'
       ? { status: { name: completionStatus } }
       : { select: { name: completionStatus } },
   };
 
-  if (page.properties[completionDateProperty] && page.properties[completionDateProperty].type === 'date') {
+  if (completionDateProperty) {
     properties[completionDateProperty] = {
-      date: { start: new Date().toISOString().slice(0, 10) },
+      date: { start: completionDate },
     };
   }
 
@@ -179,7 +188,7 @@ exports.handler = async event => {
         return response(400, { error: 'Missing page_id.' });
       }
 
-      return response(200, await completePage(body.page_id));
+      return response(200, await completePage(body.page_id, body.completion_date));
     }
 
     if (body.operation === 'reschedule') {
