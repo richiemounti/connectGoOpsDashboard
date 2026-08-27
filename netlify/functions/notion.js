@@ -6,6 +6,7 @@ const DB_IDS = {
   actions: '9ad685dca6294a8e8978f1314d0b1ada',
   governance: '0a17cd5ae06b44f49a0b71df06c3e71e',
   bugs: '752c1cbb11534520a47b7411e0ba9e57',
+  risks: '32cc7c4edba04b15a9639fabbb9ee4f5',
   decisions: '216c56074fcb42d5b2b0ace5f606e1a0',
   learnings: '29360bfb014e80d68dc7fdd8ceb21875',
   milestones: '30560bfb014e80568a6dd1d280d91c88',
