@@ -51,7 +51,7 @@ export default async function gate(request, context) {
 
 function hasAccess(session, siteKey) {
   const roles = (session.roles || []).map((role) => String(role).toLowerCase());
-  return roles.includes(siteKey);
+  return roles.includes('admin') || roles.includes(siteKey);
 }
 
 const redirect = (url, path) => Response.redirect(new URL(path, url.origin), 302);

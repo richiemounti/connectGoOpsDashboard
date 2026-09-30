@@ -1,4 +1,5 @@
 const { Client } = require('@notionhq/client');
+const { requireUser, unauthorized } = require('./auth');
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
@@ -164,6 +165,8 @@ exports.handler = async event => {
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 204, headers, body: '' };
   }
+
+  if (!requireUser(event)) return unauthorized();
 
   if (!process.env.NOTION_TOKEN) {
     return response(500, { error: 'NOTION_TOKEN is not configured.' });
