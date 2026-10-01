@@ -112,15 +112,76 @@ function hasDashboardRole(session, requiredRole = process.env.SITE_KEY) {
   return !requiredRole || roles.includes('admin') || roles.includes(requiredRole);
 }
 
-function requireUser(event, requiredRole = process.env.SITE_KEY) {
+// Checks the cookie AND the live user record, so deactivating someone or
+// removing a role takes effect on their next request, not when their session
+// expires. Pass '' as requiredRole for "any signed-in user". Fails closed if
+// the database can't be reached.
+async function requireUser(event, requiredRole = process.env.SITE_KEY) {
   const session = verifyToken(getCookie(event));
-  return session && hasDashboardRole(session, requiredRole) ? session : null;
+  if (!session?.email) return null;
+  let user;
+  try {
+    user = await (await users()).findOne({ email: session.email }, { projection: { password_hash: 0 } });
+  } catch (error) {
+    console.error('Could not check session against users:', error.message);
+    return null;
+  }
+  if (!user || user.active === false) return null;
+  const current = { ...session, name: user.name || null, roles: user.roles || [] };
+  return hasDashboardRole(current, requiredRole) ? current : null;
 }
 
 function unauthorized() { return json(401, { error: 'Not authorised' }); }
 
+// State-changing requests must come from this site's own pages. SameSite=Lax
+// already keeps the cookie off cross-site POSTs; this is belt and braces.
+function sameOrigin(event) {
+  const origin = event.headers?.origin;
+  const host = event.headers?.['x-forwarded-host'] || event.headers?.host;
+  if (!origin || !host) return false;
+  try { return new URL(origin).host === host; } catch { return false; }
+}
+
+async function hashPassword(password) {
+  const salt = randomBytes(16);
+  const hash = await scryptAsync(password, salt, SCRYPT.keylen, { N: SCRYPT.N, r: SCRYPT.r, p: SCRYPT.p, maxmem: SCRYPT.maxmem });
+  return ['scrypt', SCRYPT.N, SCRYPT.r, SCRYPT.p, salt.toString('base64'), Buffer.from(hash).toString('base64')].join('$');
+}
+
+const MIN_PASSWORD = 12;
+
+async function changePassword(event) {
+  if (!sameOrigin(event)) return json(403, { error: 'Cross-site request refused' });
+  const session = await requireUser(event, '');
+  if (!session) return unauthorized();
+  const body = parseBody(event);
+  if (!body) return json(400, { error: 'Expected valid JSON' });
+  const current = String(body.current || '');
+  const next = String(body.next || '');
+  if (next.length < MIN_PASSWORD) return json(400, { error: `New password must be at least ${MIN_PASSWORD} characters` });
+  if (next === current) return json(400, { error: 'New password must be different from the current one' });
+
+  const collection = await users();
+  const user = await collection.findOne({ email: session.email });
+  if (isLockedOut(user)) return json(429, { error: 'Too many failed attempts. Try again in 15 minutes.' });
+  const valid = await validPassword(user, current);
+  await recordLogin(collection, session.email, user, valid);
+  if (!valid) return json(401, { error: 'Current password is incorrect' });
+
+  await collection.updateOne({ email: session.email }, {
+    $set: { password_hash: await hashPassword(next), password_changed_at: new Date(), updated_at: new Date() },
+  });
+  return json(200, { ok: true });
+}
+
 exports.requireUser = requireUser;
 exports.unauthorized = unauthorized;
+exports.sameOrigin = sameOrigin;
+exports.hashPassword = hashPassword;
+exports.isLockedOut = isLockedOut;
+exports.parseBody = parseBody;
+exports.users = users;
+exports.json = json;
 
 exports.handler = async event => {
   const action = event.queryStringParameters?.action;
@@ -131,6 +192,21 @@ exports.handler = async event => {
       headers: { location: '/login.html?signed_out=1', 'cache-control': 'no-store', 'set-cookie': setCookie('', 0) },
       body: '',
     };
+  }
+
+  if (action === 'me' && event.httpMethod === 'GET') {
+    const session = await requireUser(event, '');
+    if (!session) return unauthorized();
+    return json(200, { email: session.email, name: session.name, roles: session.roles, site: process.env.SITE_KEY || null });
+  }
+
+  if (action === 'change-password' && event.httpMethod === 'POST') {
+    try {
+      return await changePassword(event);
+    } catch (error) {
+      console.error('Password change unavailable:', error.message);
+      return json(503, { error: 'Password change is temporarily unavailable' });
+    }
   }
 
   if (action !== 'login' || event.httpMethod !== 'POST') return json(405, { error: 'Method not allowed' });

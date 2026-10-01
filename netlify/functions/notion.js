@@ -166,7 +166,7 @@ exports.handler = async event => {
     return { statusCode: 204, headers, body: '' };
   }
 
-  if (!requireUser(event)) return unauthorized();
+  if (!(await requireUser(event))) return unauthorized();
 
   if (!process.env.NOTION_TOKEN) {
     return response(500, { error: 'NOTION_TOKEN is not configured.' });

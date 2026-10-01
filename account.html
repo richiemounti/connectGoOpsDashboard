@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>My account &middot; ConnectGo</title>
+<style>
+  :root {
+    --green: #1C332C;
+    --gold: #C2A14D;
+    --bg: #F2F1EC;
+    --border: #C7CFC9;
+    --muted: #5F6B64;
+    --danger: #A6312B;
+    --ok: #2E6B4F;
+  }
+  * { box-sizing: border-box; }
+  html, body { min-height: 100%; }
+  body {
+    margin: 0; display: grid; place-items: center; padding: 24px 16px;
+    background: var(--bg); color: var(--green);
+    font: 16px/1.5 'Space Grotesk', ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 27rem; background: #fff; border-radius: 20px; padding: 2.5rem 2.5rem 2rem;
+    box-shadow: 0 1px 2px rgba(28,51,44,.04), 0 12px 32px -12px rgba(28,51,44,.14);
+  }
+  .wordmark { margin: 0 0 2rem; font-size: 1.75rem; font-weight: 700; letter-spacing: -.02em; }
+  .wordmark em { font-style: normal; color: var(--gold); }
+  h1 { margin: 0 0 .25rem; font-size: 1.6rem; letter-spacing: -.02em; }
+  h2 { margin: 2rem 0 1rem; font-size: 1.1rem; }
+  .sub { margin: 0; color: var(--muted); word-break: break-all; }
+  .access { display: flex; flex-wrap: wrap; gap: 6px; margin: 1rem 0 0; padding: 0; list-style: none; }
+  .access li { padding: 3px 10px; border-radius: 99px; background: rgba(28,51,44,.07); font-size: .8rem; font-weight: 700; }
+  .access li.admin { background: rgba(194,161,77,.18); }
+  label { display: block; margin: 0 0 .4rem; font-weight: 700; font-size: .95rem; }
+  input {
+    width: 100%; margin: 0 0 1.2rem; padding: .75rem .9rem; font: inherit; color: var(--green);
+    background: #fff; border: 1px solid var(--border); border-radius: 9px;
+  }
+  input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(28,51,44,.12); }
+  .hint { margin: -.85rem 0 1.2rem; color: var(--muted); font-size: .82rem; }
+  button {
+    width: 100%; padding: .9rem; font: inherit; font-weight: 700; color: #fff;
+    background: var(--green); border: 0; border-radius: 9px; cursor: pointer;
+  }
+  button:hover:not(:disabled) { background: #152722; }
+  button:disabled { opacity: .65; cursor: progress; }
+  .msg { margin: 0 0 1.2rem; padding: .7rem .85rem; border: 1px solid; border-radius: 9px; font-size: .93rem; }
+  .msg.error { color: var(--danger); border-color: rgba(166,49,43,.3); background: rgba(166,49,43,.06); }
+  .msg.info { color: var(--ok); border-color: rgba(46,107,79,.3); background: rgba(46,107,79,.06); }
+  .links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 2rem 0 0; font-size: .95rem; }
+  .links a { color: var(--green); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main class="card">
+  <p class="wordmark">CONNECT<em>GO</em></p>
+  <h1 id="name">My account</h1>
+  <p class="sub" id="email">Loading…</p>
+  <ul class="access" id="access"></ul>
+
+  <h2>Change password</h2>
+  <div id="message" class="msg" hidden></div>
+  <form id="form">
+    <label for="current">Current password</label>
+    <input id="current" type="password" required autocomplete="current-password">
+    <label for="next">New password</label>
+    <input id="next" type="password" required minlength="12" autocomplete="new-password">
+    <p class="hint">At least 12 characters.</p>
+    <label for="confirm">Confirm new password</label>
+    <input id="confirm" type="password" required minlength="12" autocomplete="new-password">
+    <button id="submit" type="submit">Update password</button>
+  </form>
+
+  <p class="links">
+    <a href="/">Back to dashboard</a>
+    <a href="/admin.html" id="admin-link" hidden>Manage users</a>
+    <a href="/.netlify/functions/auth?action=logout">Sign out</a>
+  </p>
+</main>
+<script>
+(function () {
+  'use strict';
+  var API = '/.netlify/functions/auth';
+  var LABELS = { kb: 'Knowledge Base', ops: 'Ops', governance: 'Governance', financials: 'Financials', admin: 'Admin · all dashboards' };
+  var msg = document.getElementById('message');
+
+  function show(text, kind) {
+    msg.textContent = text;
+    msg.className = 'msg ' + kind;
+    msg.hidden = false;
+  }
+
+  fetch(API + '?action=me', { cache: 'no-store' })
+    .then(function (res) {
+      if (res.status === 401) { location.href = '/login.html?next=' + encodeURIComponent('/account.html'); return null; }
+      return res.json();
+    })
+    .then(function (me) {
+      if (!me) return;
+      document.getElementById('name').textContent = me.name || 'My account';
+      document.getElementById('email').textContent = me.email;
+      var list = document.getElementById('access');
+      (me.roles || []).forEach(function (role) {
+        var li = document.createElement('li');
+        li.textContent = LABELS[role] || role;
+        if (role === 'admin') li.className = 'admin';
+        list.appendChild(li);
+      });
+      // The user-management panel lives on the KB site only.
+      if (me.site === 'kb' && (me.roles || []).indexOf('admin') !== -1) {
+        document.getElementById('admin-link').hidden = false;
+      }
+    })
+    .catch(function () { document.getElementById('email').textContent = 'Could not load your account.'; });
+
+  document.getElementById('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var current = document.getElementById('current').value;
+    var next = document.getElementById('next').value;
+    if (next !== document.getElementById('confirm').value) { show('New passwords do not match.', 'error'); return; }
+    var btn = document.getElementById('submit');
+    btn.disabled = true;
+    fetch(API + '?action=change-password', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ current: current, next: next }),
+    })
+      .then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          if (!res.ok) throw new Error(data.error || 'Could not update password');
+        });
+      })
+      .then(function () { e.target.reset(); show('Password updated. Use it next time you sign in, on every dashboard.', 'info'); })
+      .catch(function (err) { show(err.message, 'error'); })
+      .then(function () { btn.disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>

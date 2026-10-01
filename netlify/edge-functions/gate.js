@@ -1,5 +1,11 @@
 /**
- * security
+ * gate.js — the sign-in wall.
+ *
+ * Runs on Netlify's edge in front of every request, before any file is
+ * served. No valid session, no dashboard.
+ *
+ * Runs on Deno, so it uses Web Crypto. It only verifies the session token —
+ * passwords and MongoDB live in netlify/functions/auth.js.
  */
 
 const COOKIE = '__Host-cg_session';
@@ -32,7 +38,7 @@ export default async function gate(request, context) {
   const session = await verifyToken(getCookie(request), secret);
   if (!session) {
     const next = encodeURIComponent(url.pathname + url.search);
-    return redirect(url, `/login?next=${next}`);
+    return redirect(url, `/login.html?next=${next}`);
   }
 
   // Signed in but missing this dashboard's role — a different situation from
@@ -41,7 +47,7 @@ export default async function gate(request, context) {
   // financials) and never contains anything personal, so it is safe in a URL.
   const siteKey = Netlify.env.get('SITE_KEY') || '';
   if (siteKey && !hasAccess(session, siteKey)) {
-    return redirect(url, `/login?denied=${encodeURIComponent(siteKey)}`);
+    return redirect(url, `/login.html?denied=${encodeURIComponent(siteKey)}`);
   }
 
   const response = await context.next();
