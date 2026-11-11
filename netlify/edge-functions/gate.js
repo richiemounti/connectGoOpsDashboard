@@ -8,31 +8,34 @@
  * passwords and MongoDB live in netlify/functions/auth.js.
  */
 
-const COOKIE = '__Host-cg_session';
+const COOKIE = "__Host-cg_session";
 
 /** Reachable while signed out, or nobody could ever sign in. */
 const PUBLIC = new Set([
-  '/login',
-  '/login.html',
-  '/.netlify/functions/auth',
-  '/favicon.ico',
-  '/robots.txt',
+  "/login",
+  "/login.html",
+  "/.netlify/functions/auth",
+  "/favicon.ico",
+  "/robots.txt",
 ]);
 
-export const config = { path: '/*' };
+export const config = { path: "/*" };
 
 export default async function gate(request, context) {
   const url = new URL(request.url);
   if (PUBLIC.has(url.pathname)) return context.next();
 
-  const secret = Netlify.env.get('AUTH_JWT_SECRET');
+  const secret = Netlify.env.get("AUTH_JWT_SECRET");
 
   // Fail closed: a misconfigured site locks everyone out, never lets everyone in.
   if (!secret) {
-    return new Response('Sign-in is not configured (AUTH_JWT_SECRET missing).', {
-      status: 503,
-      headers: { 'content-type': 'text/plain' },
-    });
+    return new Response(
+      "Sign-in is not configured (AUTH_JWT_SECRET missing).",
+      {
+        status: 503,
+        headers: { "content-type": "text/plain" },
+      },
+    );
   }
 
   const session = await verifyToken(getCookie(request), secret);
@@ -45,35 +48,42 @@ export default async function gate(request, context) {
   // signed out, so login.html shows its no-access state instead of the form.
   // The site key is this deployment's name for itself (governance, kb, ops,
   // financials) and never contains anything personal, so it is safe in a URL.
-  const siteKey = Netlify.env.get('SITE_KEY') || '';
+  const siteKey = Netlify.env.get("SITE_KEY") || "";
   if (siteKey && !hasAccess(session, siteKey)) {
     return redirect(url, `/login.html?denied=${encodeURIComponent(siteKey)}`);
   }
 
   const response = await context.next();
-  response.headers.set('cache-control', 'private, no-store');
+  response.headers.set("cache-control", "private, no-store");
   return response;
 }
 
 function hasAccess(session, siteKey) {
-  const roles = (session.roles || []).map((role) => String(role).toLowerCase());
-  return roles.includes('admin') || roles.includes(siteKey);
+  if (
+    !Array.isArray(session.roles) ||
+    session.roles.some((role) => typeof role !== "string")
+  )
+    return false;
+  const roles = session.roles.map((role) => role.toLowerCase());
+  return roles.includes("admin") || roles.includes(siteKey);
 }
 
-const redirect = (url, path) => Response.redirect(new URL(path, url.origin), 302);
+const redirect = (url, path) =>
+  Response.redirect(new URL(path, url.origin), 302);
 
 function getCookie(request) {
-  const header = request.headers.get('cookie') || '';
-  for (const pair of header.split(';')) {
-    const eq = pair.indexOf('=');
-    if (eq > -1 && pair.slice(0, eq).trim() === COOKIE) return pair.slice(eq + 1).trim();
+  const header = request.headers.get("cookie") || "";
+  for (const pair of header.split(";")) {
+    const eq = pair.indexOf("=");
+    if (eq > -1 && pair.slice(0, eq).trim() === COOKIE)
+      return pair.slice(eq + 1).trim();
   }
-  return '';
+  return "";
 }
 
 function decode(segment) {
-  const padded = segment.replace(/-/g, '+').replace(/_/g, '/');
-  const binary = atob(padded + '='.repeat((4 - (padded.length % 4)) % 4));
+  const padded = segment.replace(/-/g, "+").replace(/_/g, "/");
+  const binary = atob(padded + "=".repeat((4 - (padded.length % 4)) % 4));
   return Uint8Array.from(binary, (char) => char.charCodeAt(0));
 }
 
@@ -81,32 +91,47 @@ const asText = (bytes) => new TextDecoder().decode(bytes);
 const asBytes = (text) => new TextEncoder().encode(text);
 
 async function verifyToken(token, secret) {
-  const [header, payload, signature] = String(token).split('.');
-  if (!header || !payload || !signature) return null;
+  const parts = String(token || "").split(".");
+  if (
+    parts.length !== 3 ||
+    parts.some((part) => !part || !/^[A-Za-z0-9_-]+$/.test(part))
+  )
+    return null;
+  const [header, payload, signature] = parts;
 
   // Only ever HS256. Taking the algorithm from the token itself is the
   // alg-confusion hole that lets an attacker forge a session.
   try {
-    if (JSON.parse(asText(decode(header))).alg !== 'HS256') return null;
+    if (JSON.parse(asText(decode(header))).alg !== "HS256") return null;
+    const key = await crypto.subtle.importKey(
+      "raw",
+      asBytes(secret),
+      { name: "HMAC", hash: "SHA-256" },
+      false,
+      ["verify"],
+    );
+    const valid = await crypto.subtle.verify(
+      "HMAC",
+      key,
+      decode(signature),
+      asBytes(`${header}.${payload}`),
+    );
+    if (!valid) return null;
+
+    const claims = JSON.parse(asText(decode(payload)));
+    if (!claims || typeof claims !== "object" || Array.isArray(claims))
+      return null;
+    if (
+      claims.roles !== undefined &&
+      (!Array.isArray(claims.roles) ||
+        claims.roles.some((role) => typeof role !== "string"))
+    )
+      return null;
+
+    const now = Math.floor(Date.now() / 1000);
+    return Number.isFinite(claims.exp) && claims.exp >= now ? claims : null;
   } catch {
+    // Bad base64, malformed claims, and Web Crypto failures all fail closed.
     return null;
   }
-
-  const key = await crypto.subtle.importKey(
-    'raw', asBytes(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify'],
-  );
-  const valid = await crypto.subtle.verify(
-    'HMAC', key, decode(signature), asBytes(`${header}.${payload}`),
-  );
-  if (!valid) return null;
-
-  let claims;
-  try {
-    claims = JSON.parse(asText(decode(payload)));
-  } catch {
-    return null;
-  }
-
-  const now = Math.floor(Date.now() / 1000);
-  return typeof claims.exp === 'number' && claims.exp >= now ? claims : null;
 }
