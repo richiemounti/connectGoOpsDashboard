@@ -5731,6 +5731,208 @@
       .nav-item {
         font-weight: 500;
       }
+      /* Actions: one labelled filter band aligned with the results table. */
+      #tab-actions .page-header {
+        margin-bottom: 24px;
+      }
+      #tab-actions .page-header .page-title {
+        font-size: 34px;
+      }
+      #tab-actions .page-sub {
+        display: block;
+        margin-top: 6px;
+        font-size: 13px;
+        line-height: 1.6;
+      }
+      #tab-actions .action-filter-panel {
+        padding: 23px 24px 24px;
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-radius: 14px 14px 0 0;
+        margin: 0;
+      }
+      #tab-actions .action-filter-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 22px;
+      }
+      #tab-actions .action-filter-heading h2 {
+        font: 500 22px/1.2 var(--display);
+        color: var(--green);
+        margin: 0;
+      }
+      #tab-actions .action-filter-heading p {
+        margin: 4px 0 0;
+        font-size: 12px;
+        color: var(--ink-3);
+      }
+      #tab-actions #action-filter-clear {
+        padding: 7px 0 7px 14px;
+        background: none;
+        border: 0;
+        color: var(--green);
+        font: 500 12px var(--body);
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      #tab-actions #action-filter-clear:disabled {
+        color: var(--ink-3);
+        opacity: 0.55;
+        cursor: default;
+        text-decoration: none;
+      }
+      #tab-actions .action-filter-primary {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+      }
+      #tab-actions .action-filter-secondary {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 18px;
+        padding-top: 18px;
+        border-top: 1px solid var(--rule);
+      }
+      #tab-actions .action-filter-field {
+        display: grid;
+        min-width: 0;
+        gap: 7px;
+      }
+      #tab-actions .action-filter-field > span {
+        font: 500 11px/1.4 var(--body);
+        color: var(--ink-3);
+      }
+      #tab-actions .action-filter-field .compact-filter {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        min-height: 43px;
+        margin: 0;
+        padding: 10px 28px 10px 12px;
+        color: var(--green);
+        background: var(--white);
+        border: 1px solid var(--rule);
+        border-radius: 6px;
+        box-shadow: none;
+        font: 400 12px/1.5 var(--body);
+        text-overflow: ellipsis;
+        cursor: pointer;
+      }
+      #tab-actions .action-filter-field .compact-filter:hover {
+        border-color: var(--olive);
+      }
+      #tab-actions .action-filter-field .compact-filter:focus-visible {
+        border-color: var(--green);
+        outline: 2px solid var(--olive);
+        outline-offset: 2px;
+      }
+      #tab-actions > .section-block {
+        margin-top: 0;
+        border-top: 0;
+        border-radius: 0 0 14px 14px;
+        overflow: hidden;
+        box-shadow: none;
+      }
+      #tab-actions .action-results-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 18px 24px;
+        border-bottom: 1px solid var(--rule);
+        background: var(--white);
+      }
+      #tab-actions #action-result-count {
+        color: var(--green);
+        font: 500 13px var(--body);
+      }
+      #tab-actions .action-columns {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0;
+        margin: 0;
+        color: var(--ink-3);
+        font: 400 12px var(--body);
+        cursor: pointer;
+      }
+      #tab-actions .action-columns input {
+        width: 16px;
+        height: 16px;
+        margin: 0;
+        accent-color: var(--green);
+        cursor: pointer;
+      }
+      #tab-actions .action-scroll {
+        border-radius: 0;
+      }
+      #tab-actions .data-table th {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-weight: 500;
+      }
+      #tab-actions .completed-section {
+        margin-top: 32px;
+      }
+      @media (max-width: 1000px) {
+        #tab-actions .action-filter-primary {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 600px) {
+        #tab-actions .action-filter-panel {
+          padding: 20px 16px;
+        }
+        #tab-actions .action-filter-heading {
+          align-items: flex-start;
+          margin-bottom: 20px;
+        }
+        #tab-actions .action-filter-heading p {
+          max-width: 190px;
+          line-height: 1.5;
+        }
+        #tab-actions .action-filter-primary,
+        #tab-actions .action-filter-secondary {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 15px 12px;
+        }
+        #tab-actions .action-filter-secondary .action-filter-field:last-child {
+          grid-column: 1 / -1;
+        }
+        #tab-actions .action-results-toolbar {
+          padding: 16px;
+        }
+      }
+      /* One quiet chevron across all filter controls; native selection stays intact. */
+      #tab-actions select.compact-filter,
+      #tab-actions .action-filter-field select.compact-filter,
+      #tab-decisions select.compact-filter,
+      #tab-pipeline select.compact-filter,
+      #tab-learnings select.compact-filter,
+      #tab-calendar select.compact-filter,
+      #tab-calendar .calendar-toolbar-filters select.compact-filter,
+      #tab-boulders select.compact-filter {
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='m3 4.5 3 3 3-3' fill='none' stroke='%2311302A' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        background-size: 12px 12px;
+        padding-right: 38px;
+      }
+      @media (forced-colors: active) {
+        .app select.compact-filter {
+          appearance: auto !important;
+          -webkit-appearance: auto !important;
+          background-image: none !important;
+        }
+      }
     </style>
   </head>
   <body data-view="mywork">
@@ -6405,96 +6607,143 @@
               </div>
             </div>
           </div>
-          <div class="filter-section">
-            <select
-              class="compact-filter"
-              id="action-status"
-              onchange="setActionFilter('status',this.value)"
-            >
-              <option value="all">All statuses</option>
-            </select>
-            <select
-              class="compact-filter"
-              id="action-due"
-              onchange="setActionFilter('due',this.value)"
-            >
-              <option value="all">All dates</option>
-              <option value="overdue">Overdue</option>
-              <option value="today">Due today</option>
-              <option value="this-week">This week</option>
-              <option value="upcoming">Upcoming</option>
-              <option value="no-date">No due date</option>
-            </select>
-            <select
-              class="compact-filter"
-              id="action-source"
-              onchange="setActionFilter('source',this.value)"
-            >
-              <option value="all">All sources</option>
-              <option>Action Database</option>
-              <option>Governance Tracker</option>
-              <option>Bug Log</option>
-              <option>Risk Register</option>
-            </select>
-            <select
-              class="compact-filter"
-              id="action-owner"
-              autocomplete="off"
-              onchange="setActionFilter('owner',this.value)"
-            >
-              <option value="all" selected>All owners</option>
-              <option>Kate</option>
-              <option>Sam</option>
-              <option>Hannah</option>
-              <option>Belinda</option>
-              <option>Sumaiya</option>
-              <option>Emma</option>
-              <option>Hope</option>
-              <option>Evie</option>
-            </select>
-            <select
-              class="compact-filter"
-              id="action-function"
-              onchange="setActionFilter('function',this.value)"
-            >
-              <option value="all">All functions</option>
-              <option value="Product Development">Product Development</option>
-              <option value="Marketing & Sales">Marketing & Sales</option>
-              <option value="Compliance">Compliance</option>
-              <option value="Knowledge Base">Knowledge Base</option>
-              <option value="Commercials">Commercials</option>
-              <option value="Client work">Client work</option>
-              <option value="Writing">Writing</option>
-            </select>
-            <select
-              class="compact-filter"
-              id="action-vertical"
-              onchange="setActionFilter('vertical',this.value)"
-            >
-              <option value="all">All verticals</option>
-            </select>
-            <select
-              class="compact-filter"
-              id="action-frequency"
-              onchange="setActionFilter('frequency',this.value)"
-            >
-              <option value="all" selected>All frequencies</option>
-              <option>One-off</option>
-              <option>Monthly</option>
-              <option>Quarterly</option>
-              <option>Ad-hoc</option>
-              <option>Bi-annual</option>
-              <option>Annually</option>
-            </select>
-          </div>
+          <section class="action-filter-panel" aria-label="Filter actions">
+            <div class="action-filter-heading">
+              <div>
+                <h2>Filter actions</h2>
+                <p>Choose what appears in both task lists.</p>
+              </div>
+              <button
+                type="button"
+                id="action-filter-clear"
+                onclick="clearActionFilters()"
+                disabled
+              >
+                Clear filters
+              </button>
+            </div>
+            <div class="action-filter-primary">
+              <label class="action-filter-field"
+                ><span>Owner</span
+                ><select
+                  class="compact-filter"
+                  id="action-owner"
+                  aria-label="Owner"
+                  autocomplete="off"
+                  onchange="setActionFilter('owner',this.value)"
+                >
+                  <option value="all" selected>All owners</option>
+                  <option>Kate</option>
+                  <option>Sam</option>
+                  <option>Hannah</option>
+                  <option>Belinda</option>
+                  <option>Sumaiya</option>
+                  <option>Emma</option>
+                  <option>Hope</option>
+                  <option>Evie</option>
+                </select></label
+              ><label class="action-filter-field"
+                ><span>Status</span
+                ><select
+                  class="compact-filter"
+                  id="action-status"
+                  aria-label="Status"
+                  onchange="setActionFilter('status',this.value)"
+                >
+                  <option value="all">All statuses</option>
+                </select></label
+              ><label class="action-filter-field"
+                ><span>Due date</span
+                ><select
+                  class="compact-filter"
+                  id="action-due"
+                  aria-label="Due date"
+                  onchange="setActionFilter('due',this.value)"
+                >
+                  <option value="all">All dates</option>
+                  <option value="overdue">Overdue</option>
+                  <option value="today">Due today</option>
+                  <option value="this-week">This week</option>
+                  <option value="upcoming">Upcoming</option>
+                  <option value="no-date">No due date</option>
+                </select></label
+              ><label class="action-filter-field"
+                ><span>Register</span
+                ><select
+                  class="compact-filter"
+                  id="action-source"
+                  aria-label="Register"
+                  onchange="setActionFilter('source',this.value)"
+                >
+                  <option value="all">All sources</option>
+                  <option>Action Database</option>
+                  <option>Governance Tracker</option>
+                  <option>Bug Log</option>
+                  <option>Risk Register</option>
+                </select></label
+              >
+            </div>
+            <div class="action-filter-secondary">
+              <label class="action-filter-field"
+                ><span>Function</span
+                ><select
+                  class="compact-filter"
+                  id="action-function"
+                  aria-label="Function"
+                  onchange="setActionFilter('function',this.value)"
+                >
+                  <option value="all">All functions</option>
+                  <option value="Product Development">
+                    Product Development
+                  </option>
+                  <option value="Marketing & Sales">Marketing & Sales</option>
+                  <option value="Compliance">Compliance</option>
+                  <option value="Knowledge Base">Knowledge Base</option>
+                  <option value="Commercials">Commercials</option>
+                  <option value="Client work">Client work</option>
+                  <option value="Writing">Writing</option>
+                </select></label
+              ><label class="action-filter-field"
+                ><span>Vertical</span
+                ><select
+                  class="compact-filter"
+                  id="action-vertical"
+                  aria-label="Vertical"
+                  onchange="setActionFilter('vertical',this.value)"
+                >
+                  <option value="all">All verticals</option>
+                </select></label
+              ><label class="action-filter-field"
+                ><span>Review frequency</span
+                ><select
+                  class="compact-filter"
+                  id="action-frequency"
+                  aria-label="Review frequency"
+                  onchange="setActionFilter('frequency',this.value)"
+                >
+                  <option value="all" selected>All frequencies</option>
+                  <option>One-off</option>
+                  <option>Monthly</option>
+                  <option>Quarterly</option>
+                  <option>Ad-hoc</option>
+                  <option>Bi-annual</option>
+                  <option>Annually</option>
+                </select></label
+              >
+            </div>
+          </section>
           <div class="section-block full">
-            <label class="action-columns"
-              ><input
-                type="checkbox"
-                onchange="document.getElementById('actions-table').classList.toggle('action-simple',!this.checked)"
-              />
-              Show all columns</label
-            >
+            <div class="action-results-toolbar">
+              <strong id="action-result-count" role="status" aria-live="polite"
+                >Loading tasks…</strong
+              ><label class="action-columns"
+                ><input
+                  type="checkbox"
+                  onchange="document.getElementById('actions-table').classList.toggle('action-simple',!this.checked)"
+                />
+                Show all columns</label
+              >
+            </div>
             <div
               class="action-scroll"
               tabindex="0"
@@ -6532,38 +6781,8 @@
               <div class="filter-section completed-filters">
                 <select
                   class="compact-filter"
-                  id="completed-owner"
-                  onchange="setCompletedFilters()"
-                >
-                  <option value="all">All owners</option>
-                  <option>Kate</option>
-                  <option>Sam</option>
-                  <option>Hannah</option>
-                  <option>Belinda</option>
-                  <option>Sumaiya</option>
-                  <option>Emma</option>
-                  <option>Hope</option>
-                  <option>Evie</option>
-                </select>
-                <select
-                  class="compact-filter"
-                  id="completed-function"
-                  onchange="setCompletedFilters()"
-                >
-                  <option value="all">All functions</option>
-                  <option value="Product Development">
-                    Product Development
-                  </option>
-                  <option value="Marketing & Sales">Marketing & Sales</option>
-                  <option value="Compliance">Compliance</option>
-                  <option value="Knowledge Base">Knowledge Base</option>
-                  <option value="Commercials">Commercials</option>
-                  <option value="Client work">Client work</option>
-                  <option value="Writing">Writing</option>
-                </select>
-                <select
-                  class="compact-filter"
                   id="completed-date"
+                  aria-label="Completion date"
                   onchange="setCompletedFilters()"
                 >
                   <option value="all" selected>All completion dates</option>
@@ -7292,7 +7511,11 @@
         endOfWeek.setDate(today.getDate() + (7 - (today.getDay() || 7)));
         if (filter === "overdue") return due < today;
         if (filter === "today") return due.getTime() === today.getTime();
-        if (filter === "this-week") return due >= today && due <= endOfWeek;
+        if (filter === "this-week") {
+          const monday = new Date(today);
+          monday.setDate(today.getDate() - ((today.getDay() + 6) % 7));
+          return due >= monday && due <= endOfWeek;
+        }
         if (filter === "upcoming") return due > endOfWeek;
         return true;
       }
@@ -7935,15 +8158,6 @@
       }
 
       // ── RENDER ACTIONS TABLE ──
-      const activeFilters = {
-        status: "all",
-        due: "all",
-        owner: null,
-        function: null,
-        vertical: null,
-        frequency: null,
-        source: null,
-      };
 
       // ── RENDER DECISIONS ──
       let decFilter = "all";
@@ -7965,7 +8179,10 @@
       };
 
       function renderLearningsFiltered() {
-        renderLearnings(learningsTypeFilter, learningsStatusFilter);
+        const type = document.getElementById("learning-type")?.value || "all";
+        const status =
+          document.getElementById("learning-status")?.value || "all";
+        renderLearnings(type, status === "all" ? null : status);
       }
 
       // ── RENDER PIPELINE (static snapshot) ──
@@ -8224,6 +8441,8 @@
       function actionStatusGroupMatches(action, group) {
         if (!group || group === "all") return true;
         const status = actionStatusKey(action.status);
+        if (group === "__completed") return isCompletedAction(action);
+        if (isCompletedAction(action)) return false;
         if (group === "__not_started")
           return ["inbox", "to do", "open"].includes(status);
         if (group === "__in_progress")
@@ -8349,43 +8568,58 @@
         return schemaMetadataPromise;
       }
 
-      function filteredActions() {
-        let rows = ACTIVE_ACTIONS.map((action) => ({
-          ...action,
-          status: actionDisplayStatus(action),
-        }));
-        if (activeFilters.status && activeFilters.status !== "all")
-          rows = rows.filter((row) =>
-            actionStatusGroupMatches(row, activeFilters.status),
-          );
-        if (activeFilters.due && activeFilters.due !== "all")
-          rows = rows.filter((row) => dueFilterMatches(row, activeFilters.due));
-        if (activeFilters.owner)
-          rows = rows.filter((row) =>
-            ownerMatches(row.owner, activeFilters.owner),
-          );
-        if (activeFilters.function)
-          rows = rows.filter((row) =>
-            functionMatches(row.fn, activeFilters.function),
-          );
-        if (activeFilters.vertical)
-          rows = rows.filter((row) =>
-            valueIncludes(row.vertical, activeFilters.vertical),
-          );
-        if (activeFilters.frequency)
-          rows = rows.filter((row) =>
-            valueIncludes(row.frequency, activeFilters.frequency),
-          );
-        if (activeFilters.source)
-          rows = rows.filter((row) => row.source === activeFilters.source);
-        return rows.sort((left, right) =>
-          (left.due || "9999").localeCompare(right.due || "9999"),
+      function getActionFilters() {
+        return Object.fromEntries(
+          [
+            "owner",
+            "status",
+            "due",
+            "source",
+            "function",
+            "vertical",
+            "frequency",
+          ].map((key) => [
+            key,
+            document.getElementById("action-" + key)?.value || "all",
+          ]),
         );
+      }
+      function filterActionRows(records) {
+        const filters = getActionFilters();
+        return records.filter(
+          (row) =>
+            (filters.status === "all" ||
+              actionStatusGroupMatches(row, filters.status)) &&
+            (filters.due === "all" || dueFilterMatches(row, filters.due)) &&
+            ownerMatches(row.owner, filters.owner) &&
+            functionMatches(row.fn, filters.function) &&
+            (filters.vertical === "all" ||
+              valueIncludes(row.vertical, filters.vertical)) &&
+            (filters.frequency === "all" ||
+              valueIncludes(row.frequency, filters.frequency)) &&
+            (filters.source === "all" || row.source === filters.source),
+        );
+      }
+      function filteredActions() {
+        return filterActionRows(ACTIVE_ACTIONS)
+          .map((action) => ({ ...action, status: actionDisplayStatus(action) }))
+          .sort((left, right) =>
+            (left.due || "9999").localeCompare(right.due || "9999"),
+          );
       }
       function renderActionsTable() {
         const tbody = document.getElementById("actions-tbody"),
           rows = filteredActions(),
           page = pageRows("actions", rows);
+        const count = document.getElementById("action-result-count");
+        if (count)
+          count.textContent =
+            rows.length + " active " + (rows.length === 1 ? "task" : "tasks");
+        const clear = document.getElementById("action-filter-clear");
+        if (clear)
+          clear.disabled = Object.values(getActionFilters()).every(
+            (value) => value === "all",
+          );
         tbody.innerHTML = page.visible.length
           ? page.visible
               .map(
@@ -8411,14 +8645,74 @@
           );
       }
       function setActionFilter(group, value) {
-        activeFilters[group] =
-          value === "all" || value === ""
-            ? group === "status"
-              ? "all"
-              : null
-            : value;
+        const select = document.getElementById("action-" + group);
+        if (select) select.value = value || "all";
         pageState.actions = 1;
+        pageState.completed = 1;
         renderActionsTable();
+        renderCompletedTable();
+        saveFilterPreferences();
+      }
+      function clearActionFilters() {
+        for (const group of [
+          "owner",
+          "status",
+          "due",
+          "source",
+          "function",
+          "vertical",
+          "frequency",
+        ]) {
+          const select = document.getElementById("action-" + group);
+          if (select) select.value = "all";
+        }
+        const completed = document.getElementById("completed-date");
+        if (completed) completed.value = "all";
+        pageState.actions = 1;
+        pageState.completed = 1;
+        renderActionsTable();
+        renderCompletedTable();
+        saveFilterPreferences();
+      }
+      function saveFilterPreferences() {
+        try {
+          const values = Object.fromEntries(
+            [...document.querySelectorAll("select.compact-filter[id]")].map(
+              (select) => [select.id, select.value],
+            ),
+          );
+          sessionStorage.setItem(
+            "connectgo-ops-filter-preferences",
+            JSON.stringify(values),
+          );
+        } catch {}
+      }
+      function restoreFilterPreferences() {
+        try {
+          const values = JSON.parse(
+            sessionStorage.getItem("connectgo-ops-filter-preferences") || "{}",
+          );
+          if (!values || typeof values !== "object" || Array.isArray(values))
+            return;
+          for (const [id, value] of Object.entries(values)) {
+            const select = document.getElementById(id);
+            if (
+              !select ||
+              select.tagName !== "SELECT" ||
+              !select.classList.contains("compact-filter") ||
+              typeof value !== "string" ||
+              value.length > 256
+            )
+              continue;
+            if (![...select.options].some((option) => option.value === value)) {
+              const option = document.createElement("option");
+              option.value = value;
+              option.textContent = value;
+              select.append(option);
+            }
+            select.value = value;
+          }
+        } catch {}
       }
       function openActionStatus(status) {
         const mapped =
@@ -8434,17 +8728,11 @@
       }
 
       function renderCompletedTable() {
-        const owner =
-            document.getElementById("completed-owner")?.value || "all",
-          fn = document.getElementById("completed-function")?.value || "all",
-          dateFilter =
-            document.getElementById("completed-date")?.value || "all";
-        const rows = DONE.filter(
-          (item) =>
-            ownerMatches(item.owner, owner) &&
-            functionMatches(item.fn, fn) &&
-            completionDateMatches(item, dateFilter),
-        ).sort((a, b) => (b.completed || "").localeCompare(a.completed || ""));
+        const dateFilter =
+          document.getElementById("completed-date")?.value || "all";
+        const rows = filterActionRows(DONE)
+          .filter((item) => completionDateMatches(item, dateFilter))
+          .sort((a, b) => (b.completed || "").localeCompare(a.completed || ""));
         const page = pageRows("completed", rows),
           tbody = document.getElementById("completed-tbody"),
           wrap = document.getElementById("completed-table-wrap"),
@@ -8583,7 +8871,8 @@
           quarter = document.getElementById("learning-quarter")?.value || "all";
         if (owner !== "all")
           rows = rows.filter((l) => ownerMatches(l.owner, owner));
-        if (quarter !== "all") rows = rows.filter((l) => l.quarter === quarter);
+        if (quarter !== "all")
+          rows = rows.filter((l) => valueIncludes(l.quarter, quarter));
         const page = pageRows("learnings", rows),
           tbody = document.getElementById("learnings-tbody");
         tbody.innerHTML = page.visible.length
@@ -8613,13 +8902,19 @@
 
       function renderPipeline() {
         let rows = PIPELINE;
+        pipelineFilters.owner =
+          document.getElementById("pipeline-owner")?.value || "all";
+        pipelineFilters.type =
+          document.getElementById("pipeline-type")?.value || "all";
+        pipelineFilters.quarter =
+          document.getElementById("pipeline-quarter")?.value || "all";
         if (pipelineFilters.stage !== "all")
           rows = rows.filter((p) => p.stage === pipelineFilters.stage);
-        if (pipelineFilters.type)
+        if (pipelineFilters.type !== "all")
           rows = rows.filter((p) => p.type === pipelineFilters.type);
-        if (pipelineFilters.quarter)
+        if (pipelineFilters.quarter !== "all")
           rows = rows.filter((p) =>
-            p.quarter.includes(pipelineFilters.quarter),
+            valueIncludes(p.quarter, pipelineFilters.quarter),
           );
         if (pipelineFilters.owner)
           rows = rows.filter((p) =>
@@ -9010,19 +9305,22 @@
         const select = document.getElementById(id);
         if (!select) return;
         const previous = select.value;
+        const options = uniqueOptions([
+          ...values,
+          ...(previous && previous !== allValue ? [previous] : []),
+        ]);
         select.innerHTML =
           `<option value="${esc(allValue)}">${esc(allLabel)}</option>` +
-          values
+          options
             .map(
               (value) => `<option value="${esc(value)}">${esc(value)}</option>`,
             )
             .join("");
-        select.value = values.includes(previous) ? previous : allValue;
+        select.value = previous || allValue;
       }
       function populateDataFilters() {
         [
           "action-owner",
-          "completed-owner",
           "calendar-owner",
           "decision-owner",
           "pipeline-owner",
@@ -9030,7 +9328,27 @@
           "learning-owner",
           "boulder-owner",
         ].forEach((id) =>
-          populateSelect(id, TEAM_MEMBERS, "all", "All owners"),
+          populateSelect(
+            id,
+            uniqueOptions(
+              [
+                ...TEAM_MEMBERS,
+                ...[
+                  ...ALL_ACTIONS,
+                  ...DECISIONS,
+                  ...PIPELINE,
+                  ...LEARNINGS,
+                  ...BOULDERS,
+                ].flatMap((item) =>
+                  canonicalOwnerList(item.owner)
+                    .split(",")
+                    .map((value) => value.trim()),
+                ),
+              ].filter((value) => value && value !== "—"),
+            ),
+            "all",
+            "All owners",
+          ),
         );
         populateSelect(
           "action-source",
@@ -9038,17 +9356,13 @@
           "all",
           "All sources",
         );
-        const actionFunctions = schemaOptions("actions", "Function").length
-          ? schemaOptions("actions", "Function")
-          : ACTION_FUNCTION_OPTIONS;
+        const actionFunctions = uniqueOptions([
+          ...schemaOptions("actions", "Function"),
+          ...ACTION_FUNCTION_OPTIONS,
+          ...uniqueFieldValues(ALL_ACTIONS, "fn"),
+        ]);
         populateSelect(
           "action-function",
-          actionFunctions,
-          "all",
-          "All functions",
-        );
-        populateSelect(
-          "completed-function",
           actionFunctions,
           "all",
           "All functions",
@@ -9063,7 +9377,8 @@
         if (actionStatusSelect) {
           const previous = actionStatusSelect.value;
           const groups = [
-            ["all", "All active statuses"],
+            ["all", "All statuses"],
+            ["__completed", "Completed"],
             ["__not_started", "Not started"],
             ["__in_progress", "In progress / this week"],
             ["__attention", "Blocked / overdue"],
@@ -9849,72 +10164,6 @@
         if (name === "calendar") buildCalendar();
       }
 
-      function initialiseAllFilters() {
-        const allValueIds = [
-          "action-status",
-          "action-due",
-          "action-owner",
-          "action-function",
-          "action-vertical",
-          "action-frequency",
-          "action-source",
-          "decision-type",
-          "decision-function",
-          "decision-status",
-          "decision-owner",
-          "decision-date",
-          "pipeline-owner",
-          "pipeline-type",
-          "pipeline-quarter",
-          "pipeline-calendar-owner",
-          "pipeline-calendar-vertical",
-          "learning-type",
-          "learning-status",
-          "learning-owner",
-          "learning-quarter",
-          "calendar-owner",
-          "calendar-function",
-          "calendar-status",
-          "boulder-owner",
-          "boulder-status",
-          "boulder-quarter",
-          "completed-owner",
-          "completed-function",
-          "completed-date",
-        ];
-        allValueIds.forEach((id) => {
-          const element = document.getElementById(id);
-          if (
-            element &&
-            [...element.options].some((option) => option.value === "all")
-          )
-            element.value = "all";
-        });
-        activeFilters.status = "all";
-        activeFilters.due = "all";
-        activeFilters.owner = null;
-        activeFilters.function = null;
-        activeFilters.vertical = null;
-        activeFilters.frequency = null;
-        activeFilters.source = null;
-        pipelineFilters.stage = "all";
-        pipelineFilters.owner = null;
-        pipelineFilters.type = null;
-        pipelineFilters.quarter = null;
-        learningsTypeFilter = "all";
-        learningsStatusFilter = null;
-        Object.keys(pageState).forEach((key) => {
-          pageState[key] = 1;
-        });
-      }
-
-      function enforceActionStartupDefaults() {
-        const ownerSelect = document.getElementById("action-owner");
-        if (ownerSelect) ownerSelect.value = "all";
-        activeFilters.owner = null;
-        pageState.actions = 1;
-      }
-
       async function timedDashboardLoad(label, loader) {
         const started = performance.now();
         try {
@@ -10029,7 +10278,6 @@
           };
           const actionLoad = timedDashboardLoad("actions", () =>
             loadActions(() => {
-              if (isInitialLoad) enforceActionStartupDefaults();
               renderActionSurfaces();
               markPrimaryReady();
             }),
@@ -10110,14 +10358,16 @@
       }
 
       // ── INIT ──
+      restoreFilterPreferences();
+      document.addEventListener("change", (event) => {
+        if (event.target.matches("select.compact-filter"))
+          saveFilterPreferences();
+      });
       document.getElementById("syncBtn").addEventListener("click", () => {
         if (mwEl("tab-mywork").classList.contains("active")) openMyWork(true);
         else loadAllData();
       });
-      initialiseAllFilters();
       window.addEventListener("pageshow", () => {
-        initialiseAllFilters();
-        enforceActionStartupDefaults();
         if (ALL_ACTIONS.length) {
           renderActionSurfaces();
           renderPipeline();
