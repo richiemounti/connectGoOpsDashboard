@@ -5933,6 +5933,283 @@
           background-image: none !important;
         }
       }
+      #tab-actions .action-filter-panel {
+        padding: 14px 18px;
+      }
+      #tab-actions .action-filter-primary {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+        align-items: end;
+        gap: 14px;
+      }
+      #tab-actions .action-filter-field {
+        gap: 4px;
+      }
+      #tab-actions .action-filter-field .compact-filter {
+        min-height: 38px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+      #tab-actions .action-filter-controls {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 38px;
+      }
+      #tab-actions .action-filter-controls button {
+        border: 0;
+        background: none;
+        font: 500 11px var(--body);
+        color: var(--green);
+        padding: 8px 0;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      #tab-actions #action-filter-clear {
+        padding: 8px 0;
+        color: var(--ink-3);
+      }
+      #tab-actions .action-filter-secondary {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-top: 14px;
+        padding-top: 14px;
+        gap: 14px;
+      }
+      #tab-actions .action-filter-secondary[hidden] {
+        display: none;
+      }
+      .mw-quick-filter {
+        margin: 0 20px 12px;
+        padding: 7px 12px;
+        background: none;
+        border: 1px solid var(--rule);
+        border-radius: 6px;
+        color: var(--green);
+        font: 500 12px var(--body);
+        cursor: pointer;
+      }
+      .mw-quick-filter[aria-pressed="true"] {
+        background: var(--green);
+        color: var(--white);
+      }
+      #tab-boulders .boulder-line {
+        grid-template-columns: minmax(220px, 1.8fr) 110px 100px 90px minmax(
+            120px,
+            1fr
+          );
+      }
+      #tab-boulders .boulder-progress {
+        min-width: 0;
+      }
+      #tab-calendar #week-grid {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        background: none;
+        border: 0;
+      }
+      .calendar-active-count {
+        font: 400 12px var(--body);
+        color: var(--ink-3);
+        margin: 12px 0;
+      }
+      .due-calendar-week {
+        display: grid;
+        grid-template-columns: repeat(var(--calendar-days), minmax(0, 1fr));
+        min-width: calc(var(--calendar-days) * 130px);
+        gap: 1px;
+        background: var(--rule);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .due-calendar-day {
+        min-width: 0;
+        background: var(--white);
+        min-height: 170px;
+        padding: 12px 9px;
+      }
+      .due-calendar-day h3 {
+        margin: 0 0 12px;
+        padding: 0 0 9px;
+        border-bottom: 1px solid var(--rule);
+        font: 500 12px var(--body);
+        color: var(--green);
+      }
+      .due-calendar-day.today h3 {
+        border-color: var(--amber);
+        color: var(--amber);
+      }
+      .due-calendar-day.outside {
+        background: var(--off);
+      }
+      .due-calendar-items {
+        display: grid;
+        gap: 9px;
+      }
+      .due-calendar-event {
+        padding: 8px 7px;
+        background: var(--off);
+        border-left: 2px solid var(--olive);
+        border-radius: 0 5px 5px 0;
+        min-width: 0;
+      }
+      .due-calendar-event a {
+        display: block;
+        font: 400 12px/1.45 var(--body);
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+      .due-calendar-event > span {
+        display: block;
+        margin-top: 6px;
+        font: 400 10px var(--body);
+        color: var(--ink-3);
+      }
+      .due-calendar-empty {
+        margin: 0;
+        color: var(--ink-4);
+        font: 400 11px var(--body);
+      }
+      @media (max-width: 700px) {
+        #tab-actions .action-filter-panel {
+          padding: 12px;
+        }
+        #tab-actions .action-filter-primary,
+        #tab-actions .action-filter-secondary {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 10px;
+        }
+        #tab-actions .action-filter-secondary .action-filter-field:last-child {
+          grid-column: auto;
+        }
+        #tab-actions .action-filter-controls {
+          justify-content: flex-end;
+          gap: 10px;
+        }
+        #tab-boulders .boulder-line {
+          min-width: 0;
+          grid-template-columns: 1fr 1fr;
+        }
+        #tab-boulders .boulder-line.head {
+          display: none;
+        }
+        #tab-boulders .boulder-line > * {
+          display: block;
+        }
+        #tab-boulders .boulder-line > strong,
+        #tab-boulders .boulder-progress {
+          grid-column: 1/-1;
+        }
+      }
+
+      .mw-day.paused > span {
+        border-style: dashed;
+        background: var(--paper);
+        color: var(--olive);
+      }
+      .mw-leave-link {
+        display: inline-block;
+        margin-top: 8px;
+        color: var(--green);
+        font: 400 11px var(--body);
+      }
+      .mw-leave-link {
+        padding: 0;
+        border: 0;
+        background: none;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        cursor: pointer;
+      }
+      .mw-holidays {
+        margin: 0 0 24px;
+        padding: 24px;
+        border: 1px solid var(--rule);
+        border-radius: 16px;
+        background: var(--white);
+      }
+      .mw-holidays[hidden] {
+        display: none;
+      }
+      .mw-holiday-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 16px;
+      }
+      .mw-holidays h2 {
+        font: 500 26px var(--display);
+        margin: 0 0 6px;
+      }
+      .mw-holidays p {
+        font-size: 12px;
+        line-height: 1.6;
+        margin: 0 0 18px;
+      }
+      #mw-holiday-form {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+        gap: 16px;
+        align-items: end;
+        max-width: 740px;
+      }
+      #mw-holiday-form label {
+        display: block;
+        font-size: 11px;
+        margin-bottom: 6px;
+      }
+      #mw-holiday-form input {
+        width: 100%;
+        min-width: 0;
+        padding: 10px 12px;
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        color: var(--green);
+        background: var(--off);
+        font: 400 13px var(--body);
+      }
+      #mw-holiday-save {
+        padding: 11px 18px;
+        border-radius: 8px;
+        color: var(--white);
+        background: var(--green);
+      }
+      #mw-holiday-message {
+        margin: 14px 0;
+      }
+      .mw-holiday-period {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--rule);
+        font-size: 12px;
+      }
+      .mw-holidays .mw-holiday-note {
+        margin: 16px 0 0;
+        color: var(--ink-3);
+        font-size: 11px;
+      }
+      @media (max-width: 600px) {
+        .mw-holidays {
+          padding: 18px;
+        }
+        #mw-holiday-form {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 12px;
+        }
+      }
+      .mw-leave-link[hidden] {
+        display: none;
+      }
+      .mw-filterbar {
+        flex-wrap: wrap;
+      }
+      .calendar-active-count {
+        padding: 0 14px;
+      }
     </style>
   </head>
   <body data-view="mywork">
@@ -6219,7 +6496,19 @@
                 aria-live="polite"
               ></p>
               <div class="mw-days" id="mw-login-days"></div>
-              <p class="mw-streak-foot">Weekends pause your streak</p>
+              <p class="mw-streak-foot" id="mw-login-foot">
+                Weekends pause your streak
+              </p>
+              <button
+                class="mw-leave-link"
+                id="mw-manage-leave"
+                type="button"
+                aria-expanded="false"
+                aria-controls="mw-holidays"
+                onclick="toggleMyHolidays()"
+              >
+                My holidays
+              </button>
             </section>
             <section class="mw-activity-card">
               <div class="mw-streak-head">
@@ -6282,6 +6571,52 @@
               </div>
             </section>
           </div>
+          <section
+            id="mw-holidays"
+            class="mw-holidays"
+            aria-labelledby="mw-holiday-title"
+            hidden
+          >
+            <div class="mw-holiday-heading">
+              <div>
+                <h2 id="mw-holiday-title">My holidays</h2>
+                <p>
+                  Add your days away to pause your login and activity streaks.
+                </p>
+              </div>
+              <button
+                class="mw-text-button"
+                type="button"
+                onclick="toggleMyHolidays(false)"
+              >
+                Close
+              </button>
+            </div>
+            <form id="mw-holiday-form" onsubmit="saveMyHoliday(event)">
+              <div>
+                <label for="mw-holiday-start">First day away</label
+                ><input
+                  id="mw-holiday-start"
+                  type="date"
+                  required
+                  onchange="document.getElementById('mw-holiday-end').min=this.value"
+                />
+              </div>
+              <div>
+                <label for="mw-holiday-end">Last day away</label
+                ><input id="mw-holiday-end" type="date" required />
+              </div>
+              <button id="mw-holiday-save" class="mw-text-button" type="submit">
+                Save holiday
+              </button>
+            </form>
+            <p id="mw-holiday-message" role="status" aria-live="polite"></p>
+            <div id="mw-holiday-list" aria-label="Your holiday dates"></div>
+            <p class="mw-holiday-note">
+              Weekends and holidays protect your streak. They do not add streak
+              days.
+            </p>
+          </section>
           <div class="mw-workspace-grid">
             <section class="mw-task-panel">
               <div class="mw-panel-heading">
@@ -6339,7 +6674,16 @@
                 >
                   Blocked
                 </button>
+                <button
+                  type="button"
+                  aria-pressed="false"
+                  data-my-filter="quick"
+                  onclick="setMyWorkFilter('quick')"
+                >
+                  Quick wins
+                </button>
               </div>
+
               <ul id="mw-list" class="mw-tasks"></ul>
               <details id="mw-more" class="mw-more" hidden>
                 <summary id="mw-more-label">More actions</summary>
@@ -6608,20 +6952,6 @@
             </div>
           </div>
           <section class="action-filter-panel" aria-label="Filter actions">
-            <div class="action-filter-heading">
-              <div>
-                <h2>Filter actions</h2>
-                <p>Choose what appears in both task lists.</p>
-              </div>
-              <button
-                type="button"
-                id="action-filter-clear"
-                onclick="clearActionFilters()"
-                disabled
-              >
-                Clear filters
-              </button>
-            </div>
             <div class="action-filter-primary">
               <label class="action-filter-field"
                 ><span>Owner</span
@@ -6667,7 +6997,32 @@
                   <option value="upcoming">Upcoming</option>
                   <option value="no-date">No due date</option>
                 </select></label
-              ><label class="action-filter-field"
+              >
+              <div class="action-filter-controls">
+                <button
+                  type="button"
+                  id="action-more-filters"
+                  aria-controls="action-extra-filters"
+                  aria-expanded="false"
+                  onclick="toggleActionFilters()"
+                >
+                  More filters</button
+                ><button
+                  type="button"
+                  id="action-filter-clear"
+                  onclick="clearActionFilters()"
+                  disabled
+                >
+                  Clear
+                </button>
+              </div>
+            </div>
+            <div
+              class="action-filter-secondary"
+              id="action-extra-filters"
+              hidden
+            >
+              <label class="action-filter-field"
                 ><span>Register</span
                 ><select
                   class="compact-filter"
@@ -6681,10 +7036,7 @@
                   <option>Bug Log</option>
                   <option>Risk Register</option>
                 </select></label
-              >
-            </div>
-            <div class="action-filter-secondary">
-              <label class="action-filter-field"
+              ><label class="action-filter-field"
                 ><span>Function</span
                 ><select
                   class="compact-filter"
@@ -7168,33 +7520,19 @@
                   id="calendar-status"
                   onchange="buildCalendar()"
                 >
-                  <option value="all">All tasks</option>
+                  <option value="all">All active tasks</option>
                 </select>
               </div>
             </div>
-            <div class="calendar-scroll">
+            <p class="calendar-active-count" id="calendar-active-count"></p>
+            <div
+              class="calendar-scroll"
+              tabindex="0"
+              role="region"
+              aria-label="Active tasks by due date"
+            >
               <div class="calendar-week" id="week-grid"></div>
             </div>
-          </div>
-          <div
-            class="section-block full calendar-agenda"
-            style="margin-top: 1rem"
-          >
-            <table class="data-table" id="calendar-table">
-              <thead>
-                <tr>
-                  <th>Start</th>
-                  <th>Due</th>
-                  <th>Completed</th>
-                  <th>Task</th>
-                  <th>Owner</th>
-                  <th>Function</th>
-                  <th>Status</th>
-                  <th>Source</th>
-                </tr>
-              </thead>
-              <tbody id="calendar-tbody"></tbody>
-            </table>
           </div>
         </div>
 
@@ -7377,6 +7715,106 @@
     </div>
 
     <script>
+      const completedLocally = new Map();
+      let completionRevision = 0;
+      let mwLeavePaused = false;
+      function renderDueDateWeek(days, entries, monthStart) {
+        return (
+          '<div class="due-calendar-week">' +
+          days
+            .map((day) => {
+              const key = localDateKey(day);
+              const items = entries
+                .filter((entry) => localDateKey(entry.range.start) === key)
+                .map((entry) => entry.item);
+              const outside =
+                monthStart && day.getMonth() !== monthStart.getMonth();
+              return `<section class="due-calendar-day${key === mwToday() ? " today" : ""}${outside ? " outside" : ""}" ondragover="calendarDragOver(event)" ondragleave="calendarDragLeave(event)" ondrop="calendarDrop(event,'${key}')">
+      <h3>${esc(day.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" }))}</h3>
+      <div class="due-calendar-items">${
+        items
+          .map(
+            (
+              item,
+            ) => `<article class="due-calendar-event" ${["Action Database", "Governance Tracker"].includes(item.source) ? `draggable="true" ondragstart="calendarDragStart(event,'${esc(item.id)}','${esc(item.source)}')"` : ""}>
+        ${notionAnchor(item, item.task)}<span>${esc(item.owner)}</span>
+      </article>`,
+          )
+          .join("") || '<p class="due-calendar-empty">No tasks due</p>'
+      }</div></section>`;
+            })
+            .join("") +
+          "</div>"
+        );
+      }
+      function isActiveCalendarAction(action) {
+        return ![
+          "done",
+          "completed",
+          "resolved",
+          "closed",
+          "skipped",
+          "cancelled",
+          "canceled",
+          "dropped",
+          "deferred",
+          "addressed",
+          "archived",
+        ].includes(actionStatusKey(action.status));
+      }
+      function updateActionFilterToggle() {
+        const panel = document.getElementById("action-extra-filters");
+        const button = document.getElementById("action-more-filters");
+        if (!panel || !button) return;
+        const selected = ["source", "function", "vertical", "frequency"].filter(
+          (key) => getActionFilters()[key] !== "all",
+        ).length;
+        button.setAttribute("aria-expanded", String(!panel.hidden));
+        button.textContent =
+          (panel.hidden ? "More filters" : "Fewer filters") +
+          (selected ? " · " + selected : "");
+      }
+      function toggleActionFilters() {
+        const panel = document.getElementById("action-extra-filters");
+        panel.hidden = !panel.hidden;
+        updateActionFilterToggle();
+      }
+      function applyConfirmedCompletion(pageId, source, date) {
+        completionRevision++;
+        const update = {
+          status: source === "Bug Log" ? "Resolved" : "Done",
+          notionStatus: source === "Bug Log" ? "Resolved" : "Done",
+          completed: date,
+          blocked: false,
+        };
+        if (source === "Action Database") {
+          update.percent = 100;
+          update.progressError = null;
+        }
+        completedLocally.set(pageId, update);
+        applyActionCollections(ALL_ACTIONS, [], [], [], false);
+        mwItems = mwItems.map((item) =>
+          item.id === pageId ? { ...item, ...update } : item,
+        );
+      }
+      function notionProgress(properties, names, maximum = 100) {
+        const property = tryProp(properties, ...names);
+        const value = property?.number;
+        if (value == null) return { percent: null, progressError: null };
+        if (
+          typeof value !== "number" ||
+          !Number.isFinite(value) ||
+          value < 0 ||
+          value > maximum
+        ) {
+          return { percent: null, progressError: "Check progress in Notion" };
+        }
+        return {
+          percent: Math.round((value / maximum) * 10000) / 100,
+          progressError: null,
+        };
+      }
+
       // ── OWNERS ──
       const OWNERS = {
         "user://a87c7948-13ad-4a85-86d0-4c18ce913660": "Kate",
@@ -7914,6 +8352,7 @@
       function mapBoulder(page) {
         const p = page.properties;
         return {
+          ...notionProgress(p, ["Progress"], 1),
           pageId: page.id,
           url: page.url,
           name: p_title(p["Boulder"]),
@@ -8311,6 +8750,8 @@
         if (!el) {
           el = document.createElement("div");
           el.id = "write-status";
+          el.setAttribute("role", "status");
+          el.setAttribute("aria-live", "polite");
           document.body.appendChild(el);
         }
         el.className = "write-status" + (error ? " error" : "");
@@ -8319,40 +8760,47 @@
         showWriteStatus.timer = setTimeout(() => el.remove(), 3500);
       }
 
-      async function completeAction(pageId, source, checkbox) {
-        if (!checkbox.checked) return;
-        checkbox.disabled = true;
-        showWriteStatus("Updating Notion…");
+      async function completeAction(pageId, source, control) {
+        const checkbox = control && "checked" in control;
+        if ((checkbox && !control.checked) || control?.disabled) return;
+        const main = document.querySelector(".main");
+        const scroll = main?.scrollTop;
+        if (control) control.disabled = true;
+        mwSaving++;
         try {
           const saved = await notionComplete(pageId, source);
+          applyConfirmedCompletion(pageId, source, mwToday());
           mwLoaded = false;
           mwBoardLoaded = false;
-          try {
-            await loadActions();
-          } catch {
-            showWriteStatus(
-              "Saved to Notion. Refresh to load the updated actions.",
-              true,
-            );
-            return;
-          }
-          pageState.actions = 1;
-          pageState.completed = 1;
-          renderOverview();
           renderActionsTable();
           renderCompletedTable();
+          renderMyWorkActions();
+          renderOverview();
           buildCalendar();
+          if (!saved.activityWarning && !mwLeavePaused) {
+            mwEl("mw-activity-title").textContent = "Active today";
+            mwEl("mw-activity-copy").textContent =
+              "Today’s activity is recorded.";
+            const today = document.querySelector("#mw-activity-days .is-today");
+            if (today) {
+              today.classList.add("checked");
+              today.title = mwToday() + " · Activity recorded";
+              today.querySelector("span").textContent = "✓";
+            }
+          }
+          if (main) main.scrollTop = scroll;
           showWriteStatus(
             saved.activityWarning ||
-              (source === "Action Database"
-                ? "Completed in Notion · 100% progress"
-                : "Completed in Notion"),
+              "Task completed" +
+                (source === "Action Database" ? " · 100%" : ""),
             !!saved.activityWarning,
           );
         } catch (error) {
-          checkbox.checked = false;
-          checkbox.disabled = false;
+          if (checkbox) control.checked = false;
+          if (control) control.disabled = false;
           showWriteStatus(error.message || "Could not update Notion", true);
+        } finally {
+          mwSaving--;
         }
       }
 
@@ -8443,6 +8891,7 @@
         const status = actionStatusKey(action.status);
         if (group === "__completed") return isCompletedAction(action);
         if (isCompletedAction(action)) return false;
+        if (group === "__quick_win") return status === "quick win";
         if (group === "__not_started")
           return ["inbox", "to do", "open"].includes(status);
         if (group === "__in_progress")
@@ -8471,23 +8920,9 @@
         if (group === "__completed") return isCompletedAction(action);
         return actionStatusGroupMatches(action, group);
       }
-      function calendarRangeForAction(action, statusFilter) {
-        if (
-          statusFilter === "__completed" &&
-          isCompletedAction(action) &&
-          action.completed
-        ) {
-          const completed = localDateFromKey(action.completed);
-          return completed ? { start: completed, end: completed } : null;
-        }
-        const fallback =
-          action.due || (isCompletedAction(action) ? action.completed : "");
-        if (!fallback) return null;
-        return actionRange({
-          ...action,
-          start: action.start || fallback,
-          due: fallback,
-        });
+      function calendarRangeForAction(action) {
+        const due = localDateFromKey(action.due);
+        return due ? { start: due, end: due } : null;
       }
 
       function applyActionCollections(
@@ -8495,8 +8930,19 @@
         governance = [],
         bugs = [],
         risks = [],
+        fresh = true,
       ) {
-        ALL_ACTIONS = mergeActions(actions, governance, bugs, risks);
+        ALL_ACTIONS = mergeActions(actions, governance, bugs, risks).map(
+          (action) => {
+            const update = completedLocally.get(action.id);
+            if (!update) return action;
+            if (fresh && isCompletedAction(action)) {
+              completedLocally.delete(action.id);
+              return action;
+            }
+            return { ...action, ...update };
+          },
+        );
         DONE = ALL_ACTIONS.filter(isCompletedAction);
         ACTIVE_ACTIONS = ALL_ACTIONS.filter(
           (action) => !isCompletedAction(action),
@@ -8615,6 +9061,7 @@
         if (count)
           count.textContent =
             rows.length + " active " + (rows.length === 1 ? "task" : "tasks");
+        updateActionFilterToggle();
         const clear = document.getElementById("action-filter-clear");
         if (clear)
           clear.disabled = Object.values(getActionFilters()).every(
@@ -9243,7 +9690,7 @@
         );
         const page = pageRows("boulders", rows);
         container.innerHTML = page.visible.length
-          ? `<div class="boulder-list"><div class="boulder-line head"><span>Boulder</span><span>Owner</span><span>Status</span><span>Quarter</span></div>${page.visible.map((b) => `<div class="boulder-line"><strong>${notionAnchor(b, b.name)}</strong><span>${esc(b.owner)}</span><span class="status-pill ${b.status === "Completed" ? "sp-done" : b.status === "At risk" ? "sp-onhold" : "sp-thisweek"}">${esc(b.status || "Active")}</span><small>${esc(b.quarter || "—")}</small></div>`).join("")}</div>${pagerHTML("boulders", rows.length, page.start, page.pages)}`
+          ? `<div class="boulder-list"><div class="boulder-line head"><span>Boulder</span><span>Owner</span><span>Status</span><span>Quarter</span><span>Progress</span></div>${page.visible.map((b) => `<div class="boulder-line"><strong>${notionAnchor(b, b.name)}</strong><span>${esc(b.owner)}</span><span class="status-pill ${b.status === "Completed" ? "sp-done" : b.status === "At risk" ? "sp-onhold" : "sp-thisweek"}">${esc(b.status || "Active")}</span><small>${esc(b.quarter || "—")}</small><div class="boulder-progress">${progressMarkup(b)}</div></div>`).join("")}</div>${pagerHTML("boulders", rows.length, page.start, page.pages)}`
           : '<div class="section-block full"><div style="padding:1.5rem;color:var(--ink-4)">No boulders match these filters</div></div>' +
             pagerHTML("boulders", 0, 0, 1);
       }
@@ -9379,6 +9826,7 @@
           const groups = [
             ["all", "All statuses"],
             ["__completed", "Completed"],
+            ["__quick_win", "Quick wins"],
             ["__not_started", "Not started"],
             ["__in_progress", "In progress / this week"],
             ["__attention", "Blocked / overdue"],
@@ -9400,14 +9848,10 @@
         if (calendarStatusSelect) {
           const previous = calendarStatusSelect.value;
           const groups = [
-            ["all", "All tasks"],
-            ["__active", "Active tasks"],
-            ["__completed", "Completed"],
+            ["all", "All active tasks"],
             ["__not_started", "Not started"],
             ["__in_progress", "In progress / this week"],
             ["__attention", "Blocked / overdue"],
-            ["__skipped", "Skipped"],
-            ["__closed", "Closed"],
           ];
           calendarStatusSelect.innerHTML = groups
             .map(
@@ -9518,26 +9962,37 @@
           "all",
           "All quarters",
         );
+        populateSelect(
+          "boulder-status",
+          uniqueOptions([
+            "Active",
+            "Completed",
+            "At risk",
+            "Dropped",
+            "Deferred",
+            ...uniqueFieldValues(BOULDERS, "status"),
+          ]),
+          "all",
+          "All statuses",
+        );
       }
 
       function buildCalendar() {
         const anchor = new Date(calendarAnchor),
           monthStart = new Date(anchor.getFullYear(), anchor.getMonth(), 1);
-        let count =
-            calendarView === "day" ? 1 : calendarView === "three" ? 3 : 7,
-          start = new Date(anchor);
-        if (calendarView === "week") {
+        let start = new Date(anchor),
+          count = calendarView === "day" ? 1 : calendarView === "three" ? 3 : 7;
+        if (calendarView === "week")
           start.setDate(anchor.getDate() - ((anchor.getDay() + 6) % 7));
-        }
         if (calendarView === "month") {
           start = new Date(monthStart);
-          start.setDate(monthStart.getDate() - ((monthStart.getDay() + 6) % 7));
+          start.setDate(1 - ((monthStart.getDay() + 6) % 7));
           count = 42;
         }
-        const days = Array.from({ length: count }, (_, index) => {
-          const date = new Date(start);
-          date.setDate(start.getDate() + index);
-          return date;
+        const days = Array.from({ length: count }, (_, i) => {
+          const day = new Date(start);
+          day.setDate(start.getDate() + i);
+          return day;
         });
         const owner = document.getElementById("calendar-owner")?.value || "all";
         const fn = document.getElementById("calendar-function")?.value || "all";
@@ -9545,29 +10000,13 @@
           document.getElementById("calendar-status")?.value || "all";
         const entries = ALL_ACTIONS.filter(
           (action) =>
+            isActiveCalendarAction(action) &&
             ownerMatches(action.owner, owner) &&
             functionMatches(action.fn, fn) &&
             calendarStatusGroupMatches(action, status),
         )
-          .map((item) => ({
-            item,
-            range: calendarRangeForAction(item, status),
-          }))
+          .map((item) => ({ item, range: calendarRangeForAction(item) }))
           .filter((entry) => entry.range);
-        const visibleItems = entries
-          .filter(
-            (entry) =>
-              entry.range.start <= days[days.length - 1] &&
-              entry.range.end >= days[0],
-          )
-          .map((entry) => entry.item)
-          .sort((left, right) =>
-            (
-              (status === "__completed" ? left.completed : left.due) || ""
-            ).localeCompare(
-              (status === "__completed" ? right.completed : right.due) || "",
-            ),
-          );
         const grid = document.getElementById("week-grid");
         grid.style.setProperty(
           "--calendar-days",
@@ -9575,29 +10014,19 @@
         );
         grid.classList.toggle("month-view", calendarView === "month");
         grid.dataset.view = calendarView;
-        const labelled = new Set(),
-          weeks =
-            calendarView === "month"
-              ? Array.from({ length: 6 }, (_, weekIndex) =>
-                  days.slice(weekIndex * 7, weekIndex * 7 + 7),
-                )
-              : [days];
-        const weekdayHeader =
+        const weeks =
           calendarView === "month"
-            ? `<div class="range-weekday-row">${["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => `<div class="pipeline-cal-weekday">${day}</div>`).join("")}</div>`
-            : "";
-        grid.innerHTML =
-          weekdayHeader +
-          weeks
-            .map((week) =>
-              renderActionRangeWeek(
-                week,
-                entries,
-                labelled,
-                calendarView === "month" ? monthStart : null,
-              ),
-            )
-            .join("");
+            ? Array.from({ length: 6 }, (_, i) => days.slice(i * 7, i * 7 + 7))
+            : [days];
+        grid.innerHTML = weeks
+          .map((week) =>
+            renderDueDateWeek(
+              week,
+              entries,
+              calendarView === "month" ? monthStart : null,
+            ),
+          )
+          .join("");
         const first = days[0],
           last = days[days.length - 1],
           range = document.getElementById("calendar-range");
@@ -9608,7 +10037,7 @@
                   month: "long",
                   year: "numeric",
                 })
-              : first.getTime() === last.getTime()
+              : count === 1
                 ? first.toLocaleDateString("en-GB", {
                     weekday: "long",
                     day: "numeric",
@@ -9616,19 +10045,15 @@
                     year: "numeric",
                   })
                 : `${first.toLocaleDateString("en-GB", { day: "numeric", month: "short" })} – ${last.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}`;
-        const monthPicker = document.getElementById("calendar-month-picker");
-        if (monthPicker)
-          monthPicker.value = `${anchor.getFullYear()}-${String(anchor.getMonth() + 1).padStart(2, "0")}`;
-        const tbody = document.getElementById("calendar-tbody");
-        if (tbody)
-          tbody.innerHTML = visibleItems.length
-            ? visibleItems
-                .map(
-                  (action) =>
-                    `<tr><td>${fmtDate(action.start)}</td><td>${fmtDate(action.due)}</td><td>${fmtDate(action.completed)}</td><td>${notionAnchor(action, action.task)}${action.frequency ? `<div style="margin-top:4px;color:var(--ink-4);font-size:.7rem">${esc(action.frequency)}</div>` : ""}</td><td>${esc(action.owner)}</td><td>${esc(action.fn || "—")}</td><td><span class="status-pill ${isCompletedAction(action) ? "sp-done" : ""}">${esc(action.status || "—")}</span></td><td>${esc(action.source)}</td></tr>`,
-                )
-                .join("")
-            : '<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--ink-4)">No dated items in this view</td></tr>';
+        const picker = document.getElementById("calendar-month-picker");
+        if (picker)
+          picker.value = `${anchor.getFullYear()}-${String(anchor.getMonth() + 1).padStart(2, "0")}`;
+        const label = document.getElementById("calendar-active-count");
+        const visible = entries.filter(
+          (entry) => entry.range.start >= first && entry.range.start <= last,
+        ).length;
+        if (label)
+          label.textContent = `${visible} active ${visible === 1 ? "task" : "tasks"} due · Due dates only`;
       }
 
       const mwEl = (id) => document.getElementById(id);
@@ -9767,17 +10192,20 @@
             }),
             "mw-day" +
               (active ? " checked" : "") +
-              (day.date === mwToday() ? " is-today" : ""),
+              (day.date === mwToday() ? " is-today" : "") +
+              (day.paused ? " paused" : ""),
           );
           n.title =
             day.date +
             " · " +
-            (active
-              ? activity
-                ? "Activity recorded"
-                : "Signed in"
-              : "Not recorded");
-          n.append(mwNode("span", active ? "✓" : "·"));
+            (day.paused
+              ? "Holiday · Streak paused"
+              : active
+                ? activity
+                  ? "Activity recorded"
+                  : "Signed in"
+                : "Not recorded");
+          n.append(mwNode("span", day.paused ? "–" : active ? "✓" : "·"));
           list.append(n);
         });
       }
@@ -9788,27 +10216,16 @@
           const btn = mwNode("button", "", "mw-done");
           btn.type = "button";
           btn.setAttribute("aria-label", "Mark " + item.title + " complete");
-          btn.onclick = async () => {
-            btn.disabled = true;
-            mwSaving++;
-            try {
-              const saved = await mwPost({
-                operation: "complete",
-                page_id: item.id,
-                completion_date: mwToday(),
-              });
-              mwLoaded = false;
-              mwBoardLoaded = false;
-              if (saved.activityWarning)
-                showWriteStatus(saved.activityWarning, true);
-            } catch (e) {
-              mwEl("mw-message").textContent = e.message;
-              btn.disabled = false;
-            } finally {
-              mwSaving--;
-              if (!mwLoaded) openMyWork(true);
-            }
-          };
+          btn.onclick = () =>
+            completeAction(
+              item.id,
+              {
+                "Operations action": "Action Database",
+                "Governance action": "Governance Tracker",
+                Bug: "Bug Log",
+              }[item.source],
+              btn,
+            );
           row.append(btn);
         } else {
           const marker = mwNode("span", "◇", "mw-review-marker");
@@ -9857,11 +10274,13 @@
       function renderMyWorkActions() {
         const open = mwOpenItems(),
           items = open.filter((i) =>
-            mwFilter === "blocked"
-              ? i.blocked
-              : mwFilter === "week"
-                ? mwInWeek(i.due)
-                : true,
+            mwFilter === "quick"
+              ? actionStatusKey(i.status) === "quick win"
+              : mwFilter === "blocked"
+                ? i.blocked
+                : mwFilter === "week"
+                  ? mwInWeek(i.due)
+                  : true,
           );
         mwEl("mw-action-count").textContent = String(open.length);
         const list = mwEl("mw-list"),
@@ -9888,11 +10307,13 @@
             ". Available sources are shown."
           : items.length
             ? ""
-            : mwFilter === "blocked"
-              ? "No blocked actions."
-              : mwFilter === "week"
-                ? "No actions due this week."
-                : "No open actions linked to your account.";
+            : mwFilter === "quick"
+              ? "No Quick Win tasks are assigned to you."
+              : mwFilter === "blocked"
+                ? "No blocked actions."
+                : mwFilter === "week"
+                  ? "No actions due this week."
+                  : "No open actions linked to your account.";
         const next = open.find((i) => i.due) || open[0],
           link = mwEl("mw-next-title");
         link.removeAttribute("href");
@@ -9925,17 +10346,176 @@
         }
       }
       function setMyWorkFilter(value) {
-        mwFilter = ["all", "week", "blocked"].includes(value) ? value : "all";
+        mwFilter = ["all", "week", "blocked", "quick"].includes(value)
+          ? value
+          : "all";
         renderMyWorkActions();
       }
+
+      function renderMyStreaks(data) {
+        const login = data.loginStreak,
+          activity = data.activityStreak;
+        mwEl("mw-login-total").textContent = login
+          ? String(login.current)
+          : "—";
+        mwEl("mw-best").textContent = login
+          ? "Best " + login.best
+          : "Unavailable";
+        mwEl("mw-login-since").textContent = loginStartLabel(login);
+        mwLeavePaused = !!login?.leavePaused;
+        mwEl("mw-login-foot").textContent = login?.leavePaused
+          ? "Holiday · Paused until " + mwShortDate(login.pauseUntil)
+          : "Weekends and holidays pause your streak";
+        mwDays("mw-login-days", login?.recent || login?.week);
+        mwEl("mw-activity-title").textContent = activity
+          ? activity.leavePaused
+            ? "On holiday"
+            : activity.activeToday
+              ? "Active today"
+              : activity.continuing
+                ? "Streak active"
+                : "Ready to start"
+          : "Unavailable";
+        mwEl("mw-activity-copy").textContent = activity?.leavePaused
+          ? "Holiday pauses your activity streak."
+          : activity?.activeToday
+            ? "Today’s activity is recorded."
+            : "Completed tasks keep your streak going.";
+        mwDays("mw-activity-days", activity?.recent, true);
+      }
+      let mwHolidayBusy = false,
+        mwHolidayLoad = 0;
+      async function myHolidayRequest(body) {
+        const response = await fetch(
+          "/.netlify/functions/auth?action=streak-leave",
+          {
+            method: body ? "POST" : "GET",
+            credentials: "same-origin",
+            cache: "no-store",
+            signal: AbortSignal.timeout(30000),
+            ...(body
+              ? {
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(body),
+                }
+              : {}),
+          },
+        );
+        if (response.status === 401 || response.redirected)
+          throw new Error("Your session has expired. Sign in again.");
+        const data = await response.json();
+        if (!response.ok)
+          throw new Error(data.error || "Could not update your holidays.");
+        return data;
+      }
+      function renderMyHolidays(data) {
+        const list = mwEl("mw-holiday-list");
+        list.replaceChildren();
+        const ranges = (data.leave || [])
+          .slice()
+          .sort((a, b) => a.start.localeCompare(b.start));
+        if (!ranges.length) list.textContent = "No holidays added yet.";
+        for (const range of ranges) {
+          const row = mwNode("div", null, "mw-holiday-period");
+          const dateLabel = (value) =>
+            new Date(value + "T12:00:00Z").toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+              timeZone: "UTC",
+            });
+          const label = dateLabel(range.start) + " – " + dateLabel(range.end);
+          const remove = mwNode("button", "Remove", "mw-text-button");
+          remove.type = "button";
+          remove.setAttribute("aria-label", "Remove holiday " + label);
+          remove.disabled = mwHolidayBusy;
+          remove.onclick = () => updateMyHolidays({ remove: range.id });
+          row.append(mwNode("span", label), remove);
+          list.appendChild(row);
+        }
+      }
+      async function toggleMyHolidays(expanded) {
+        const panel = mwEl("mw-holidays");
+        const show = typeof expanded === "boolean" ? expanded : panel.hidden;
+        panel.hidden = !show;
+        mwEl("mw-manage-leave").setAttribute("aria-expanded", String(show));
+        if (!show) {
+          mwEl("mw-manage-leave").focus();
+          return;
+        }
+        panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        const revision = ++mwHolidayLoad;
+        mwEl("mw-holiday-message").textContent = "Loading your holidays…";
+        try {
+          const data = await myHolidayRequest();
+          if (revision !== mwHolidayLoad) return;
+          renderMyHolidays(data);
+          renderMyStreaks(data);
+          mwEl("mw-holiday-message").textContent = "";
+        } catch (error) {
+          if (revision === mwHolidayLoad)
+            mwEl("mw-holiday-message").textContent = error.message;
+        }
+      }
+      async function saveMyHoliday(event) {
+        event.preventDefault();
+        if (!event.target.reportValidity()) return;
+        const start = mwEl("mw-holiday-start").value,
+          end = mwEl("mw-holiday-end").value;
+        if (end < start) {
+          mwEl("mw-holiday-message").textContent =
+            "The last day must be on or after the first day.";
+          return;
+        }
+        if (await updateMyHolidays({ start, end })) event.target.reset();
+      }
+      async function updateMyHolidays(body) {
+        if (mwHolidayBusy) return false;
+        mwHolidayBusy = true;
+        ++mwHolidayLoad;
+        mwSaving++;
+        mwEl("mw-holiday-save").disabled = true;
+        mwEl("mw-holiday-list")
+          .querySelectorAll("button")
+          .forEach((button) => (button.disabled = true));
+        mwEl("mw-holiday-message").textContent = "Saving…";
+        try {
+          const data = await myHolidayRequest(body);
+          completionRevision++;
+          renderMyHolidays(data);
+          renderMyStreaks(data);
+          loadLeaderboard(true);
+          mwEl("mw-holiday-message").textContent = body.remove
+            ? "Holiday removed. Your streaks are updated."
+            : "Holiday saved. Your streaks will pause for these dates.";
+          return true;
+        } catch (error) {
+          mwEl("mw-holiday-message").textContent = error.message;
+          return false;
+        } finally {
+          mwHolidayBusy = false;
+          mwSaving--;
+          mwEl("mw-holiday-save").disabled = false;
+          mwEl("mw-holiday-list")
+            .querySelectorAll("button")
+            .forEach((button) => (button.disabled = false));
+        }
+      }
+
       async function openMyWork(force = false) {
         if ((mwLoaded && !force) || mwBusy || mwSaving) return;
         mwBusy = true;
+        const revision = completionRevision;
         if (!mwItems.length)
           mwEl("mw-message").textContent = "Loading your actions…";
         try {
           const data = await mwPost({ operation: "my-work" });
-          mwItems = data.items;
+          if (revision !== completionRevision) return;
+          mwItems = data.items.map((item) =>
+            completedLocally.has(item.id)
+              ? { ...item, ...completedLocally.get(item.id) }
+              : item,
+          );
           mwUnavailable = data.unavailable || [];
           const name = String(data.name || "").trim(),
             first = name.includes("@") ? "" : name.split(/\s+/)[0],
@@ -9961,27 +10541,7 @@
           mwEl("cg-account-name").textContent = name || "My account";
           mwEl("cg-account-avatar").textContent = mwInitials(name);
           renderMyWorkActions();
-          const login = data.loginStreak,
-            activity = data.activityStreak;
-          mwEl("mw-login-total").textContent = login
-            ? String(login.current)
-            : "—";
-          mwEl("mw-best").textContent = login
-            ? "Best " + login.best
-            : "Unavailable";
-          mwEl("mw-login-since").textContent = loginStartLabel(login);
-          mwDays("mw-login-days", login?.recent || login?.week);
-          mwEl("mw-activity-title").textContent = activity
-            ? activity.activeToday
-              ? "Active today"
-              : activity.continuing
-                ? "Streak active"
-                : "Ready to start"
-            : "Unavailable";
-          mwEl("mw-activity-copy").textContent = activity?.activeToday
-            ? "Today’s activity is recorded."
-            : "Completed tasks keep your streak going.";
-          mwDays("mw-activity-days", activity?.recent, true);
+          renderMyStreaks(data);
           mwLoaded = !mwUnavailable.length;
           loadLeaderboard(true);
         } catch (e) {
