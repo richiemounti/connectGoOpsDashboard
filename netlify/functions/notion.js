@@ -336,6 +336,7 @@ async function personal(session) {
     name: account.name || account.email,
     items,
     unavailable,
+    canManageLeave: true,
     loginStreak: session.loginStreak,
     activityStreak: session.activityStreak,
   });
@@ -353,6 +354,7 @@ async function teamLeaderboard(session) {
           roles: 1,
           ops_login_days: 1,
           ops_activity_days: 1,
+          ops_streak_leave: 1,
         },
       },
     )
@@ -369,8 +371,10 @@ async function teamLeaderboard(session) {
       id: String(user._id),
       name: user.name || "Team member",
       you: String(user._id) === session.sub,
-      login: loginStreak(user.ops_login_days).current,
-      activity: activityStreak(user.ops_activity_days).activeToday,
+      login: loginStreak(user.ops_login_days, undefined, user.ops_streak_leave)
+        .current,
+      activity: activityStreak(user.ops_activity_days, user.ops_streak_leave)
+        .activeToday,
     }))
     .sort(
       (left, right) =>
