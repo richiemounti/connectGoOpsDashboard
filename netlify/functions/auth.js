@@ -1,3 +1,99 @@
+// Holiday records are always scoped to the signed-in Operations account.
+async function manageStreakLeave(event) {
+  const session = await requireUser(event, "ops");
+  if (!session) return unauthorized();
+  const collection = await users();
+  const email = session.email;
+  let member = await collection.findOne({ email });
+  if (!member) return unauthorized();
+  if (!["GET", "POST"].includes(event.httpMethod))
+    return json(405, { error: "Method not allowed" });
+  if (event.httpMethod === "POST") {
+    if (!sameOrigin(event))
+      return json(403, { error: "Request origin not allowed" });
+    const body = parseBody(event);
+    if (!body) return json(400, { error: "Expected valid JSON" });
+    // Never accept another account as a target, including from an admin.
+    if (
+      body.email !== undefined &&
+      String(body.email).trim().toLowerCase() !== email.toLowerCase()
+    )
+      return json(403, { error: "You can only manage your own holidays." });
+    if (body.remove) {
+      if (!/^[a-f0-9]{24}$/.test(String(body.remove)))
+        return json(400, { error: "Invalid holiday record" });
+      if (
+        !approvedLeave(member.ops_streak_leave).some(
+          (range) => range.id === body.remove,
+        )
+      )
+        return json(404, { error: "Holiday not found" });
+      await collection.updateOne(
+        { email },
+        { $pull: { ops_streak_leave: { id: body.remove } } },
+      );
+    } else {
+      if (
+        !validLeaveDay(body.start) ||
+        !validLeaveDay(body.end) ||
+        body.end < body.start ||
+        Date.parse(body.end) - Date.parse(body.start) > 366 * 86400000
+      )
+        return json(400, {
+          error:
+            "Choose valid start and end dates, no more than one year apart.",
+        });
+      await collection.updateOne(
+        { email },
+        {
+          $push: {
+            ops_streak_leave: {
+              id: randomBytes(12).toString("hex"),
+              start: body.start,
+              end: body.end,
+              created_by: email,
+            },
+          },
+        },
+      );
+    }
+    member = await collection.findOne({ email });
+  }
+  return json(200, {
+    leave: approvedLeave(member.ops_streak_leave).map(({ id, start, end }) => ({
+      id,
+      start,
+      end,
+    })),
+    loginStreak: loginStreak(
+      member.ops_login_days,
+      undefined,
+      member.ops_streak_leave,
+    ),
+    activityStreak: activityStreak(
+      member.ops_activity_days,
+      member.ops_streak_leave,
+    ),
+  });
+}
+function approvedLeave(ranges) {
+  return (Array.isArray(ranges) ? ranges : []).filter(
+    (range) =>
+      range &&
+      validLeaveDay(range.start) &&
+      validLeaveDay(range.end) &&
+      range.start <= range.end &&
+      Date.parse(range.end) - Date.parse(range.start) <= 366 * 86400000,
+  );
+}
+function validLeaveDay(value) {
+  return (
+    typeof value === "string" &&
+    /^\d{4}-\d{2}-\d{2}$/.test(value) &&
+    Number.isFinite(Date.parse(value + "T12:00:00Z")) &&
+    new Date(value + "T12:00:00Z").toISOString().slice(0, 10) === value
+  );
+}
 const {
   createHmac,
   timingSafeEqual,
@@ -184,57 +280,67 @@ function previousWorkday(key) {
   return date.toISOString().slice(0, 10);
 }
 
-function loginStreak(days, today = loginDay()) {
+function loginStreak(days, today = loginDay(), leave = []) {
+  const ranges = approvedLeave(leave);
+  const paused = (key) =>
+    ranges.some((range) => key >= range.start && key <= range.end);
+  const eligible = (key) => weekday(key) && !paused(key);
+  const previousEligible = (key) => {
+    const date = new Date(key + "T12:00:00Z");
+    do {
+      date.setUTCDate(date.getUTCDate() - 1);
+      key = date.toISOString().slice(0, 10);
+    } while (!eligible(key));
+    return key;
+  };
   const all = [
     ...new Set(
       (Array.isArray(days) ? days : []).filter(
-        (key) =>
-          typeof key === "string" &&
-          /^\d{4}-\d{2}-\d{2}$/.test(key) &&
-          key <= today &&
-          Number.isFinite(Date.parse(`${key}T12:00:00Z`)) &&
-          new Date(`${key}T12:00:00Z`).toISOString().slice(0, 10) === key,
+        (key) => validLeaveDay(key) && key <= today,
       ),
     ),
   ].sort();
-  const dates = all.filter(weekday);
-  const recorded = new Set(dates);
-  let best = 0;
-  let run = 0;
-  let previous = null;
-
+  const dates = all.filter(eligible),
+    recorded = new Set(dates);
+  let best = 0,
+    run = 0,
+    previous = null;
   for (const key of dates) {
-    run = previous === previousWorkday(key) ? run + 1 : 1;
+    run = previous === previousEligible(key) ? run + 1 : 1;
     best = Math.max(best, run);
     previous = key;
   }
-
-  let anchor = weekday(today) ? today : previousWorkday(today);
-  let current = 0;
-  let startDate = null;
-  if (!recorded.has(anchor) && weekday(today)) anchor = previousWorkday(anchor);
+  let anchor = eligible(today) ? today : previousEligible(today),
+    current = 0,
+    startDate = null;
+  if (!recorded.has(anchor) && eligible(today))
+    anchor = previousEligible(anchor);
   while (recorded.has(anchor)) {
     current++;
     startDate = anchor;
-    anchor = previousWorkday(anchor);
+    anchor = previousEligible(anchor);
   }
-
-  const monday = new Date(`${today}T12:00:00Z`);
+  const monday = new Date(today + "T12:00:00Z");
   monday.setUTCDate(monday.getUTCDate() - ((monday.getUTCDay() + 6) % 7));
-  const week = Array.from({ length: 5 }, (_, index) => {
+  const week = Array.from({ length: 5 }, (_, i) => {
     const day = new Date(monday);
-    day.setUTCDate(day.getUTCDate() + index);
+    day.setUTCDate(day.getUTCDate() + i);
     const date = day.toISOString().slice(0, 10);
-    return { date, loggedIn: recorded.has(date) };
+    return { date, loggedIn: recorded.has(date), paused: paused(date) };
   });
-
   const recent = [];
   let cursor = weekday(today) ? today : previousWorkday(today);
-  for (let index = 0; index < 5; index++) {
-    recent.unshift({ date: cursor, loggedIn: recorded.has(cursor) });
+  for (let i = 0; i < 5; i++) {
+    recent.unshift({
+      date: cursor,
+      loggedIn: recorded.has(cursor),
+      paused: paused(cursor),
+    });
     cursor = previousWorkday(cursor);
   }
-
+  const currentLeave = ranges
+    .filter((range) => today >= range.start && today <= range.end)
+    .sort((a, b) => b.end.localeCompare(a.end))[0];
   return {
     current,
     startDate,
@@ -243,6 +349,8 @@ function loginStreak(days, today = loginDay()) {
     recent,
     timeZone: LOGIN_ZONE,
     weekendsPaused: true,
+    leavePaused: !!currentLeave,
+    pauseUntil: currentLeave?.end || null,
   };
 }
 
@@ -270,16 +378,19 @@ async function recordActivityDay(email) {
   }
 }
 
-function activityStreak(days) {
-  const source = Array.isArray(days) ? days : [];
-  const today = loginDay();
-  const streak = loginStreak(source, today);
+function activityStreak(days, leave = []) {
+  const source = Array.isArray(days) ? days : [],
+    today = loginDay(),
+    streak = loginStreak(source, today, leave);
   return {
     activeToday: source.includes(today),
     continuing: streak.current > 0,
+    leavePaused: streak.leavePaused,
+    pauseUntil: streak.pauseUntil,
     recent: streak.recent.map((day) => ({
       date: day.date,
       active: day.loggedIn,
+      paused: day.paused,
     })),
   };
 }
@@ -322,8 +433,15 @@ async function requireUser(event, requiredRole = process.env.SITE_KEY) {
     ...session,
     name: user.name || null,
     roles: user.roles || [],
-    loginStreak: loginStreak(user.ops_login_days),
-    activityStreak: activityStreak(user.ops_activity_days),
+    loginStreak: loginStreak(
+      user.ops_login_days,
+      undefined,
+      user.ops_streak_leave,
+    ),
+    activityStreak: activityStreak(
+      user.ops_activity_days,
+      user.ops_streak_leave,
+    ),
   };
   return hasDashboardRole(current, requiredRole) ? current : null;
 }
@@ -421,6 +539,16 @@ exports.json = json;
 exports.handler = async (event) => {
   const action = event.queryStringParameters?.action;
 
+  if (action === "streak-leave") {
+    try {
+      return await manageStreakLeave(event);
+    } catch (error) {
+      console.error("Holiday settings unavailable:", error.message);
+      return json(503, {
+        error: "Holiday settings are temporarily unavailable",
+      });
+    }
+  }
   if (action === "logout") {
     return {
       statusCode: 302,
@@ -484,7 +612,12 @@ exports.handler = async (event) => {
       name: user.name || null,
       roles: user.roles || [],
     });
-    await recordLoginDay(collection, email);
+    if (
+      (process.env.SITE_KEY || "ops").toLowerCase() === "ops" &&
+      hasDashboardRole(user, "ops")
+    ) {
+      await recordLoginDay(collection, email);
+    }
     return json(
       200,
       { ok: true },
