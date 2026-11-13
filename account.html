@@ -57,6 +57,7 @@
       }
       .card {
         width: 100%;
+        min-width: 0;
         max-width: 27rem;
         background: #fff;
         border-radius: 20px;
@@ -208,6 +209,11 @@
       textarea {
         font-family: "Work Sans", sans-serif;
       }
+      body {
+        height: auto;
+        min-height: 100dvh;
+        align-items: start;
+      }
     </style>
   </head>
   <body>
@@ -265,7 +271,6 @@
           admin: "Admin · all dashboards",
         };
         var msg = document.getElementById("message");
-
         function show(text, kind) {
           msg.textContent = text;
           msg.className = "msg " + kind;
