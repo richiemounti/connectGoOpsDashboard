@@ -3730,11 +3730,11 @@
         min-width: 700px;
       }
 
-      #actions-table .mw-progress-value {
+      .register-active-table .mw-progress-value {
         min-width: 120px;
       }
 
-      #actions-table .mw-progress-track {
+      .register-active-table .mw-progress-track {
         width: 70px;
       }
 
@@ -6210,7 +6210,7 @@
       .calendar-active-count {
         padding: 0 14px;
       }
-    </style>
+    #tab-actions .register-group {margin:14px 0;border:1px solid var(--rule,#ccc);border-radius:8px;overflow:hidden} #tab-actions .register-group>summary {cursor:pointer;padding:14px 16px;font-weight:700} #tab-actions .register-group summary small {font-weight:400;margin-left:8px} #tab-actions .register-group summary:focus-visible {outline:2px solid currentColor;outline-offset:-3px}</style>
   </head>
   <body data-view="mywork">
     <div class="app">
@@ -7091,18 +7091,19 @@
               ><label class="action-columns"
                 ><input
                   type="checkbox"
-                  onchange="document.getElementById('actions-table').classList.toggle('action-simple',!this.checked)"
+                  onchange="document.querySelectorAll('.register-active-table').forEach(t=>t.classList.toggle('action-simple',!this.checked))"
                 />
                 Show all columns</label
               >
             </div>
-            <div
+</div>
+<details class="register-group" open><summary>Action and Governance Tracker <small id="actions-register-count"></small></summary><div class="section-block full">            <div
               class="action-scroll"
               tabindex="0"
               role="region"
-              aria-label="Actions table"
+              aria-label="Action and Governance Tracker"
             >
-              <table class="data-table action-simple" id="actions-table">
+              <table class="data-table action-simple register-active-table" id="actions-table">
                 <thead>
                   <tr>
                     <th>Task</th>
@@ -7121,16 +7122,60 @@
               </table>
             </div>
           </div>
-          <section
-            class="completed-section"
-            aria-labelledby="completed-heading"
-          >
-            <div class="completed-heading-row">
-              <div>
-                <h2 id="completed-heading">Completed tasks</h2>
-                <span id="completed-count">0 completed</span>
-              </div>
-              <div class="filter-section completed-filters">
+</details>
+<details class="register-group"><summary>Bug Log <small id="bugs-register-count"></small></summary><div class="section-block full">            <div
+              class="action-scroll"
+              tabindex="0"
+              role="region"
+              aria-label="Bug Log"
+            >
+              <table class="data-table action-simple register-active-table" id="bugs-table">
+                <thead>
+                  <tr>
+                    <th>Task</th>
+                    <th>Owner</th>
+                    <th>Status</th>
+                    <th>% complete</th>
+                    <th>Urgency</th>
+                    <th>Due Date</th>
+                    <th>Function</th>
+                    <th>Vertical</th>
+                    <th>Blocker Notes</th>
+                    <th>Blocked?</th>
+                  </tr>
+                </thead>
+                <tbody id="bugs-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+</details>
+<details class="register-group"><summary>Risk Register <small id="risks-register-count"></small></summary><div class="section-block full">            <div
+              class="action-scroll"
+              tabindex="0"
+              role="region"
+              aria-label="Risk Register"
+            >
+              <table class="data-table action-simple register-active-table" id="risks-table">
+                <thead>
+                  <tr>
+                    <th>Task</th>
+                    <th>Owner</th>
+                    <th>Status</th>
+                    <th>% complete</th>
+                    <th>Urgency</th>
+                    <th>Due Date</th>
+                    <th>Function</th>
+                    <th>Vertical</th>
+                    <th>Blocker Notes</th>
+                    <th>Blocked?</th>
+                  </tr>
+                </thead>
+                <tbody id="risks-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+</details>
+          <details class="register-group completed-section"><summary>Completed Tasks <small id="completed-count"></small></summary><div class="completed-heading-row">              <div class="filter-section completed-filters">
                 <select
                   class="compact-filter"
                   id="completed-date"
@@ -7161,7 +7206,7 @@
                 <tbody id="completed-tbody"></tbody>
               </table>
             </div>
-          </section>
+          </details>
         </div>
 
         <!-- DECISIONS -->
@@ -8691,7 +8736,7 @@
 
       const PAGE_SIZE = 10;
       const pageState = {
-        actions: 1,
+        actions: 1, bugs: 1, risks: 1,
         completed: 1,
         decisions: 1,
         learnings: 1,
@@ -8737,7 +8782,7 @@
         pageState[key] = Math.max(1, (pageState[key] || 1) + amount);
         (
           ({
-            actions: renderActionsTable,
+            actions: renderActionsTable, bugs: renderActionsTable, risks: renderActionsTable,
             completed: renderCompletedTable,
             decisions: () => renderDecisions("all"),
             learnings: renderLearningsFiltered,
@@ -9054,9 +9099,7 @@
           );
       }
       function renderActionsTable() {
-        const tbody = document.getElementById("actions-tbody"),
-          rows = filteredActions(),
-          page = pageRows("actions", rows);
+        const rows = filteredActions();
         const count = document.getElementById("action-result-count");
         if (count)
           count.textContent =
@@ -9067,6 +9110,10 @@
           clear.disabled = Object.values(getActionFilters()).every(
             (value) => value === "all",
           );
+        for (const [key, sources] of [["actions", ["Action Database","Governance Tracker"]], ["bugs", ["Bug Log"]], ["risks", ["Risk Register"]]]) {
+          const records = rows.filter(row => sources.includes(row.source || "Action Database"));
+          const tbody = document.getElementById(key+"-tbody"), page = pageRows(key,records);
+          document.getElementById(key+"-register-count").textContent = String(records.length);
         tbody.innerHTML = page.visible.length
           ? page.visible
               .map(
@@ -9088,13 +9135,14 @@
           .closest(".section-block")
           .insertAdjacentHTML(
             "beforeend",
-            pagerHTML("actions", rows.length, page.start, page.pages),
+            pagerHTML(key, records.length, page.start, page.pages),
           );
+        }
       }
       function setActionFilter(group, value) {
         const select = document.getElementById("action-" + group);
         if (select) select.value = value || "all";
-        pageState.actions = 1;
+        pageState.actions = pageState.bugs = pageState.risks = 1;
         pageState.completed = 1;
         renderActionsTable();
         renderCompletedTable();
@@ -9115,7 +9163,7 @@
         }
         const completed = document.getElementById("completed-date");
         if (completed) completed.value = "all";
-        pageState.actions = 1;
+        pageState.actions = pageState.bugs = pageState.risks = 1;
         pageState.completed = 1;
         renderActionsTable();
         renderCompletedTable();
@@ -10803,7 +10851,7 @@
           const element = document.getElementById(id);
           if (element) element.innerHTML = message;
         });
-        document.getElementById("actions-tbody").innerHTML =
+        for (const key of ["actions","bugs","risks"]) document.getElementById(key+"-tbody").innerHTML =
           '<tr><td colspan="10" style="text-align:center;padding:2rem;color:var(--ink-4);font-weight:300;font-style:italic;">Loading from Notion…</td></tr>';
         document.getElementById("completed-tbody").innerHTML =
           '<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--ink-4);font-weight:300;font-style:italic;">Loading completed tasks from Notion…</td></tr>';
