@@ -6211,7 +6211,160 @@
         padding: 0 14px;
       }
     #tab-actions .register-group {margin:14px 0;border:1px solid var(--rule,#ccc);border-radius:8px;overflow:hidden} #tab-actions .register-group>summary {cursor:pointer;padding:14px 16px;font-weight:700} #tab-actions .register-group summary small {font-weight:400;margin-left:8px} #tab-actions .register-group summary:focus-visible {outline:2px solid currentColor;outline-offset:-3px}</style>
-  </head>
+  
+<style>
+.ops-tools{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 0}.ops-tools button,.ops-task select,.ops-b-card button,#ops-dialog button{cursor:pointer;padding:7px 12px;border:1px solid #aebeb6;border-radius:6px;background:white;color:#204337;font:inherit}
+.ops-board:not([hidden]){display:flex;overflow-x:auto;gap:12px;padding:12px;align-items:flex-start}.ops-lane{background:#f1f4f0;border-radius:8px;padding:12px;flex:0 0 min(255px,80vw);min-height:130px;color:#203e33}.ops-lane h3{font-size:14px;margin:0 0 12px}.ops-task,.ops-b-card{background:#fff;border:1px solid #d4dfd6;border-radius:8px;padding:14px;color:#203e33}.ops-task{margin:8px 0;cursor:grab}.ops-task small,.ops-task label{display:block;font-size:12px;margin-top:8px}.ops-task select{max-width:100%;font-size:12px}.ops-b-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:14px}.ops-b-card summary{font-weight:700;cursor:pointer}.ops-b-card small{display:block;margin:10px 0}.ops-b-card .mw-progress-track{background:#dbe4df;height:7px;border-radius:4px;overflow:hidden}.ops-b-card .mw-progress-fill{background:#487961;height:100%}.ops-b-card.is-done{background-color:#f4f9f2;background-image:radial-gradient(ellipse at 20% 24%,#c89d4226 0 2px,transparent 3px),radial-gradient(ellipse at 70% 76%,#6f9b8126 0 2px,transparent 3px);background-size:31px 34px,43px 39px}.ops-medal{font-size:13px;background:#fff2c7;border-radius:14px;padding:4px 9px}.ops-b-card .ops-tools{margin-bottom:0}
+#ops-dialog{width:min(400px,92vw);max-height:85vh;overflow:auto;margin:auto;padding:22px;border:1px solid #cbd7d0;border-radius:12px;color:#204337}#ops-dialog::backdrop{background:#11271f66}#ops-dialog fieldset{border:0;padding:0;margin:0}#ops-dialog label:not([hidden]){display:grid;gap:5px;margin:12px 0}#ops-dialog input,#ops-dialog select{width:100%;padding:8px;font:inherit}#ops-dialog p{font-size:13px}#tab-actions .section-block[hidden]{display:none}
+</style>
+<style>/* Original ConnectGo type and colours, shared by the live page and local preview. */
+#tab-actions,#tab-boulders{--cg-forest:var(--green);--cg-olive:var(--olive);--cg-plum:var(--plum);--cg-amber:var(--amber);--cg-coral:var(--coral);--cg-yellow:var(--yellow);--cg-rule:var(--rule);--cg-stock:var(--off)}
+.oc-card,.ops-lane{--stripe:var(--olive);--band:var(--olive);--letter:var(--green)}
+[data-tone=working]{--stripe:var(--green);--band:var(--green);--letter:var(--white)}
+[data-tone=review]{--stripe:var(--plum);--band:var(--plum);--letter:var(--white)}
+[data-tone=planned]{--stripe:var(--amber);--band:var(--amber);--letter:var(--green)}
+[data-tone=alert]{--stripe:var(--coral);--band:var(--coral);--letter:var(--green)}
+[data-tone=award],[data-tone=finish]{--stripe:var(--green);--band:var(--yellow);--letter:var(--green)}
+
+/* Quarterly commitments: asymmetric outlines and broad brand-colour contours. */
+#tab-boulders .ops-b-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:22px;max-width:1440px;align-items:stretch}
+#tab-boulders .ref-boulder{--accent:var(--olive);--wash:rgba(133,135,85,.1);position:relative;display:flex;flex-direction:column;min-width:0;margin:0;padding:0;border:1px solid rgba(133,135,85,.5);border-radius:8px 48px 8px 28px;overflow:hidden;isolation:isolate;background:var(--white);color:var(--green);font-family:var(--body);box-shadow:0 3px 0 rgba(133,135,85,.12);transition:border-color .18s,box-shadow .18s}
+#tab-boulders .ref-boulder[data-tone=working]{--accent:var(--amber);--wash:rgba(205,128,40,.12)}
+#tab-boulders .ref-boulder[data-tone=alert]{--accent:var(--coral);--wash:rgba(238,92,95,.1)}
+#tab-boulders .ref-boulder[data-tone=review]{--accent:var(--plum);--wash:rgba(81,20,51,.08)}
+#tab-boulders .ref-boulder.is-done{--accent:var(--olive);--wash:rgba(133,135,85,.1);border-color:var(--olive);background:var(--white)}
+#tab-boulders .ref-boulder:hover{border-color:var(--accent);box-shadow:0 4px 0 var(--wash)}
+.ref-boulder::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(150deg,var(--wash),transparent 64%)}
+.ref-boulder::after{content:"";position:absolute;right:-52px;top:-84px;width:232px;height:228px;z-index:-1;pointer-events:none;border:24px solid var(--wash);border-radius:44% 56% 62% 38%;transform:rotate(-25deg)}
+.ref-ledger{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 0;gap:12px;color:var(--ink-3);font:500 12px/1.4 var(--body)}
+.ref-ledger>span:first-child{color:var(--green);font-weight:600;letter-spacing:.045em}
+.ref-ledger>span:last-child{padding:3px 10px;border:1px solid rgba(133,135,85,.4);border-radius:3px 12px 3px 3px;background:var(--white)}
+.ref-b-content{display:flex;flex:1;flex-direction:column;align-items:flex-start;padding:22px 24px 18px}
+.ref-state{display:inline-flex;align-items:center;gap:8px;color:var(--green);font:500 12px/1.4 var(--body)}
+.ref-state::before{content:"";width:16px;height:5px;background:var(--accent);border-radius:0 5px 0 0}
+#tab-boulders .ref-boulder h3{max-width:30ch;margin:14px 0 27px;color:var(--green);font:600 clamp(27px,2.1vw,32px)/1.1 var(--display);letter-spacing:0;overflow-wrap:anywhere}
+.oc-meter{margin:8px 0 14px;width:100%}
+.oc-meter>div:first-child{display:flex;align-items:baseline;justify-content:space-between;gap:10px;color:var(--ink-3);font:400 12px/1.4 var(--body)}
+.oc-meter b{color:var(--green);font:600 22px/1.2 var(--display);font-variant-numeric:tabular-nums}
+.oc-track{height:6px;margin-top:6px;background:var(--paper);overflow:hidden;border-radius:0 5px 0 5px}
+.oc-track i{display:block;height:100%;background:var(--stripe);border-radius:inherit}
+.ref-boulder .oc-meter{margin:auto 0 0;padding:14px 16px 16px;border:1px solid rgba(133,135,85,.25);border-radius:3px 22px 3px 14px;background:var(--green)}
+.ref-boulder .oc-meter>div:first-child{color:rgba(255,255,255,.76)}
+.ref-boulder .oc-meter b{font-size:29px;color:var(--white)}
+.ref-boulder .oc-track{height:7px;background:rgba(255,255,255,.18)}
+.ref-boulder .oc-track i{background:var(--amber)}
+.ref-boulder[data-tone=alert] .oc-track i{background:var(--coral)}
+.ref-boulder.is-done .oc-track i{background:var(--yellow)}
+#tab-boulders .ref-boulder footer{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 24px;padding:0 0 14px;color:var(--green)}
+.ref-sig small{display:block;margin-bottom:2px;color:var(--ink-3);font-size:11px}
+.oc-owner{overflow-wrap:anywhere;font-size:12px;font-weight:500}
+#tab-boulders .ref-boulder button{min-height:34px;padding:5px 13px;background:var(--white);color:var(--green);border:1px solid var(--olive);border-radius:3px 11px 3px 3px;font:500 12px/1.4 var(--body);cursor:pointer}
+#tab-boulders .ref-boulder button:hover{background:var(--green);color:var(--white);border-color:var(--green)}
+.ref-boulder .oc-detail{margin:0;padding:11px 24px 13px;border-top:1px solid rgba(133,135,85,.22);background:rgba(133,135,85,.045)}
+.oc-detail summary{cursor:pointer;color:var(--ink-3);font:400 12px/1.5 var(--body)}
+.oc-detail a{display:inline-block;margin:6px 0;color:var(--green);font-size:12px;text-underline-offset:4px}
+
+/* Work board: coloured status headers, framed lanes and readable task slips. */
+#tab-actions .ops-board:not([hidden]){display:flex;align-items:stretch;gap:16px;padding:10px 2px 22px;background:transparent;border:0;scroll-snap-type:x proximity;scrollbar-color:var(--olive) var(--paper)}
+#tab-actions .ops-lane{flex:0 0 clamp(260px,22vw,320px);min-width:0;min-height:260px;padding:0 10px 14px;background:var(--paper);border:1px solid rgba(133,135,85,.35);border-radius:5px 20px 5px 5px;overflow:hidden;scroll-snap-align:start;color:var(--green);font-family:var(--body)}
+.oc-lane-title{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:54px;padding:12px 15px;margin:0 -10px 12px;background:var(--band);color:var(--letter);border:0}
+#tab-actions .oc-lane-title h3{margin:0;color:inherit;font:600 23px/1.1 var(--display);letter-spacing:0}
+.oc-lane-title b{display:grid;place-items:center;min-width:25px;height:25px;padding:0 5px;color:inherit;border:1px solid currentColor;border-radius:50%;font:500 12px/1 var(--body)}
+.oc-lane-title i{display:none}
+#tab-actions .oc-task.ref-task{position:relative;margin:11px 0 0;padding:12px 14px 12px;border:1px solid rgba(133,135,85,.45);border-left:4px solid var(--olive);border-radius:3px 14px 3px 3px;background:var(--white);color:var(--green);box-shadow:0 2px 0 rgba(133,135,85,.17);cursor:grab;transition:border-color .15s,box-shadow .15s}
+#tab-actions .ref-task[data-priority=high]{border-left-color:var(--amber)}
+#tab-actions .ref-task[data-priority=blocked]{border-left-color:var(--coral)}
+#tab-actions .ref-task:hover,#tab-actions .ref-task:focus-within{border-color:var(--green);box-shadow:0 3px 0 rgba(133,135,85,.22)}
+#tab-actions .ref-task h4{margin:5px 0 12px;font:600 23px/1.12 var(--display);letter-spacing:0;overflow-wrap:anywhere}
+.ref-task h4 a{color:var(--green);font:inherit}.ref-task .notion-arrow{display:none}
+.ref-line{display:flex;align-items:center;flex-wrap:wrap;gap:5px 8px;margin:0 0 10px;color:var(--ink-3);font:500 11px/1.4 var(--body)}
+.ref-line>span:first-child{border-bottom:2px solid var(--olive);padding-bottom:3px}
+.ref-line .ref-warning{padding:2px 6px;background:rgba(238,92,95,.12);color:var(--plum);font-weight:500}
+.ref-facts{margin:10px 0 14px;border-top:1px solid var(--rule)}
+.ref-facts>div{display:grid;grid-template-columns:minmax(55px,.72fr) 1.3fr;gap:8px;padding:7px 0;border-bottom:1px solid var(--rule);font-size:12px;line-height:1.4}
+.ref-facts dt{color:var(--ink-3)}.ref-facts dd{margin:0;color:var(--green);font-weight:500;overflow-wrap:anywhere}
+.ref-task footer{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:10px;border-top:1px solid var(--rule)}
+.ref-task .oc-owner{color:var(--green);padding-left:9px;border-left:2px solid var(--olive);line-height:1.4}
+.ops-task .oc-move{position:relative;display:inline-block;margin:0;padding:4px 0;color:var(--green);border-bottom:1px solid var(--olive);font:500 12px/1.4 var(--body)}
+.oc-move::after{content:"\2192";margin-left:6px}
+.oc-move select{position:absolute;inset:0;opacity:0;width:100%;cursor:pointer}
+.oc-move:focus-within{outline:2px solid var(--amber);outline-offset:3px}
+.oc-empty{margin:15px 0;padding:22px 10px;color:var(--ink-3);border:1px dashed var(--olive);border-radius:3px 14px 3px 3px;font-size:12px;text-align:center}
+.ops-lane.oc-drop{outline:3px solid var(--stripe);outline-offset:-3px}.ops-task.oc-picked{opacity:.55}
+#ops-toggle,#tab-actions .ops-tools>button,#tab-boulders .ops-tools>button{padding:8px 14px;background:var(--green);color:var(--white);border:1px solid var(--green);border-radius:3px 12px 3px 3px;font:500 13px/1.4 var(--body);cursor:pointer}
+#ops-toggle:hover,#tab-actions .ops-tools>button:hover,#tab-boulders .ops-tools>button:hover{background:var(--green-2)}
+
+#ops-dialog{width:min(650px,94vw);max-height:88vh;padding:0 24px;border:1px solid var(--olive);border-radius:6px 24px 6px 6px;background:var(--white);color:var(--green)}
+#ops-dialog h2{margin:0 -24px 16px;padding:20px 24px 14px;border-bottom:3px solid var(--amber);background:var(--green);color:var(--white);font:600 29px/1.15 var(--display)}
+#ops-dialog .ops-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start;margin:20px 0}
+#ops-dialog .ops-form-field{min-width:0}
+#ops-dialog .ops-form-field>label,#ops-dialog #ops-destination-label:not([hidden]){margin:0 0 5px;font:500 13px/1.4 var(--body)}
+#ops-dialog .ops-form-field:is([data-type="title"],[data-type="rich_text"],[data-type="files"]){grid-column:1/-1}
+#ops-dialog :is(input,select,textarea),#ops-dialog .ops-choices>summary{min-width:0;box-sizing:border-box;width:100%;padding:8px 10px;background:var(--white);border:1px solid var(--rule);border-radius:4px;color:inherit;font:400 14px/1.4 var(--body)}
+#ops-dialog textarea{resize:vertical}
+#ops-dialog input[type="checkbox"]{width:18px;height:18px;accent-color:var(--green);cursor:pointer}
+#ops-dialog .ops-form-field[data-type="checkbox"]{display:flex;align-items:center;gap:8px;min-height:38px}
+#ops-dialog .ops-form-field[data-type="checkbox"] label{margin:0;cursor:pointer;order:1}
+#ops-dialog summary{cursor:pointer;overflow-wrap:anywhere}
+#ops-dialog .ops-choices[open]{background:var(--white);padding-bottom:5px}
+#ops-dialog .ops-choice-list{max-height:160px;overflow:auto;padding:2px 6px}
+#ops-dialog .ops-choice-list label{display:flex;gap:7px;align-items:center;margin:4px 0;font-size:13px}
+#ops-dialog .ops-choices input[type="search"]{margin:5px 0}
+#ops-dialog .ops-date-details,#ops-dialog .ops-managed{font-size:13px;margin-top:6px}
+#ops-dialog .ops-managed{border-top:1px solid var(--rule);padding:12px 0;color:var(--ink-3)}
+#ops-dialog .ops-form-footer{position:sticky;bottom:0;padding:10px 0 12px;border-top:1px solid var(--rule);background:var(--white);z-index:1}
+#ops-dialog .ops-form-footer .ops-tools{margin:0}
+#ops-dialog #ops-save{background:var(--green);color:var(--white);border-color:var(--green)}
+#ops-dialog #ops-save:disabled{opacity:.55}
+#ops-dialog #ops-error{margin:0 0 8px}#ops-dialog #ops-error:empty{display:none}
+@media(max-width:720px){#tab-boulders .ops-b-grid{grid-template-columns:1fr;gap:18px}#tab-actions .ops-lane{flex-basis:min(80vw,300px)}}
+@media(max-width:540px){#ops-dialog .ops-form-grid{grid-template-columns:1fr;gap:12px}#ops-dialog{padding:0 14px}#ops-dialog h2{margin-inline:-14px;padding-inline:14px}}
+@media(prefers-reduced-motion:reduce){#tab-boulders .ref-boulder,#tab-actions .ref-task{transition:none}}
+
+/* Compact expandable cards, limited to the Actions workspace. */
+#tab-actions .ops-view-switch{display:inline-flex;gap:3px;padding:4px;border:1px solid var(--rule);border-radius:8px;background:var(--paper)}
+#tab-actions .ops-view-switch button,#tab-actions #ops-toggle{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border:0;border-radius:5px;background:transparent;color:var(--ink-3);font:500 12px/1.3 var(--body);cursor:pointer}
+#tab-actions .ops-view-switch button[aria-pressed=true],#tab-actions #ops-toggle[aria-pressed=true]{background:var(--green);color:var(--white);box-shadow:0 1px 3px #11302a22}
+#tab-actions .ops-view-switch button:focus-visible,#tab-actions .ops-card-detail>summary:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+#tab-actions .ops-board:not([hidden]){gap:12px;padding:8px 0 18px}
+#tab-actions .ops-lane{flex-basis:clamp(240px,20vw,285px);padding:0 8px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--off);min-height:140px}
+#tab-actions .oc-lane-title{min-height:44px;margin:0 -8px 8px;padding:10px 12px;background:transparent;color:var(--green);border-top:3px solid var(--band);border-bottom:1px solid var(--rule)}
+#tab-actions .oc-lane-title h3{font:600 20px/1.1 var(--display)}
+#tab-actions .oc-lane-title b{border:0;background:var(--paper);border-radius:4px;height:20px;min-width:20px;font-size:10px}
+#tab-actions .oc-task.ref-task{padding:0;margin:8px 0 0;border:1px solid var(--rule);border-left:3px solid var(--olive);border-radius:6px;background:var(--white);box-shadow:0 1px 2px #11302a0a}
+#tab-actions .ref-task[data-priority=high]{border-left-color:var(--amber)}
+#tab-actions .ref-task[data-priority=blocked]{border-left-color:var(--coral)}
+#tab-actions .ops-card-detail>summary{position:relative;display:block;list-style:none;padding:12px 12px 11px;cursor:pointer;color:var(--green)}
+#tab-actions .ops-card-detail>summary::-webkit-details-marker{display:none}
+#tab-actions .ops-card-title{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;padding-right:14px;font:600 14px/1.45 var(--body)}
+#tab-actions .ops-card-chevron{position:absolute;right:10px;top:12px;color:var(--ink-3);transition:transform .15s}
+#tab-actions .ops-card-detail[open] .ops-card-chevron{transform:rotate(180deg)}
+#tab-actions .ops-card-detail[open] .ops-card-title{display:block}
+#tab-actions .ops-card-glance{display:flex;align-items:center;gap:7px;margin-top:10px;color:var(--ink-3);font:400 10px/1.5 var(--body)}
+#tab-actions .ops-card-glance>span:first-child{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#tab-actions .ops-card-glance time{white-space:nowrap}
+#tab-actions .ops-card-priority{max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:2px 5px;background:var(--paper);border-radius:3px;color:var(--green)}
+#tab-actions [data-priority=high] .ops-card-priority{background:#cd80281c;color:#7a5010}
+#tab-actions [data-priority=blocked] .ops-card-priority{background:#ee5c5f1c;color:var(--plum)}
+#tab-actions .ops-card-body{padding:0 12px 12px;border-top:1px solid var(--rule)}
+#tab-actions .ops-card-body .ref-facts{margin:0 0 10px;border-top:0}
+#tab-actions .ops-card-body .ref-facts>div{font-size:11px;padding:7px 0}
+#tab-actions .ops-card-body footer a{font:500 11px var(--body);color:var(--green)}
+#tab-actions .ops-load-more{display:block;width:100%;padding:10px 4px;margin-top:9px;border:1px dashed var(--olive);border-radius:5px;background:transparent;color:var(--green);font:500 11px var(--body);cursor:pointer}
+#tab-actions .ops-completed-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;padding:4px 0 12px}
+#tab-actions [hidden]{display:none!important}
+#tab-actions .register-group>.ops-tools{padding:0 12px}
+@media(max-width:600px){#tab-actions .ops-lane{flex-basis:82vw}#tab-actions .ops-card-glance{font-size:11px}}
+</style><style>#tab-boulders .ref-boulder.is-done::before{content:"";position:absolute;inset:0;width:auto;height:auto;background-color:transparent;border-radius:0;transform:none;z-index:-1;opacity:.23}
+#tab-boulders .ref-boulder.is-done::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='70' viewBox='0 0 88 70'%3E%3Cpath d='m8 16 6-7m43 32 7 4' stroke='%23f0c71d' stroke-width='3'/%3E%3Cpath d='m25 58 4-8m50-30 4 4' stroke='%23cd8028' stroke-width='4'/%3E%3Ccircle cx='38' cy='24' r='2' fill='%23ee5c5f'/%3E%3C/svg%3E");background-size:88px 70px;background-repeat:repeat;background-position:0 0}
+.completed-boulders{margin:28px 0;border-top:1px solid var(--olive);padding:14px 0;color:var(--green)}.completed-boulders>summary{font:600 24px/1.3 var(--display);cursor:pointer;padding:5px 0}.completed-boulders>summary span{display:inline-grid;place-items:center;min-width:24px;height:24px;margin-left:8px;border-radius:50%;background:var(--yellow);font:500 12px var(--body);vertical-align:middle}.completed-boulders[open]>.ops-b-grid{margin-top:18px}
+#tab-actions .oc-lane-title h3,.oc-lane-title b{color:inherit}
+.ops-follow-up{margin:auto;padding:22px;max-width:min(420px,92vw);border:1px solid var(--olive);border-top:4px solid var(--amber);border-radius:7px;color:var(--green);background:var(--white)}
+.ops-follow-up::backdrop{background:#11302a66}.ops-follow-up h2{font-size:20px}.ops-follow-up p{margin:10px 0}.ops-follow-up button,#tab-actions [data-review-risk]{display:inline-block;margin:4px 6px 4px 0;padding:5px 9px;border:1px solid var(--olive);background:var(--white);border-radius:4px;color:var(--green);font:inherit;cursor:pointer}
+#overview-types summary{cursor:pointer;font-weight:600;padding:10px 16px;border-top:1px solid #85875544}
+#tab-actions .ref-facts{margin:7px 0}.ref-facts dd{white-space:normal}
+.ops-personal-filters{margin:9px 0}.ops-personal-filters summary{color:var(--green);cursor:pointer;font-weight:600}.ops-personal-filters>div{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}.ops-personal-filters label{display:grid;gap:3px;font-size:12px}.ops-personal-filters select{max-width:230px;padding:5px;color:var(--green);background:var(--white);border:1px solid var(--olive);border-radius:4px}
+</style></head>
   <body data-view="mywork">
     <div class="app">
       <header class="topbar">
@@ -6311,6 +6464,25 @@
               <rect x="14" y="14" width="7" height="7" rx="2" /></svg
             ><span>Overview</span
             ><span class="nav-badge" id="badge-blocked"></span>
+          </button>
+          <button
+            type="button"
+            class="nav-item"
+            data-tab="boulders"
+            onclick="showTab('boulders',this)"
+          >
+            <svg
+              class="cg-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m2 20 7-14 5 9 3-5 5 10H2Zm4-8 3 2 2-2" /></svg
+            ><span>Boulders</span>
           </button>
           <div class="nav-label">Operations</div>
           <button
@@ -6413,25 +6585,7 @@
                 d="M7 3v4m10-4v4M3 11h18m-13 5h.01M12 16h.01M16 16h.01"
               /></svg
             ><span>Calendar</span></button
-          ><button
-            type="button"
-            class="nav-item"
-            data-tab="boulders"
-            onclick="showTab('boulders',this)"
           >
-            <svg
-              class="cg-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.6"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="m2 20 7-14 5 9 3-5 5 10H2Zm4-8 3 2 2-2" /></svg
-            ><span>Boulders</span>
-          </button>
           <div class="nav-label">External</div>
           <button
             type="button"
@@ -6684,6 +6838,7 @@
                 </button>
               </div>
 
+              <details class="ops-personal-filters"><summary>Filter my tasks</summary><div id="ops-my-filters"></div></details>
               <ul id="mw-list" class="mw-tasks"></ul>
               <details id="mw-more" class="mw-more" hidden>
                 <summary id="mw-more-label">More actions</summary>
@@ -6939,7 +7094,7 @@
               </section>
             </aside>
           </div>
-        </div>
+        <section class="section-block"><div class="block-title">Open actions by type</div><div id="overview-types"></div></section></div>
 
         <!-- ACTIONS -->
         <div id="tab-actions" class="tab-panel">
@@ -7085,7 +7240,7 @@
             </div>
           </section>
           <div class="section-block full">
-            <div class="action-results-toolbar">
+            <div class="action-results-toolbar"><div class="ops-view-switch" role="group" aria-label="Actions display"><button type="button" id="ops-toggle" aria-pressed="false" onclick="toggleOpsBoard(true)"><span aria-hidden="true">▦</span> Card View</button><button type="button" id="ops-table-toggle" aria-pressed="true" onclick="toggleOpsBoard(false)"><span aria-hidden="true">☷</span> Table View</button></div>
               <strong id="action-result-count" role="status" aria-live="polite"
                 >Loading tasks…</strong
               ><label class="action-columns"
@@ -7097,7 +7252,7 @@
               >
             </div>
 </div>
-<details class="register-group" open><summary>Action and Governance Tracker <small id="actions-register-count"></small></summary><div class="section-block full">            <div
+<details class="register-group" open><summary>Action and Governance Tracker <small id="actions-register-count"></small></summary><div class="ops-tools"><button type="button" onclick="openOpsForm('actions')">+ Action</button></div><div class="ops-board" hidden id="ops-board-actions"></div><div class="section-block full">            <div
               class="action-scroll"
               tabindex="0"
               role="region"
@@ -7123,7 +7278,7 @@
             </div>
           </div>
 </details>
-<details class="register-group"><summary>Bug Log <small id="bugs-register-count"></small></summary><div class="section-block full">            <div
+<details class="register-group"><summary>Bug Log <small id="bugs-register-count"></small></summary><div class="ops-tools"><button type="button" onclick="openOpsForm('bugs')">+ Bug</button></div><div class="ops-board" hidden id="ops-board-bugs"></div><div class="section-block full">            <div
               class="action-scroll"
               tabindex="0"
               role="region"
@@ -7149,7 +7304,7 @@
             </div>
           </div>
 </details>
-<details class="register-group"><summary>Risk Register <small id="risks-register-count"></small></summary><div class="section-block full">            <div
+<details class="register-group"><summary>Risk Register <small id="risks-register-count"></small></summary><div class="ops-tools"><button type="button" onclick="openOpsForm('risks')">+ Risk</button></div><div class="ops-board" hidden id="ops-board-risks"></div><div class="section-block full">            <div
               class="action-scroll"
               tabindex="0"
               role="region"
@@ -7191,7 +7346,7 @@
                 </select>
               </div>
             </div>
-            <div class="section-block full" id="completed-table-wrap">
+            <div id="ops-completed-cards" hidden></div><div class="section-block full" id="completed-table-wrap">
               <table class="data-table" id="completed-table">
                 <thead>
                   <tr>
@@ -7624,7 +7779,7 @@
               <option value="all">All quarters</option>
             </select>
           </div>
-          <div id="boulders-container"></div>
+          <div class="ops-tools"><button type="button" onclick="openOpsForm('boulders')">+ Boulder</button></div><div id="boulders-container"></div>
         </div>
 
         <!-- INVESTOR VIEW -->
@@ -7759,7 +7914,13 @@
       </main>
     </div>
 
-    <script>
+    <dialog id="ops-dialog" aria-labelledby="ops-form-heading"><form id="ops-entry"><fieldset id="ops-fields"><h2 id="ops-form-heading">New record</h2>
+<label id="ops-destination-label">Register<select id="ops-destination" onchange="refreshOpsForm()"><option value="actions">Action Database</option><option value="governance">Governance Tracker</option></select></label>
+<div id="ops-dynamic"></div>
+<label id="ops-state-label" hidden>Status<select id="ops-state"></select></label>
+<label id="ops-percent-label">Progress (%)<input id="ops-progress" type="number" min="0" max="100" step="any"></label>
+<div class="ops-form-footer"><p id="ops-error" role="status" aria-live="polite"></p><div class="ops-tools"><button type="submit" id="ops-save">Save to Notion</button><button type="button" onclick="this.closest('dialog').close()">Cancel</button></div></div></fieldset></form></dialog>
+<script>
       const completedLocally = new Map();
       let completionRevision = 0;
       let mwLeavePaused = false;
@@ -7832,7 +7993,7 @@
           completed: date,
           blocked: false,
         };
-        if (source === "Action Database") {
+        if (["Action Database","Governance Tracker"].includes(source)) {
           update.percent = 100;
           update.progressError = null;
         }
@@ -8053,7 +8214,7 @@
 
       // ── NOTION PROPERTY PARSERS ──
       function p_title(prop) {
-        return prop?.title?.[0]?.plain_text || "";
+        return (prop?.title || []).map(part => part.plain_text).join("");
       }
       function p_text(prop) {
         return prop?.rich_text?.[0]?.plain_text || "";
@@ -8153,6 +8314,511 @@
         return data;
       }
 
+const registerRequired = {
+  actions: ["Owner","Function","Vertical","Due Date","Urgency","Type","Start Date","Decision","Status"],
+  governance: ["Owner","Function","Due Date","Start Date","Frequency","Urgency","Status","Type","Linked Controls","Linked Risks","Source Workflow"],
+  bugs: ["Module / Feature","Priority","Type","Vertical","Reported By","Start Date","Due Date","Date Logged","Status"]
+};
+function missingRegisterFields(db, schema, values) {
+  const required = new Set((registerRequired[db] || []).map(name=>name.toLowerCase()));
+  const blocked = Object.entries(values).some(([k,v])=>k.trim().toLowerCase()==="blocked?" && v===true);
+  if (blocked && ["actions","governance"].includes(db)) required.add(db==="actions"?"blocker notes":"blocked notes");
+  return Object.keys(schema).filter(name=>{
+    if (!required.has(name.trim().toLowerCase()) && schema[name].type!=="title") return false;
+    const v=values[name];
+    return v==null || typeof v==="string"&&!v.trim() || Array.isArray(v)&&!v.length || schema[name].type==="date"&&!v.start;
+  });
+}
+function reviewNextDate(day, frequency) {
+  const months={monthly:1,quarterly:3,quartely:3,annually:12,annual:12,yearly:12}[String(frequency||"").toLowerCase()];
+  if(!months || !/^\d{4}-\d{2}-\d{2}$/.test(day)) return null;
+  const original=new Date(day+"T12:00:00Z");
+  if(!Number.isFinite(original.getTime()) || original.toISOString().slice(0,10)!==day) return null;
+  const target=new Date(Date.UTC(original.getUTCFullYear(),original.getUTCMonth()+months+1,0,12));
+  target.setUTCDate(Math.min(target.getUTCDate(),original.getUTCDate()));
+  return target.toISOString().slice(0,10);
+}
+function riskScoreAtCheck(property) {
+  const p = property?.type === "formula" ? property.formula : property;
+  const value = p?.type === "number" ? p.number : p?.type === "string" ? p.string : null;
+  if (value == null || (typeof value === "string" && !value.trim())) return null;
+  const score = Number(value);
+  return Number.isFinite(score) ? score : null;
+}
+function monitoringCheckName(properties, due) {
+  const field = Object.values(properties).find(p => p.type === "title");
+  const name = field?.title?.map(t => t.plain_text).join("").trim() || "Untitled risk";
+  return "Risk review · " + Array.from(name).slice(0, 900).join("") + " · due " + due;
+}
+
+function boulderDetails(b){
+  const parts=[];
+  if (b.linkedActions!=null) parts.push(b.linkedActions+" linked actions");
+  if (b.milestones!=null) parts.push(b.milestones+" linked milestones");
+  const planning=/^https?:\/\//i.test(b.planning||"") ? notionAnchor({url:b.planning},"Planning page")+" · " : "";
+  return (parts.length?"<p>"+esc(parts.join(" · "))+"</p>":"")+planning;
+}
+function filterPersonalRows(rows){
+  const holder=document.getElementById("ops-my-filters");
+  if(!holder) return rows;
+  const today=mwToday();
+  const fields={source:"Register",due:"Due date",status:"Status",urgency:"Urgency",fn:"Function",vertical:"Vertical",type:"Type",blocked:"Blocked",boulders:"Linked Boulder"};
+  function values(item,k){
+    if(k==="due"){
+      if(!item.due) return ["No date"];
+      const day=item.due.slice(0,10);
+      const list=day<today?["Overdue"]:day===today?["Today"]:[];
+      if(mwInWeek(day)) list.push("This week");
+      const back=new Date(day+"T12:00:00Z");back.setUTCDate(back.getUTCDate()-7);
+      if(mwInWeek(back.toISOString().slice(0,10))) list.push("Next week");
+      return list;
+    }
+    if(k==="blocked")return [item.blocked?"Blocked":"Unblocked"];
+    if(k==="boulders")return item.boulders?.length?item.boulders:["Unlinked"];
+    const value=item[k];return Array.isArray(value)?value:value?[value]:[];
+  }
+  for(const [k,label] of Object.entries(fields)){
+    let select=holder.querySelector('[data-personal="'+k+'"]');
+    if(!select){
+      const wrap=document.createElement("label");wrap.textContent=label;
+      select=document.createElement("select");select.dataset.personal=k;
+      select.onchange=renderMyWorkActions;wrap.append(select);holder.append(wrap);
+    }
+    const options=k==="due"?["Today","This week","Next week","Overdue","No date"]:[...new Set(rows.flatMap(i=>values(i,k)))].sort();
+    const current=select.value;
+    select.replaceChildren(new Option("All",""));
+    for(const v of options){
+      const b=k==="boulders"&&BOULDERS.find(row=>row.pageId.replace(/-/g,"")===v.replace(/-/g,""));
+      select.add(new Option(b?b.name:v,v));
+    }
+    if(options.includes(current)) select.value=current;
+  }
+  return rows.filter(item=>[...holder.querySelectorAll("select")].every(s=>!s.value||values(item,s.dataset.personal).includes(s.value)));
+}
+async function offerBoulderUpdate(ids){
+  if(!ids?.length)return;
+  let dialog=document.getElementById("linked-boulder-update");
+  if(!dialog){
+    dialog=document.createElement("dialog");dialog.id="linked-boulder-update";dialog.className="ops-follow-up";
+    dialog.setAttribute("aria-label","Update linked Boulder progress");document.body.append(dialog);
+  }
+  dialog.replaceChildren(formElement("h2","Update linked Boulder progress?"),formElement("p","The action is complete. Choose a Boulder to update its progress."));
+  const close=formButton("Skip");close.onclick=()=>dialog.close();
+  for(const id of ids){
+    const match=BOULDERS.find(b=>b.pageId.replace(/-/g,"")===id.replace(/-/g,""));
+    const btn=formButton(match?.name||"Open linked Boulder");
+    btn.onclick=async()=>{
+      try{
+        if(!match)await loadBoulders();
+        const b=BOULDERS.find(b=>b.pageId.replace(/-/g,"")===id.replace(/-/g,""));
+        if(!b)throw Error("Linked Boulder is unavailable.");
+        dialog.close();await openOpsForm("boulders",b.pageId);
+      }catch(e){showWriteStatus(e.message,true);}
+    };
+    dialog.append(btn);
+  }
+  dialog.append(close);dialog.showModal();
+}
+async function reviewRisk(pageId,due,name){
+  if(boardBusy || !due)return;
+  if(!window.confirm("Record the review of “"+name+"” and its current score in the Monitoring Log, then schedule the next review?"))return;
+  boardBusy=true;
+  try{
+    const data=await saveOps({operation:"review-risk",db:"risks",page_id:pageId,expected_due:due.slice(0,10)});
+    acceptOpsPage("risks",data);
+    mwItems=mwItems.map(i=>i.id===pageId?{...i,due:data.nextDue}:i);
+    renderMyWorkActions();
+    showWriteStatus((data.monitoringLogId?"Review recorded in the Monitoring Log. ":"Review already completed. ")+"Next review "+data.nextDue+".");
+    if(data.monitoringLogId){
+      const link=document.createElement("a");
+      link.textContent="View log entry";link.style.color="inherit";
+      link.href=data.monitoringLogUrl||"https://www.notion.so/"+data.monitoringLogId.replace(/-/g,"");
+      link.target="_blank";link.rel="noopener noreferrer";
+      document.getElementById("write-status").append(" ",link);
+    }
+  }catch(error){showWriteStatus(error.message,true);}
+  finally{boardBusy=false;}
+}
+document.addEventListener("click",event=>{
+  const button=event.target.closest?.("[data-review-risk]");
+  if(!button)return;
+  const r=ALL_ACTIONS.find(row=>row.id===button.dataset.reviewRisk);
+  if(r)reviewRisk(r.id,r.due,r.task);
+});
+
+const editableOpsFields = new Set(["title","rich_text","number","checkbox","select","status","multi_select","date","people","relation","url","email","phone_number","files"]);
+const notionManagedFields = new Set(["formula","rollup","unique_id","created_time","last_edited_time","created_by","last_edited_by","verification"]);
+function formElement(tag, text) {
+  const el = document.createElement(tag);
+  if (text !== undefined) el.textContent = text;
+  return el;
+}
+function formButton(text) {
+  const button = formElement("button", text);
+  button.type = "button";
+  return button;
+}
+function formInput(type, label) {
+  const input = formElement("input");
+  input.type = type;
+  input.setAttribute("aria-label", label);
+  return input;
+}
+function opsChoices(box, db, name, property) {
+  const remote = property.type !== "multi_select";
+  const choices = new Map((property.options || []).map(name => [name, name]));
+  const selected = new Map();
+  const details = formElement("details"), summary = formElement("summary", "Choose…");
+  const search = formInput("search", "Find choices for " + name);
+  search.placeholder = "Filter loaded choices";
+  const list = formElement("div"), status = formElement("small"), more = formButton("Load choices");
+  list.className = "ops-choice-list";
+  status.setAttribute("role","status");
+  let cursor = null, started = false, loading = false;
+  function draw() {
+    list.replaceChildren();
+    const query = search.value.toLocaleLowerCase();
+    let count = 0;
+    for (const [id, label] of choices) {
+      if (!label.toLocaleLowerCase().includes(query)) continue;
+      count++;
+      const row = formElement("label"), input = formInput("checkbox",label);
+      input.checked = selected.has(id);
+      input.onchange = () => {
+        if (input.checked) selected.set(id,label); else selected.delete(id);
+        summary.textContent = selected.size ? [...selected.values()].join(", ") : "Choose…";
+      };
+      row.append(input, formElement("span",label)); list.append(row);
+    }
+    if (!count && (!remote || started)) list.append(formElement("small", "No matching choices."));
+  }
+  async function loadChoices() {
+    if (loading) return;
+    loading = true; more.disabled = true; status.textContent = "Loading…";
+    try {
+      const response = await fetch("/.netlify/functions/notion", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({operation:"board-options",db,field:name,cursor})});
+      if (!response.ok) throw new Error();
+      const data = await response.json();
+      for (const item of data.options) choices.set(item.id,item.name);
+      cursor = data.next_cursor; started = true; more.hidden = !cursor;
+      more.textContent = "Load more"; status.textContent = ""; draw();
+    } catch {
+      status.textContent = "Could not load choices. Check the integration’s access in Notion or retry.";
+      more.textContent = "Retry";
+    } finally { loading = false; more.disabled = false; }
+  }
+  more.hidden = !remote; more.onclick = loadChoices; search.oninput = draw;
+  details.ontoggle = () => { if (remote && details.open && !started) loadChoices(); };
+  details.className = "ops-choices"; details.setAttribute("aria-label", name);
+  details.append(summary, search, list, status, more); box.append(details); draw();
+  return () => selected.size ? [...selected.keys()] : undefined;
+}
+
+function opsDateInputs(box,name) {
+  const start = formInput("date",name), end = formInput("date",name+" end date");
+  const startTime = formInput("time",name+" start time"), endTime = formInput("time",name+" end time");
+  function row(label, input) {
+    const item = formElement("label",label); item.append(input); return item;
+  }
+  const more = formElement("details"); more.className = "ops-date-details";
+  more.append(formElement("summary","End date or time"), row("Start time",startTime), row("End date",end), row("End time",endTime));
+  box.append(start,more);
+  return () => {
+    if (!start.value) {
+      if (end.value || startTime.value || endTime.value) throw new Error(name + " needs a start date.");
+      return;
+    }
+    const timed = !!(startTime.value || endTime.value);
+    const point = (d,t) => timed ? new Date(d+"T"+(t || "00:00")).toISOString() : d;
+    const first = point(start.value,startTime.value);
+    const last = end.value || endTime.value ? point(end.value || start.value,endTime.value) : null;
+    if (last && last < first) throw new Error(name + " ends before it starts.");
+    return {start:first,...(last && {end:last})};
+  };
+}
+
+function opsFieldControl(box, db, name, property) {
+  const {type} = property;
+  if (["multi_select","people","relation"].includes(type)) return opsChoices(box,db,name,property);
+  if (type === "date") return opsDateInputs(box,name);
+  let input;
+  if (type === "select" || type === "status") {
+    input = formElement("select");
+    input.add(new Option("Use Notion default",""));
+    for (const option of property.options) input.add(new Option(option,option));
+  } else if (type === "rich_text" || type === "files") {
+    input = formElement("textarea"); input.rows = 3;
+    if (type === "files") input.placeholder = "One HTTPS file link per line";
+  } else {
+    input = formInput(({number:"number",checkbox:"checkbox",url:"url",email:"email",phone_number:"tel"})[type] || "text",name);
+    if (type === "title") input.required = true;
+    if (type === "number") input.step = "any";
+    if (type === "number" && db === "boulders" && name === "Progress") { input.min = "0"; input.max = "100"; }
+  }
+  input.setAttribute("aria-label",name); box.append(input);
+  let touched = false;
+  input.addEventListener("change",() => { touched = true; });
+  return () => {
+    if (type === "checkbox") return touched ? input.checked : undefined;
+    if (!input.value.trim()) {
+      if (type === "title") throw new Error("Enter " + name.trim() + " before saving.");
+      return;
+    }
+    if (type === "number") return input.valueAsNumber;
+    if (type === "files") return input.value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+    return input.value;
+  };
+}
+
+function renderOpsFields(db, schema) {
+  const holder = boardEl("ops-dynamic"), grid = formElement("div"), read = new Map();
+  grid.className = "ops-form-grid";
+  const managed = [], other = [];
+  const entries = Object.entries(schema.properties);
+  if (!entries.some(([,p])=>p.type === "title")) throw new Error("No title field is available.");
+  const rank = p => p.type === "title" ? 0 : p.type === "people" ? 1 : 2;
+  for (const [name, property] of entries.sort((a,b)=>rank(a[1])-rank(b[1]))) {
+    if (!editableOpsFields.has(property.type)) {
+      (notionManagedFields.has(property.type) ? managed : other).push(name.trim());
+      continue;
+    }
+    const box = formElement("div"), label = formElement("label");
+    box.className = "ops-form-field"; box.dataset.type = property.type;
+    const required = property.type === "title" || (registerRequired[db]||[]).includes(name.trim());
+    label.textContent = name.trim() + (property.format === "percent" ? " (%)" : "") + (required ? " *" : "");
+    box.append(label);
+    read.set(name,opsFieldControl(box,db,name,property));
+    const control = box.querySelector("input,select,textarea,summary");
+    if(required && control.matches("input,select,textarea")) control.required=true;
+    if(name.trim()==="Status" && control.tagName==="SELECT"){
+      const initial={actions:"Inbox",governance:"Inbox",bugs:"Open",boulders:"Active"}[db];
+      if(property.options.includes(initial)) control.value=initial;
+    }
+    if(db==="bugs" && name.trim()==="Date Logged") control.value=mwToday();
+    control.id = "ops-prop-" + read.size;
+    label.htmlFor = control.id;
+    if (property.description) label.title = property.description;
+    grid.append(box);
+  }
+  holder.replaceChildren(grid);
+  for (const [names,heading] of [[managed,"Filled by Notion"],[other,"Available in Notion"]]) {
+    if (!names.length) continue;
+    const details = formElement("details"); details.className = "ops-managed";
+    details.append(formElement("summary",heading+" ("+names.length+")"),formElement("p",names.join(" · ")));
+    holder.append(details);
+  }
+  return read;
+}
+
+const boardSources={actions:"Action Database",governance:"Governance Tracker",bugs:"Bug Log",risks:"Risk Register",boulders:"Boulders"};
+      let useBoard=false, boardBusy=false, boardDrag=null, boardForm=null, boardGeneration=0;
+      const boardSchemas=new Map();
+      const expandedOpsCards=new Set(),opsLaneLimits=new Map();
+      document.addEventListener('toggle',event=>{
+        if(!event.target.matches?.('#tab-actions .ops-card-detail'))return;
+        const id=event.target.closest('[data-record]').dataset.record;
+        if(event.target.open)expandedOpsCards.add(id);else expandedOpsCards.delete(id);
+      },true);
+      document.addEventListener('click',event=>{
+        const button=event.target.closest?.('[data-more-lane]');if(!button)return;
+        opsLaneLimits.set(button.dataset.moreLane,(opsLaneLimits.get(button.dataset.moreLane)||10)+10);
+        renderActionsTable();
+      });
+      const boardEl=id=>document.getElementById(id);
+      const boardDB=source=>Object.keys(boardSources).find(k=>boardSources[k]===source);
+      function boardStates(db){
+        const p=boardSchemas.get(db)?.properties || {};
+        return (db==="risks" ? p["Risk Category"]||p.Status : p.Status)?.options || [];
+      }
+      async function boardSchema(db){
+        if (!boardSchemas.has(db)) boardSchemas.set(db,await notionSchema(db));
+      }
+      async function toggleOpsBoard(desired){
+        const generation=++boardGeneration;
+        useBoard=typeof desired==='boolean'?desired:!useBoard;
+        boardEl("ops-toggle").setAttribute("aria-pressed",String(useBoard));
+        boardEl("ops-table-toggle").setAttribute("aria-pressed",String(!useBoard));
+        document.querySelector('#tab-actions .action-columns')?.toggleAttribute('hidden',useBoard);
+        renderActionsTable();
+        renderCompletedTable();
+        if(useBoard){
+          const res=await Promise.allSettled(["actions","governance","bugs","risks"].map(boardSchema));
+          if(generation!==boardGeneration)return;
+          if(res.some(r=>r.status==="rejected"))showWriteStatus("Some status options could not be loaded. Toggle the board to retry.",true);
+          renderActionsTable();
+        }
+      }
+      function boardOptions(options,current){
+        return options.map(v=>'<option value="'+esc(v)+'"'+(v===current?' selected':'')+'>'+esc(v)+'</option>').join('');
+      }
+function opsTone(status){
+  const s=String(status||"").toLowerCase();
+  if(/complet|resolved|^done$|addressed|closed/.test(s))return 'finish';
+  if(/risk|block|hold|overdue|stuck/.test(s))return 'alert';
+  if(/review|test|investigat|uncertain/.test(s))return 'review';
+  if(/progress|active|ongoing|fix|workaround/.test(s))return 'working';
+  if(/week|planned|quick|ready/.test(s))return 'planned';
+  return 'queued';
+}
+function opsOwner(name){return '<span class="oc-owner">'+esc(name||'Unassigned')+'</span>';}
+function opsMeter(p,error){
+  const valid=!error&&Number.isFinite(p)&&p>=0&&p<=100;
+  return '<div class="oc-meter"><div><span>Progress</span><b>'+ (valid?esc(p)+'%':error?'Check in Notion':'Not recorded')+'</b></div><div class="oc-track" '+(valid?'role="progressbar" aria-label="Progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+p+'"':'aria-hidden="true"')+'><i style="width:'+(valid?p:0)+'%"></i></div></div>';
+}
+function boulderDone(b){return b.status==='Completed' || b.percent===100}
+function renderBoulderGroups(container, rows, status){
+  const completed=rows.filter(boulderDone),active=rows.filter(b=>!boulderDone(b));
+  const open=container.querySelector('.completed-boulders')?.open || status==='Completed';
+  function group(key,items){
+    const page=pageRows(key,items);
+    return '<div class="ops-b-grid">'+page.visible.map(opsBoulderCard).join('')+'</div>'+(page.pages>1?pagerHTML(key,items.length,page.start,page.pages):'');
+  }
+  container.innerHTML=(active.length?group('boulders',active):status==='Completed'?'':'<p>No active boulders match these filters.</p>')+
+    '<details class="completed-boulders" '+(open?'open':'')+'><summary>Completed Boulders <span>'+completed.length+'</span></summary>'+
+    (completed.length?group('completedBoulders',completed):'<p>No completed boulders match these filters.</p>')+'</details>';
+}
+function opsBoulderCard(b){
+  const done=boulderDone(b),tone=done?'award':opsTone(b.status);
+  const ref=b.reference || (b.id==null?'BOULDER':'BOULDER '+String(b.id).padStart(2,'0'));
+  return '<article class="ops-b-card oc-card ref-boulder '+(done?'is-done':'')+'" data-tone="'+tone+'"><header class="ref-ledger"><span>'+esc(ref)+'</span><span>'+esc(b.quarter||'Quarter not set')+'</span></header><div class="ref-b-content"><span class="ref-state">'+esc(done?'Completed':b.status||'No status')+'</span><h3>'+esc(b.name)+'</h3>'+opsMeter(b.percent,b.progressError)+'</div><footer><div class="ref-sig"><small>Owner</small>'+opsOwner(b.owner)+'</div><button type="button" data-boulder-edit="'+esc(b.pageId)+'" aria-label="Update '+esc(b.name)+'">Update</button></footer><details class="oc-detail"><summary>Record details</summary>'+boulderDetails(b)+notionAnchor(b,'Open in Notion')+'</details></article>';
+}
+function opsTaskCard(r,db,options){
+const risk=db==="risks",bug=db==="bugs",gov=db==="governance";
+  const priority=r.urgency||"",due=r.due?.slice(0,10);
+  const late=risk && due && due<mwToday();
+  const meta= risk ? [["Next review",due],["Controls",r.controls==null?"Unavailable":String(r.controls)+(r.controlsIncomplete?"+":"")],["Score",r.score],["Rating",r.rating],["Domain",r.domain],["Frequency",r.frequency]] :
+    bug ? [["Bug ID",r.bugId],["Priority",priority],["Status",r.status],["Module / Feature",r.module],["Due",due],["Vertical",r.vertical],["Type",r.bugType]] :
+    gov ? [["Due",due],["Urgency",priority],["Status",r.status],["Function",r.fn],["Frequency",r.frequency],["Type",r.type]] :
+    [["Due",due],["Urgency",priority],["Type",r.type],["Blocked",r.blocked?"Yes":"No"]];
+  const labels={risks:"Risk",bugs:"Bug",governance:"Governance",actions:"Action"};
+  const date=due?new Date(due+'T12:00:00Z'):null;
+  const stamp=date&&Number.isFinite(date.getTime())?date.toLocaleDateString('en-GB',{day:'numeric',month:'short',timeZone:'UTC'}):'No date';
+  const third=risk?(r.rating||'Unrated'):(priority||'No priority');
+  const facts=[["Register",labels[db]],["Owner",r.owner],...meta];
+  if(r.blockerNotes)facts.push(["Blocker notes",r.blockerNotes]);
+  if(r.description)facts.push(["Notes",r.description]);
+  if(r.completed)facts.push(["Completed",r.completed.slice(0,10)]);
+  return '<article draggable="true" class="ops-task oc-task ref-task" data-priority="'+(late||r.blocked?'blocked':/high|urgent|critical/i.test(priority)?'high':'normal')+'" data-record="'+esc(r.id)+'" data-db="'+db+'"><details class="ops-card-detail" '+(expandedOpsCards.has(r.id)?'open':'')+'><summary><span class="ops-card-title">'+esc(r.task)+'</span><span class="ops-card-chevron" aria-hidden="true">⌄</span><span class="ops-card-glance"><span title="Owner: '+esc(r.owner||'Unassigned')+'">'+esc(r.owner||'Unassigned')+'</span><time title="'+(risk?'Next review':'Due date')+': '+esc(due||'Not set')+'" '+(due?'datetime="'+esc(due)+'"':'')+'>'+esc(stamp)+'</time><span class="ops-card-priority">'+esc(r.blocked?'Blocked':late?'Overdue':third)+'</span></span></summary><div class="ops-card-body"><dl class="ref-facts">'+facts.map(([key,v])=>'<div><dt>'+esc(key)+'</dt><dd>'+esc(v==null||v===""?"—":v)+'</dd></div>').join("")+'</dl>'+
+    (!risk&&!bug?opsMeter(r.percent,r.progressError):"")+'<footer>'+notionAnchor(r,'Open in Notion')+(options.length?'<label class="oc-move">Move<select data-move aria-label="Move '+esc(r.task)+' to status"><option value="">Move to…</option>'+boardOptions(options,null)+'</select></label>':'')+'</footer>'+
+    (risk&&due?'<button type="button" data-review-risk="'+esc(r.id)+'">Complete review</button>':"")+'</div></details></article>';
+
+}
+
+      function opsLaneView(key,records,allowed){
+        const holder=boardEl("ops-board-"+key);
+        holder.hidden=!useBoard;
+        const table=boardEl(key+"-tbody").closest(".section-block");
+        table.hidden=useBoard;
+        if(!useBoard)return;
+        const dbs=allowed.map(boardDB);
+        const statusKey=v=>v.trim().toLowerCase();
+        const names=new Map();for(const v of [...dbs.flatMap(boardStates),...records.map(r=>r.notionStatus||r.status||"Unscheduled")])if(!names.has(statusKey(v)))names.set(statusKey(v),v);
+        const lanes=[...names.values()].filter(state=>records.some(r=>statusKey(r.notionStatus||r.status||'Unscheduled')===statusKey(state)));
+        const order={queued:0,working:1,planned:2,review:3,alert:4,finish:5};
+        const occupied=new Set(records.map(r=>statusKey(r.notionStatus||r.status||'Unscheduled')));
+        lanes.sort((a,b)=>Number(occupied.has(statusKey(b)))-Number(occupied.has(statusKey(a))) || order[opsTone(a)]-order[opsTone(b)]);
+        holder.innerHTML=lanes.map(state=>{
+          const list=records.filter(r=>statusKey(r.notionStatus||r.status||"Unscheduled")===statusKey(state));
+          const laneKey=key+':'+state,limit=opsLaneLimits.get(laneKey)||10;
+          return '<section class="ops-lane" data-tone="'+opsTone(state)+'" data-lane="'+esc(state)+'" data-group="'+key+'"><header class="oc-lane-title"><i aria-hidden="true"></i><h3>'+esc(state)+'</h3><b aria-label="'+list.length+' cards">'+list.length+'</b></header>'+list.slice(0,limit).map(r=>{
+            const db=boardDB(r.source),options=boardStates(db).filter(v=>statusKey(v)!==statusKey(state));
+            return opsTaskCard(r,db,options);
+          }).join('')+(list.length>limit?'<button type="button" class="ops-load-more" data-more-lane="'+esc(laneKey)+'">Show '+Math.min(10,list.length-limit)+' more · '+(list.length-limit)+' remaining</button>':'')+'</section>';
+        }).join('')||'<p class="oc-empty">No records match these filters.</p>';
+      }
+      async function saveOps(body){
+        const res=await fetch("/.netlify/functions/notion",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+        const data=await res.json();
+        if(!res.ok || !data.page?.id)throw new Error(data.error||"Save was not confirmed. Refresh before retrying.");
+        return data;
+      }
+      function acceptOpsPage(db,data){
+        const p=data.page;
+        if(db==="boulders"){
+          const celebrate=p.properties?.Status?.select?.name==="Completed" && BOULDERS.some(b=>b.pageId===p.id && b.status!=="Completed");
+          boulderRevision++;
+          BOULDERS=[...BOULDERS.filter(b=>b.pageId!==p.id),mapBoulder(p)];renderBoulders();
+          if(celebrate && !matchMedia("(prefers-reduced-motion: reduce)").matches)document.querySelector('[data-boulder-edit="'+CSS.escape(p.id)+'"]')?.closest("article")?.animate([{transform:"scale(.98)",opacity:.75},{transform:"scale(1)",opacity:1}],{duration:440});
+        } else {
+          const r=({actions:mapAction,governance:mapGovernanceAction,bugs:mapBugAction,risks:mapRiskAction})[db](p);
+          const rest=ALL_ACTIONS.filter(a=>a.id!==r.id);
+          if(db!=="risks" || !["closed","addressed"].includes(actionStatusKey(r.status))) rest.push(r);
+          completedLocally.delete(r.id);
+          applyActionCollections(rest,[],[],[],false);
+          mwLoaded=false;mwBoardLoaded=false;
+          populateDataFilters();renderActionsTable();renderCompletedTable();renderOverview();buildCalendar();
+        }
+        showWriteStatus(data.warning||"Saved to Notion.",!!data.warning);
+      }
+      async function moveOps(db,id,status){
+        if(boardBusy || !status)return;
+        if(!boardStates(db).includes(status)){showWriteStatus("That status is not available in this card’s register.",true);return}
+        boardBusy=true;
+        try{const data=await saveOps({operation:"board-update",db,page_id:id,status,completion_date:mwToday()});acceptOpsPage(db,data);if(data.nextPage)acceptOpsPage("governance",{page:data.nextPage});if(data.linkedBoulders?.length)await offerBoulderUpdate(data.linkedBoulders);}
+        catch(error){showWriteStatus(error.message,true);}finally{boardBusy=false;}
+      }
+      document.addEventListener("dragstart",e=>{const c=e.target.closest?.(".ops-task");if(!c)return;if(!c.closest('.ops-lane')||e.target.closest('a,select,button')){e.preventDefault();return;}c.classList.add('oc-picked');boardDrag={db:c.dataset.db,id:c.dataset.record,group:c.closest(".ops-lane").dataset.group};e.dataTransfer.setData("text/plain",c.dataset.record);});
+      document.addEventListener("dragend",()=>{boardDrag=null;document.querySelectorAll('.oc-picked,.oc-drop').forEach(el=>el.classList.remove('oc-picked','oc-drop'))});
+      document.addEventListener("dragover",e=>{const lane=e.target.closest?.(".ops-lane");if(lane&&boardDrag?.group===lane.dataset.group&&boardStates(boardDrag.db).some(v=>v.toLowerCase()===lane.dataset.lane.toLowerCase())){e.preventDefault();lane.classList.add("oc-drop");}});
+      document.addEventListener("dragleave",e=>{const lane=e.target.closest?.(".ops-lane");if(lane&&!lane.contains(e.relatedTarget))lane.classList.remove("oc-drop")});
+      document.addEventListener("drop",e=>{const lane=e.target.closest?.(".ops-lane");if(!lane||boardDrag?.group!==lane.dataset.group)return;e.preventDefault();const d=boardDrag;boardDrag=null;moveOps(d.db,d.id,boardStates(d.db).find(v=>v.toLowerCase()===lane.dataset.lane.toLowerCase()));});
+      document.addEventListener("change",e=>{if(!e.target.matches("[data-move]"))return;const c=e.target.closest(".ops-task"),v=e.target.value;e.target.value="";moveOps(c.dataset.db,c.dataset.record,v);});
+      async function openOpsForm(db,id){
+        if(boardBusy)return;
+        const b=id?BOULDERS.find(row=>row.pageId===id):null;
+        const dlg=boardEl("ops-dialog");
+        boardForm={db,id,b};boardEl("ops-entry").reset();
+        boardEl("ops-destination-label").hidden=db!=="actions";
+        boardEl("ops-form-heading").textContent=b?b.name:"New "+({actions:"action",bugs:"bug",risks:"risk",boulders:"boulder"})[db];
+        boardEl("ops-progress").value=b?.percent??"";
+        dlg.showModal();await refreshOpsForm();
+      }
+      function formDB(){return boardForm.db==="actions"?boardEl("ops-destination").value:boardForm.db}
+      async function refreshOpsForm(){
+        const f=boardForm,db=formDB(),btn=boardEl("ops-save");
+        const request=Symbol();f.request=request;f.read=null;
+        boardEl("ops-dynamic").replaceChildren();
+        boardEl("ops-state-label").hidden=!f.id;
+        if(!f.id) boardEl("ops-form-heading").textContent=({actions:"New action",governance:"New governance activity",bugs:"New bug",risks:"New risk",boulders:"New boulder"})[db];
+        btn.disabled=true;boardEl("ops-error").textContent="Loading fields…";
+        boardEl("ops-percent-label").hidden=true;
+        try{const schema=await notionSchema(db);if(boardForm!==f||f.request!==request)return;
+          boardSchemas.set(db,schema);
+          if(f.id){
+            boardEl("ops-state").innerHTML='<option value="">Keep current status</option>'+boardOptions(boardStates(db),f.b?.status);
+            boardEl("ops-percent-label").hidden=db!=="boulders"||schema.properties.Progress?.type!=="number";
+          } else f.read=renderOpsFields(db,schema);
+          boardEl("ops-error").textContent="";btn.disabled=false;
+        }catch{if(boardForm===f&&f.request===request)boardEl("ops-error").textContent="Could not load Notion fields. Close and retry.";}
+      }
+      boardEl("ops-entry").onsubmit=async e=>{
+        e.preventDefault();if(boardBusy||boardEl("ops-save").disabled)return;
+        const f=boardForm,db=formDB(),state=boardEl("ops-state").value,pct=boardEl("ops-progress").value;
+        const body={db,operation:f.id?"board-update":"board-create"};
+        if(f.id){
+          body.page_id=f.id;
+          if(state)body.status=state;
+          if(!boardEl("ops-percent-label").hidden && pct!=="" && Number(pct)!==f.b.percent)body.percent=Number(pct);
+        } else {
+          if(!f.read)return;
+          body.fields=Object.create(null);
+          try {
+            for(const [name,getValue] of f.read){
+              const value=getValue();
+              if(value!==undefined)body.fields[name]=value;
+            }
+            const missing=missingRegisterFields(db,boardSchemas.get(db).properties,body.fields);
+            if(missing.length)throw new Error("Please enter "+missing.join(", ")+".");
+          }catch(error){boardEl("ops-error").textContent=error.message;return;}
+        }
+        boardBusy=true;boardEl("ops-fields").disabled=true;boardEl("ops-error").textContent="Saving…";
+        try{const data=await saveOps(body);boardEl("ops-dialog").close();acceptOpsPage(db,data);}
+        catch(error){boardEl("ops-error").textContent=error.message;}
+        finally{boardBusy=false;boardEl("ops-fields").disabled=false;}
+      };
+      boardEl("ops-dialog").oncancel=e=>{if(boardBusy)e.preventDefault();};
+      document.addEventListener("click",e=>{const b=e.target.closest?.("[data-boulder-edit]");if(b)openOpsForm("boulders",b.dataset.boulderEdit);});
+
       async function notionSchema(db) {
         const response = await fetch("/.netlify/functions/notion", {
           method: "POST",
@@ -8225,7 +8891,7 @@
       function mergeActions(...groups) {
         const merged = new Map();
         groups.flat().forEach((action) => {
-          const key = [
+          const key = action.id || [
             action.source || "",
             action.task,
             action.start || "",
@@ -8405,6 +9071,10 @@
           status: p_select(p["Status"]),
           quarter: p_select(p["Quarter"]),
           id: p_uid(p["Boulder ID"]),
+          reference: [p["Boulder ID"]?.unique_id?.prefix,p_uid(p["Boulder ID"])].filter(v=>v!=null).join("-"),
+          planning: p["Planning page"]?.url,
+          linkedActions: p["Actions / Task"]?.relation?.length,
+          milestones: p["Milestone link"]?.relation?.length,
           investor: investorVisible(p),
         };
       }
@@ -8412,24 +9082,25 @@
       function mapGovernanceAction(page) {
         const p = page.properties || {};
         const rawStatus = p_choice(tryProp(p, "Status"));
-        const activity = p_title(tryProp(p, "Activity", "Name"));
+        const activity = p_title(Object.values(p).find(property => property?.type === "title"));
         const type = p_choice(tryProp(p, "Type"));
         const domain = p_choice(tryProp(p, "Domain"));
         return {
           id: page.id,
           url: page.url,
           source: "Governance Tracker",
-          task: [type, activity].filter(Boolean).join(": "),
+          task: activity || "Untitled",
           activity,
           type,
           owner: normaliseOwnerName(p_owner_value(tryProp(p, "Owner"))),
           start: p_date(tryProp(p, "Start Date", "Start")),
           due: p_date(tryProp(p, "Due Date")),
           completed: p_date(tryProp(p, "Completion Date", "Completed Date")),
-          blocked: rawStatus === "Overdue",
-          fn: domain ? `Compliance – ${domain}` : "Compliance",
+          blocked: p_check(tryProp(p, "Blocked?")) || rawStatus === "Overdue",
+          fn: p_choice(tryProp(p, "Function")) || (domain ? `Compliance – ${domain}` : "Compliance"),
           vertical: "",
-          urgency: p_choice(tryProp(p, "Priority")) || "Normal",
+          urgency: p_choice(tryProp(p, "Urgency", "Priority")) || "Normal",
+          percent: tryProp(p, "% Complete")?.number ?? null,
           status: rawStatus,
           frequency: normaliseFrequency(p_choice(tryProp(p, "Frequency"))),
           notes: "",
@@ -8444,8 +9115,8 @@
           source: "Bug Log",
           task: p_title(tryProp(p, "Bug / Incident", "Name")),
           owner: "Sam",
-          start: "",
-          due: "",
+          start: p_date(tryProp(p, "Start Date")),
+          due: p_date(tryProp(p, "Due Date")),
           logged: p_date(tryProp(p, "Date Logged")),
           completed: p_date(tryProp(p, "Date Resolved")),
           blocked: false,
@@ -8453,9 +9124,9 @@
           vertical: p_choice(tryProp(p, "Vertical")),
           urgency: p_choice(tryProp(p, "Priority")) || "Normal",
           status: p_choice(tryProp(p, "Status")),
-          bugId: p_uid(tryProp(p, "Bug ID")),
+          bugId: [tryProp(p,"Bug ID")?.unique_id?.prefix,p_uid(tryProp(p,"Bug ID"))].filter(v=>v!=null).join("-"),
           bugType: p_choice(tryProp(p, "Type")),
-          module: p_choice(tryProp(p, "Module")),
+          module: p_choice(tryProp(p, "Module / Feature", "Module")),
           frequency: "",
           notes: "",
         };
@@ -8482,6 +9153,11 @@
             "Normal",
           status: p_choice(tryProp(p, "Risk Category", "Status")),
           riskId: p_uid(tryProp(p, "Risk ID")),
+          score: p_formula(tryProp(p,"Risk Score")),
+          rating: p_formula(tryProp(p,"Risk Rating")),
+          controls: tryProp(p,"Linked Controls")?.relation?.length,
+          controlsIncomplete: !!tryProp(p,"Linked Controls")?.has_more,
+          domain,
           frequency: normaliseFrequency(
             p_choice(tryProp(p, "Review Frequency")),
           ),
@@ -8530,10 +9206,13 @@
         PIPELINE = data.results.map(mapPipelineItem).filter((p) => p.name);
       }
 
+      let boulderRevision=0;
       async function loadBoulders() {
+        const version=++boulderRevision;
         const data = await notionQuery("boulders", undefined, [
           { property: "Boulder ID", direction: "ascending" },
         ]);
+        if(version!==boulderRevision)return;
         BOULDERS = data.results.map(mapBoulder).filter((b) => b.name);
       }
 
@@ -8786,7 +9465,7 @@
             completed: renderCompletedTable,
             decisions: () => renderDecisions("all"),
             learnings: renderLearningsFiltered,
-            boulders: renderBoulders,
+            boulders: renderBoulders, completedBoulders: renderBoulders,
           })[key] || (() => {})
         )();
       }
@@ -8814,6 +9493,8 @@
         mwSaving++;
         try {
           const saved = await notionComplete(pageId, source);
+          if(saved.nextPage) acceptOpsPage("governance",{page:saved.nextPage});
+          if(saved.linkedBoulders?.length) await offerBoulderUpdate(saved.linkedBoulders);
           applyConfirmedCompletion(pageId, source, mwToday());
           mwLoaded = false;
           mwBoardLoaded = false;
@@ -8936,7 +9617,7 @@
         const status = actionStatusKey(action.status);
         if (group === "__completed") return isCompletedAction(action);
         if (isCompletedAction(action)) return false;
-        if (group === "__quick_win") return status === "quick win";
+        if (group === "__quick_win") return actionStatusKey(action.type) === "quick win";
         if (group === "__not_started")
           return ["inbox", "to do", "open"].includes(status);
         if (group === "__in_progress")
@@ -9114,6 +9795,7 @@
           const records = rows.filter(row => sources.includes(row.source || "Action Database"));
           const tbody = document.getElementById(key+"-tbody"), page = pageRows(key,records);
           document.getElementById(key+"-register-count").textContent = String(records.length);
+          opsLaneView(key,records,sources);
         tbody.innerHTML = page.visible.length
           ? page.visible
               .map(
@@ -9233,6 +9915,9 @@
           wrap = document.getElementById("completed-table-wrap"),
           count = document.getElementById("completed-count");
         if (!tbody || !wrap) return;
+        const cards=document.getElementById("ops-completed-cards");
+        cards.hidden=!useBoard;wrap.hidden=useBoard;
+        if(useBoard) cards.innerHTML='<div class="ops-completed-grid">'+page.visible.map(r=>opsTaskCard(r,boardDB(r.source)||"actions",[]).replace('draggable="true"','draggable="false"')).join('')+'</div>'+pagerHTML("completed",rows.length,page.start,page.pages);
         const countLabels = {
           today: "today",
           "this-week": "this week",
@@ -9304,6 +9989,12 @@
         <div class="action-owner">${esc(action.owner)}</div>
         <div class="action-due ${dueCls(action.due)}">${fmtDate(action.due)}</div>
       </div>`;
+        const types=document.getElementById("overview-types");
+        const shown=new Set([...types.querySelectorAll("details[open]")].map(d=>d.dataset.type));
+        types.innerHTML=["Quick Win","Substantive Work"].map(type=>{
+          const matches=ACTIVE_ACTIONS.filter(a=>a.source==="Action Database" && actionStatusKey(a.type)===actionStatusKey(type));
+          return '<details data-type="'+type+'" '+(shown.has(type)?'open':'')+'><summary>'+type+' ('+matches.length+')</summary>'+matches.map(actionRow).join("")+'</details>';
+        }).join("");
         document.getElementById("overview-blocked-list").innerHTML =
           BLOCKED.slice(0, 5).map(actionRow).join("") ||
           '<div class="action-row"><div class="action-task">No blocked actions</div></div>';
@@ -9733,14 +10424,10 @@
         const rows = BOULDERS.filter(
           (b) =>
             ownerMatches(b.owner, owner) &&
-            (status === "all" || b.status === status) &&
+            (status === "all" || (boulderDone(b) ? "Completed" : b.status) === status) &&
             (quarter === "all" || b.quarter === quarter),
         );
-        const page = pageRows("boulders", rows);
-        container.innerHTML = page.visible.length
-          ? `<div class="boulder-list"><div class="boulder-line head"><span>Boulder</span><span>Owner</span><span>Status</span><span>Quarter</span><span>Progress</span></div>${page.visible.map((b) => `<div class="boulder-line"><strong>${notionAnchor(b, b.name)}</strong><span>${esc(b.owner)}</span><span class="status-pill ${b.status === "Completed" ? "sp-done" : b.status === "At risk" ? "sp-onhold" : "sp-thisweek"}">${esc(b.status || "Active")}</span><small>${esc(b.quarter || "—")}</small><div class="boulder-progress">${progressMarkup(b)}</div></div>`).join("")}</div>${pagerHTML("boulders", rows.length, page.start, page.pages)}`
-          : '<div class="section-block full"><div style="padding:1.5rem;color:var(--ink-4)">No boulders match these filters</div></div>' +
-            pagerHTML("boulders", 0, 0, 1);
+        renderBoulderGroups(container, rows, status);
       }
 
       const ACTION_FUNCTION_OPTIONS = [
@@ -10201,7 +10888,8 @@
       function mwOpenItems() {
         return mwItems.filter(
           (i) =>
-            ![
+            (i.source!=="Risk review" || (i.due && (i.due.slice(0,10)<mwToday() || mwInWeek(i.due)))) && ![
+              "addressed",
               "done",
               "completed",
               "resolved",
@@ -10276,9 +10964,9 @@
             );
           row.append(btn);
         } else {
-          const marker = mwNode("span", "◇", "mw-review-marker");
-          marker.title = "Managed in the Risk Register";
-          row.append(marker);
+          const review = mwNode("button","Review","mw-text-button");
+          review.type="button";review.onclick=()=>reviewRisk(item.id,item.due,item.title);
+          row.append(review);
         }
         const link = mwNode("a", item.title);
         try {
@@ -10310,6 +10998,7 @@
             ),
           );
         meta.append(mwNode("small", mwDue(item.due), "mw-due"));
+        if(item.type) meta.append(mwNode("small",item.type));
         info.append(link, meta);
         row.append(info);
         if (item.source === "Operations action" || item.percent != null) {
@@ -10321,9 +11010,9 @@
       }
       function renderMyWorkActions() {
         const open = mwOpenItems(),
-          items = open.filter((i) =>
+          items = filterPersonalRows(open).filter((i) =>
             mwFilter === "quick"
-              ? actionStatusKey(i.status) === "quick win"
+              ? actionStatusKey(i.type) === "quick win"
               : mwFilter === "blocked"
                 ? i.blocked
                 : mwFilter === "week"
@@ -10731,7 +11420,8 @@
         );
       }
       setInterval(() => {
-        if (document.hidden || mwSaving) return;
+        if (document.hidden || mwSaving || boardBusy) return;
+        if (mwEl("tab-boulders").classList.contains("active")) loadBoulders().then(renderBoulders).catch(()=>showWriteStatus("Could not refresh Boulders.",true));
         if (mwEl("tab-mywork").classList.contains("active")) openMyWork(true);
         if (actionTabVisible()) refreshActionData();
       }, 60000);
