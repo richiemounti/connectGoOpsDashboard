@@ -105,6 +105,7 @@ const { MongoClient } = require("mongodb");
 
 const scryptAsync = promisify(scrypt);
 const COOKIE = "__Host-cg_session";
+const IDLE_SECONDS = 600;
 const SESSION_SECONDS = Number(process.env.AUTH_SESSION_SECONDS || 43200);
 const SCRYPT = { N: 16384, r: 8, p: 1, keylen: 32, maxmem: 64 * 1024 * 1024 };
 const MAX_ATTEMPTS = 8;
@@ -145,7 +146,7 @@ function signToken(claims) {
   const now = Math.floor(Date.now() / 1000);
   const header = encode(JSON.stringify({ alg: "HS256", typ: "JWT" }));
   const payload = encode(
-    JSON.stringify({ ...claims, iat: now, exp: now + SESSION_SECONDS }),
+    JSON.stringify({ ...claims, iat: now, session_end: claims.session_end || now + SESSION_SECONDS, exp: Math.min(now + IDLE_SECONDS, claims.session_end || now + SESSION_SECONDS) }),
   );
   const signature = encode(
     createHmac("sha256", secret).update(`${header}.${payload}`).digest(),
@@ -168,7 +169,8 @@ function verifyToken(token) {
       return null;
     const claims = JSON.parse(decode(payload).toString());
     return typeof claims.exp === "number" &&
-      claims.exp >= Math.floor(Date.now() / 1000)
+      Number.isFinite(claims.iat) &&
+      Math.min(claims.exp, claims.iat + IDLE_SECONDS) > Math.floor(Date.now() / 1000)
       ? claims
       : null;
   } catch {
@@ -561,10 +563,22 @@ exports.handler = async (event) => {
     };
   }
 
+  if (action === "activity" && event.httpMethod === "POST") {
+    if (!sameOrigin(event)) return json(403, {error:"Request origin not allowed"});
+    const session = await requireUser(event, "");
+    if (!session) return unauthorized();
+    const token = signToken({...session, session_end: session.session_end || session.exp});
+    const claims = verifyToken(token);
+    if (!claims) return unauthorized();
+    return json(200, {idleRemainingMs: Math.max(0, claims.exp * 1000 - Date.now())},
+      {"set-cookie": setCookie(token, IDLE_SECONDS)});
+  }
+
   if (action === "me" && event.httpMethod === "GET") {
     const session = await requireUser(event, "");
     if (!session) return unauthorized();
     return json(200, {
+      idleRemainingMs: Math.max(0, Math.min(session.exp, session.iat + IDLE_SECONDS) * 1000 - Date.now()),
       email: session.email,
       name: session.name,
       roles: session.roles,
@@ -621,7 +635,7 @@ exports.handler = async (event) => {
     return json(
       200,
       { ok: true },
-      { "set-cookie": setCookie(token, SESSION_SECONDS) },
+      { "set-cookie": setCookie(token, IDLE_SECONDS) },
     );
   } catch (error) {
     console.error("Sign-in unavailable:", error.message);
