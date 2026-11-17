@@ -418,7 +418,7 @@ async function teamLeaderboard(session) {
 }
 
 const registerRequired = {
-  actions: ["Owner","Function","Vertical","Due Date","Urgency","Type","Start Date","Decision","Status"],
+  actions: ["Owner","Function","Vertical","Due Date","Urgency","Type","Start Date","Status"],
   governance: ["Owner","Function","Due Date","Start Date","Frequency","Urgency","Status","Type","Linked Controls","Linked Risks","Source Workflow"],
   bugs: ["Module / Feature","Priority","Type","Vertical","Reported By","Start Date","Due Date","Date Logged","Status"]
 };

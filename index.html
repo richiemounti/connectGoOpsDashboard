@@ -6364,6 +6364,52 @@
 #overview-types summary{cursor:pointer;font-weight:600;padding:10px 16px;border-top:1px solid #85875544}
 #tab-actions .ref-facts{margin:7px 0}.ref-facts dd{white-space:normal}
 .ops-personal-filters{margin:9px 0}.ops-personal-filters summary{color:var(--green);cursor:pointer;font-weight:600}.ops-personal-filters>div{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}.ops-personal-filters label{display:grid;gap:3px;font-size:12px}.ops-personal-filters select{max-width:230px;padding:5px;color:var(--green);background:var(--white);border:1px solid var(--olive);border-radius:4px}
+</style><style>/* Compact work slips: typography, ruled edges and deliberate colour bands. */
+#tab-actions .ops-lane{background:var(--paper);border:0;border-radius:0;padding:0 10px 12px}
+#tab-actions .oc-lane-title{margin:0 -10px 12px;border-bottom:1px solid var(--olive);border-top-width:4px}
+#tab-actions .oc-task.ref-task{border-radius:0;border:0;border-left:3px solid var(--olive);border-bottom:1px solid var(--rule);box-shadow:none;margin:0 0 8px;background:var(--white)}
+#tab-actions .ref-task[data-priority=high]{border-left-color:var(--amber)}
+#tab-actions .ref-task[data-priority=blocked]{border-left-color:var(--coral)}
+#tab-actions .ops-card-title{font:600 19px/1.15 var(--display);letter-spacing:.1px;-webkit-line-clamp:3}
+#tab-actions .ops-card-glance{font-size:11px;padding-top:8px;border-top:1px solid var(--paper)}
+#tab-actions .ops-card-priority{border-radius:0;background:transparent;padding:0;font-weight:500}
+#tab-actions .ops-card-detail>summary{padding:13px 12px 11px}
+#tab-actions .ops-card-detail[open]{background:var(--off)}
+.mw-filterbar{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px!important;margin:16px 0!important}
+.mw-filterbar button{display:flex;justify-content:space-between;align-items:center;border-radius:3px!important;padding:12px!important;border:1px solid var(--rule)!important;background:var(--off)}
+.mw-filterbar button b{font:600 25px var(--display);margin-left:10px}
+.mw-filterbar button[aria-pressed=true]{background:var(--green)!important;color:var(--white)!important;border-color:var(--green)!important}
+#mw-next-title{font:600 36px/1.1 var(--display);cursor:pointer}
+#tab-overview [hidden]{display:none!important}
+#tab-overview .overview-main-grid{align-items:start}
+#tab-pipeline #pipeline-board{display:block;background:transparent;border:0;padding:0}
+.pipeline-summary{padding:22px 28px;margin:8px 0 24px;background:var(--green);color:white;border-radius:0 36px 0 0;border-left:6px solid var(--amber)}
+.pipeline-summary>span{font:500 10px var(--body);letter-spacing:.16em;color:var(--yellow)}
+.pipeline-summary strong{display:block;font:600 36px var(--display);margin:4px 0}.pipeline-summary p{margin:0;color:#ffffffb5;font-size:13px}
+.pipeline-stages{display:grid;grid-template-columns:repeat(4,minmax(230px,1fr));gap:22px;overflow:auto;padding-bottom:18px}
+.pipeline-stage{--stage:var(--olive);min-width:0}.pipeline-stage[data-stage=Exploring]{--stage:var(--amber)}.pipeline-stage[data-stage=Committed]{--stage:var(--green)}.pipeline-stage[data-stage=Parked]{--stage:var(--plum)}
+.pipeline-stage>header{display:grid;grid-template-columns:30px 1fr 25px;align-items:baseline;gap:8px;border-bottom:4px solid var(--stage);padding:0 0 14px;margin-bottom:16px}
+.pipeline-stage>header>span{font:500 13px var(--body);color:var(--stage)}.pipeline-stage h2{font:600 28px var(--display);margin:0}.pipeline-stage header b{font:500 13px var(--body)}
+.pipeline-stage header p{grid-column:1/-1;font-size:11px;color:var(--ink-3);margin:0}
+.pipeline-entry{padding:18px 16px;background:var(--white);border:1px solid var(--rule);border-top:0;position:relative;margin-bottom:12px}
+.pipeline-entry:before{content:'';position:absolute;top:0;left:0;width:40px;height:2px;background:var(--stage)}
+.pipeline-kind{font:500 10px var(--body);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3)}
+.pipeline-entry h3{margin:10px 0 16px;font:600 24px/1.15 var(--display)}.pipeline-entry h3 a{color:var(--green)}
+.pipeline-entry>p{font:400 12px/1.5 var(--body);color:var(--ink-2);max-height:6em;overflow:auto}
+.pipeline-entry footer{border-top:1px solid var(--rule);padding-top:12px;display:flex;justify-content:space-between;gap:10px;font-size:11px}.pipeline-entry>small{display:block;margin-top:8px;color:var(--ink-3);font-size:10px}.pipeline-empty{font-size:12px;color:var(--ink-3);padding:20px 0;border-bottom:1px solid var(--rule)}
+#tab-calendar #week-grid{gap:0;border:1px solid var(--rule);min-width:910px;background:var(--rule)}
+.calendar-weekdays{display:grid;grid-template-columns:repeat(7,1fr);background:var(--green);color:var(--white)}.calendar-weekdays span{padding:12px;text-align:left;font:500 12px var(--body)}
+#tab-calendar .due-calendar-week{border:0;border-radius:0;gap:1px;margin:0 0 1px}
+#tab-calendar .due-calendar-day{min-height:132px;padding:10px 8px}
+#tab-calendar .due-calendar-day h3{border:0;font:600 19px var(--display);padding:0;margin:0 0 10px}
+#tab-calendar .due-calendar-day.today{background:#f0c71d0c;box-shadow:inset 0 3px var(--amber)}
+#tab-calendar .due-calendar-day.today h3{display:inline-grid;place-items:center;background:var(--green);color:var(--white);border-radius:50%;width:29px;height:29px}
+#tab-calendar .due-calendar-day.outside{opacity:.55;background:var(--off)}
+#tab-calendar .due-calendar-event{border:0;border-left:3px solid var(--olive);border-radius:0;background:var(--off);padding:7px;margin-bottom:4px;box-shadow:none}
+#tab-calendar .due-calendar-event a{font:500 11px/1.4 var(--body);display:block;color:var(--green)}
+#tab-calendar .due-calendar-event span{font-size:10px;color:var(--ink-3)}
+#tab-calendar .due-calendar-empty{display:none}
+@media(max-width:650px){.mw-filterbar{grid-template-columns:repeat(2,minmax(0,1fr))}.pipeline-summary{padding:18px}.pipeline-stages{gap:14px}}
 </style><script id="ops-idle-session">
 /* Only deliberate user activity renews the ten-minute server session. */
 (() => {
@@ -6371,7 +6417,15 @@
   const endpoint = '/.netlify/functions/auth?action=';
   const key = 'connectgo-ops-idle';
   const originalFetch = window.fetch.bind(window);
-  let deadline = 0, stopped = false, pending = false, dirty = false, timer;
+  let deadline = 0, stopped = false, pending = false, dirty = false, timer, retryAt = 0, unavailable = false;
+  function notice() {
+    if(!document.body || stopped)return;
+    let banner=document.getElementById('ops-session-notice');
+    const seconds=deadline?Math.max(0,Math.ceil((deadline-Date.now())/1000)):0;
+    const message=unavailable?'Connection interrupted. Retrying your session check…':seconds>0&&seconds<=60?'You will be signed out in '+seconds+' seconds. Click or type to stay signed in.':'';
+    if(!banner && message){banner=document.createElement('div');banner.id='ops-session-notice';banner.setAttribute('role','status');banner.style.cssText='position:fixed;bottom:18px;left:50%;transform:translateX(-50%);max-width:90vw;z-index:10000;padding:12px 18px;background:#11302a;color:white;border:1px solid #cd8028;font:14px sans-serif';document.body.append(banner)}
+    if(banner){banner.textContent=message;banner.hidden=!message;}
+  }
   function publish(value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch {} }
   function logout(broadcast = true) {
     if (stopped) return;
@@ -6396,13 +6450,14 @@
       if (response.status === 401) { logout(); return; }
       if (!response.ok) throw Error('Session check unavailable');
       const data = await response.json();
-      if (!(data.idleRemainingMs > 0 && data.idleRemainingMs <= 600000)) { logout(); return; }
+      if (!(data.idleRemainingMs > 0 && data.idleRemainingMs <= 600000)) throw Error('Session check unavailable');
       if (stopped) return;
       deadline = Date.now() + data.idleRemainingMs;
+      unavailable = false; retryAt = 0;
       publish({deadline});
     } catch {
       // A failed renewal never extends the local deadline.
-      if (!deadline) logout();
+      unavailable = true; retryAt = Date.now()+5000;
     } finally {
       pending = false;
       if (dirty && !stopped) schedule();
@@ -6410,7 +6465,7 @@
   }
   function schedule() {
     clearTimeout(timer);
-    timer = setTimeout(() => { if (dirty) { dirty = false; request('activity'); } }, 1000);
+    timer = setTimeout(() => { timer=null;if (dirty) { dirty = false; request('activity'); } }, 1000);
   }
   function activity(event) {
     if (!event.isTrusted || document.hidden || expired() || !deadline) return;
@@ -6434,7 +6489,12 @@
   document.addEventListener('click', event => {
     if (event.target.closest?.('a[href*="auth?action=logout"]')) logout();
   }, true);
-  setInterval(() => { if (!expired() && dirty && !pending) { clearTimeout(timer); timer = null; dirty = false; request('activity'); } }, 1000);
+  setInterval(() => {
+    if(expired())return;
+    notice();
+    if(unavailable && retryAt<=Date.now() && !pending){request('me');return;}
+    if(dirty && !pending && !timer){dirty=false;request('activity');}
+  }, 1000);
   request('me');
 })();
 
@@ -6786,7 +6846,7 @@
                       d="M7 3v4m10-4v4M3 11h18m-13 5h.01M12 16h.01M16 16h.01"
                     />
                   </svg>
-                  Next due
+                  Overdue work
                 </h2>
                 <span id="mw-next-label" class="mw-next-label">—</span>
               </div>
@@ -6875,44 +6935,9 @@
                   </svg>
                 </button>
               </div>
-              <div
-                class="mw-filterbar"
-                role="group"
-                aria-label="Filter my actions"
-              >
-                <button
-                  type="button"
-                  aria-pressed="true"
-                  onclick="setMyWorkFilter('all')"
-                  data-my-filter="all"
-                >
-                  All open</button
-                ><button
-                  type="button"
-                  aria-pressed="false"
-                  onclick="setMyWorkFilter('week')"
-                  data-my-filter="week"
-                >
-                  This week</button
-                ><button
-                  type="button"
-                  aria-pressed="false"
-                  onclick="setMyWorkFilter('blocked')"
-                  data-my-filter="blocked"
-                >
-                  Blocked
-                </button>
-                <button
-                  type="button"
-                  aria-pressed="false"
-                  data-my-filter="quick"
-                  onclick="setMyWorkFilter('quick')"
-                >
-                  Quick wins
-                </button>
-              </div>
+<div class="mw-filterbar" role="group" aria-label="Filter my assigned work"><button type="button" data-my-filter="week" aria-pressed="false" onclick="setMyWorkFilter('week')">This week<b data-my-count="week">0</b></button><button type="button" data-my-filter="blocked" aria-pressed="false" onclick="setMyWorkFilter('blocked')">Blocked<b data-my-count="blocked">0</b></button><button type="button" data-my-filter="quick" aria-pressed="false" onclick="setMyWorkFilter('quick')">Quick Wins<b data-my-count="quick">0</b></button><button type="button" data-my-filter="overdue" aria-pressed="false" onclick="setMyWorkFilter('overdue')">Overdue<b data-my-count="overdue">0</b></button></div>
 
-              <details class="ops-personal-filters"><summary>Filter my tasks</summary><div id="ops-my-filters"></div></details>
+              
               <ul id="mw-list" class="mw-tasks"></ul>
               <details id="mw-more" class="mw-more" hidden>
                 <summary id="mw-more-label">More actions</summary>
@@ -7114,7 +7139,7 @@
                 </div>
                 <div id="overview-blocked-list"></div>
               </section>
-              <section class="section-block">
+              <section class="section-block" hidden>
                 <div class="block-header">
                   <h2 class="block-title">This week</h2>
                   <button
@@ -7124,7 +7149,7 @@
                     View actions →
                   </button>
                 </div>
-                <div id="overview-week-list"></div>
+                <div id="overview-week-list" hidden></div>
               </section>
             </div>
             <aside class="overview-margin" aria-label="Registers and decisions">
@@ -7168,7 +7193,7 @@
               </section>
             </aside>
           </div>
-        <section class="section-block"><div class="block-title">Open actions by type</div><div id="overview-types"></div></section></div>
+        <section class="section-block" hidden><div class="block-title">Open actions by type</div><div id="overview-types" hidden></div></section></div>
 
         <!-- ACTIONS -->
         <div id="tab-actions" class="tab-panel">
@@ -7326,7 +7351,7 @@
               >
             </div>
 </div>
-<details class="register-group" open><summary>Action and Governance Tracker <small id="actions-register-count"></small></summary><div class="ops-tools"><button type="button" onclick="openOpsForm('actions')">+ Action</button></div><div class="ops-board" hidden id="ops-board-actions"></div><div class="section-block full">            <div
+<details class="register-group"><summary>Action and Governance Tracker <small id="actions-register-count"></small></summary><div class="ops-tools"><button type="button" onclick="openOpsForm('actions')">+ Action</button></div><div class="ops-board" hidden id="ops-board-actions"></div><div class="section-block full">            <div
               class="action-scroll"
               tabindex="0"
               role="region"
@@ -7715,7 +7740,7 @@
             <div>
               <div class="page-title">Calendar</div>
               <div class="page-sub">
-                Team week — actions due and meetings scheduled
+                Scheduled work, review dates and team commitments
               </div>
             </div>
           </div>
@@ -7750,11 +7775,10 @@
                   ><button onclick="setCalendarView('three',this)">
                     3 days</button
                   ><button
-                    class="active"
                     onclick="setCalendarView('week',this)"
                   >
                     Week</button
-                  ><button onclick="setCalendarView('month',this)">
+                  ><button class="active" onclick="setCalendarView('month',this)">
                     Month
                   </button>
                 </div>
@@ -8010,7 +8034,7 @@
               const outside =
                 monthStart && day.getMonth() !== monthStart.getMonth();
               return `<section class="due-calendar-day${key === mwToday() ? " today" : ""}${outside ? " outside" : ""}" ondragover="calendarDragOver(event)" ondragleave="calendarDragLeave(event)" ondrop="calendarDrop(event,'${key}')">
-      <h3>${esc(day.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" }))}</h3>
+      <h3>${esc(monthStart ? String(day.getDate()) : day.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" }))}</h3>
       <div class="due-calendar-items">${
         items
           .map(
@@ -8288,7 +8312,7 @@
 
       // ── NOTION PROPERTY PARSERS ──
       function p_title(prop) {
-        return (prop?.title || []).map(part => part.plain_text).join("");
+        return (prop?.title || []).map(part => part.plain_text || part.text?.content || "").join("");
       }
       function p_text(prop) {
         return prop?.rich_text?.[0]?.plain_text || "";
@@ -8389,7 +8413,7 @@
       }
 
 const registerRequired = {
-  actions: ["Owner","Function","Vertical","Due Date","Urgency","Type","Start Date","Decision","Status"],
+  actions: ["Owner","Function","Vertical","Due Date","Urgency","Type","Start Date","Status"],
   governance: ["Owner","Function","Due Date","Start Date","Frequency","Urgency","Status","Type","Linked Controls","Linked Risks","Source Workflow"],
   bugs: ["Module / Feature","Priority","Type","Vertical","Reported By","Start Date","Due Date","Date Logged","Status"]
 };
@@ -8618,7 +8642,7 @@ function opsFieldControl(box, db, name, property) {
   let input;
   if (type === "select" || type === "status") {
     input = formElement("select");
-    input.add(new Option("Use Notion default",""));
+    input.add(new Option((registerRequired[db]||[]).includes(name.trim()) ? "Choose "+name.trim()+"…" : "Not set (optional)",""));
     for (const option of property.options) input.add(new Option(option,option));
   } else if (type === "rich_text" || type === "files") {
     input = formElement("textarea"); input.rows = 3;
@@ -8652,6 +8676,7 @@ function renderOpsFields(db, schema) {
   if (!entries.some(([,p])=>p.type === "title")) throw new Error("No title field is available.");
   const rank = p => p.type === "title" ? 0 : p.type === "people" ? 1 : 2;
   for (const [name, property] of entries.sort((a,b)=>rank(a[1])-rank(b[1]))) {
+    if(db === 'boulders' && ['planning page','planning stage','milestone link'].includes(name.trim().toLowerCase())) continue;
     if (!editableOpsFields.has(property.type)) {
       (notionManagedFields.has(property.type) ? managed : other).push(name.trim());
       continue;
@@ -8702,7 +8727,8 @@ const boardSources={actions:"Action Database",governance:"Governance Tracker",bu
       const boardDB=source=>Object.keys(boardSources).find(k=>boardSources[k]===source);
       function boardStates(db){
         const p=boardSchemas.get(db)?.properties || {};
-        return (db==="risks" ? p["Risk Category"]||p.Status : p.Status)?.options || [];
+        const property=db==="risks" ? p["Risk Category"]||p.Status : p.Status;
+        return (property?.options || []).map(option=>typeof option==='string'?option:option.name).filter(Boolean);
       }
       async function boardSchema(db){
         if (!boardSchemas.has(db)) boardSchemas.set(db,await notionSchema(db));
@@ -8808,6 +8834,7 @@ const risk=db==="risks",bug=db==="bugs",gov=db==="governance";
       }
       function acceptOpsPage(db,data){
         const p=data.page;
+        completionRevision++;
         if(db==="boulders"){
           const celebrate=p.properties?.Status?.select?.name==="Completed" && BOULDERS.some(b=>b.pageId===p.id && b.status!=="Completed");
           boulderRevision++;
@@ -8820,7 +8847,10 @@ const risk=db==="risks",bug=db==="bugs",gov=db==="governance";
           completedLocally.delete(r.id);
           applyActionCollections(rest,[],[],[],false);
           mwLoaded=false;mwBoardLoaded=false;
+          pageState.actions=pageState.bugs=pageState.risks=pageState.completed=1;
           populateDataFilters();renderActionsTable();renderCompletedTable();renderOverview();buildCalendar();
+          const group=boardEl('ops-board-'+(['actions','governance'].includes(db)?'actions':db))?.closest('.register-group');
+          if(group)group.open=true;
         }
         showWriteStatus(data.warning||"Saved to Notion.",!!data.warning);
       }
@@ -8859,11 +8889,13 @@ const risk=db==="risks",bug=db==="bugs",gov=db==="governance";
         try{const schema=await notionSchema(db);if(boardForm!==f||f.request!==request)return;
           boardSchemas.set(db,schema);
           if(f.id){
-            boardEl("ops-state").innerHTML='<option value="">Keep current status</option>'+boardOptions(boardStates(db),f.b?.status);
+            const choices=boardStates(db);
+            if(!choices.length)throw Error('No editable Status options were returned for this register. Retry to reload them.');
+            boardEl("ops-state").replaceChildren(new Option('Keep current status',''),...choices.map(value=>new Option(value,value,false,value===f.b?.status)));
             boardEl("ops-percent-label").hidden=db!=="boulders"||schema.properties.Progress?.type!=="number";
           } else f.read=renderOpsFields(db,schema);
           boardEl("ops-error").textContent="";btn.disabled=false;
-        }catch{if(boardForm===f&&f.request===request)boardEl("ops-error").textContent="Could not load Notion fields. Close and retry.";}
+        }catch(error){if(boardForm===f&&f.request===request){boardEl("ops-error").textContent=error.message||"Could not load register fields.";const retry=document.createElement('button');retry.type='button';retry.textContent='Retry';retry.onclick=refreshOpsForm;boardEl("ops-error").append(' ',retry);}}
       }
       boardEl("ops-entry").onsubmit=async e=>{
         e.preventDefault();if(boardBusy||boardEl("ops-save").disabled)return;
@@ -8899,9 +8931,11 @@ const risk=db==="risks",bug=db==="bugs",gov=db==="governance";
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ operation: "schema", db }),
         });
-        if (!response.ok)
-          throw new Error("Notion schema error: " + response.status);
-        return response.json();
+        if(response.status===401)throw new Error("Your session has expired. Sign in again to edit this record.");
+        const schema=await response.json();
+        if(!response.ok)throw new Error(schema.error || "Register fields are temporarily unavailable ("+response.status+").");
+        if(!schema.properties)throw new Error("The register did not return its fields. Retry to reload them.");
+        return schema;
       }
 
       async function governanceActions() {
@@ -9018,7 +9052,7 @@ const risk=db==="risks",bug=db==="bugs",gov=db==="governance";
           id: page.id,
           url: page.url,
           source: "Action Database",
-          task: p_title(tryProp(p, "Task", "Name", "Action")),
+          task: p_title(Object.values(p).find(field=>field.type==="title")),
           owner: p_owner_value(tryProp(p, "Owner", "Assigned to")),
           start: p_date(tryProp(p, "Start Date", "Start")),
           due: p_date(tryProp(p, "Due Date", "Due")),
@@ -9142,7 +9176,7 @@ const risk=db==="risks",bug=db==="bugs",gov=db==="governance";
           url: page.url,
           name: p_title(p["Boulder"]),
           owner: p_owner_value(p["Owner"]),
-          status: p_select(p["Status"]),
+          status: p_choice(p["Status"]),
           quarter: p_select(p["Quarter"]),
           id: p_uid(p["Boulder ID"]),
           reference: [p["Boulder ID"]?.unique_id?.prefix,p_uid(p["Boulder ID"])].filter(v=>v!=null).join("-"),
@@ -9444,7 +9478,7 @@ const risk=db==="risks",bug=db==="bugs",gov=db==="governance";
         renderPipeline();
       }
 
-      let calendarView = "week",
+      let calendarView = "month",
         calendarAnchor = todayAtMidnight();
       function setCalendarView(view, btn) {
         calendarView = view;
@@ -9776,7 +9810,9 @@ const risk=db==="risks",bug=db==="bugs",gov=db==="governance";
       }
 
       async function loadActions(onPrimaryReady) {
+        const revision = completionRevision;
         const actionsData = await notionQuery("actions");
+        if(revision !== completionRevision)return;
         const actions = (actionsData.results || [])
           .map(mapAction)
           .filter((action) => action.task);
@@ -9796,6 +9832,7 @@ const risk=db==="risks",bug=db==="bugs",gov=db==="governance";
             return [];
           }),
         ]);
+        if(revision !== completionRevision)return;
         applyActionCollections(actions, governance, bugs, risks);
       }
 
@@ -10181,22 +10218,15 @@ const risk=db==="risks",bug=db==="bugs",gov=db==="governance";
             ownerMatches(p.owner, pipelineFilters.owner),
           );
         const board = document.getElementById("pipeline-board");
-        if (board)
-          board.innerHTML = ["Idea", "Exploring", "Committed", "Parked"]
-            .map(
-              (stage) =>
-                `<section class="pipeline-column"><h3>${stage} · ${rows.filter((p) => p.stage === stage).length}</h3>${
-                  rows
-                    .filter((p) => p.stage === stage)
-                    .map(
-                      (p) =>
-                        `<article class="pipeline-card"><strong>${notionAnchor(p, p.name)}</strong><small>${esc(p.owner)} · ${esc(p.quarter || "Unscheduled")}</small></article>`,
-                    )
-                    .join("") ||
-                  '<div style="padding:12px;color:var(--ink-4);font-size:.75rem">No items</div>'
-                }</section>`,
-            )
-            .join("");
+        if(board){
+          const stages=[...new Set(['Idea','Exploring','Committed','Parked',...rows.map(p=>p.stage||'Unscheduled')])];
+          const descriptions={Idea:'Possibilities worth considering',Exploring:'Testing value and fit',Committed:'Agreed and moving forward',Parked:'Held for a better moment'};
+          board.innerHTML='<div class="pipeline-summary"><span>THE OPPORTUNITY REGISTER</span><strong>'+rows.length+' initiatives</strong><p>From first idea to committed work.</p></div><div class="pipeline-stages">'+stages.map((stage,index)=>{
+            const items=rows.filter(p=>(p.stage||'Unscheduled')===stage);
+            return '<section class="pipeline-stage" data-stage="'+esc(stage)+'"><header><span>'+String(index+1).padStart(2,'0')+'</span><h2>'+esc(stage)+'</h2><b>'+items.length+'</b><p>'+esc(descriptions[stage]||'Other initiatives')+'</p></header><div>'+items.map(p=>'<article class="pipeline-entry"><span class="pipeline-kind">'+esc(p.type||'Initiative')+'</span><h3>'+notionAnchor(p,p.name)+'</h3>'+(p.desc?'<p>'+esc(p.desc)+'</p>':'')+'<footer><span>'+esc(p.owner||'Unassigned')+'</span><span>'+esc(p.quarter||'Not scheduled')+'</span></footer>'+(p.due?'<small>Target '+esc(fmtDate(p.due))+'</small>':'')+'</article>').join('')+(items.length?'':'<p class="pipeline-empty">No initiatives in this stage</p>')+'</div></section>';
+          }).join('')+'</div>';
+        }
+
       }
 
       let pipelineView = "all",
@@ -10827,7 +10857,7 @@ const risk=db==="risks",bug=db==="bugs",gov=db==="governance";
           calendarView === "month"
             ? Array.from({ length: 6 }, (_, i) => days.slice(i * 7, i * 7 + 7))
             : [days];
-        grid.innerHTML = weeks
+        grid.innerHTML = (calendarView === "month" ? '<div class="calendar-weekdays">'+["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(d=>'<span>'+d+'</span>').join("")+'</div>' : "") + weeks
           .map((week) =>
             renderDueDateWeek(
               week,
@@ -11084,12 +11114,14 @@ const risk=db==="risks",bug=db==="bugs",gov=db==="governance";
       }
       function renderMyWorkActions() {
         const open = mwOpenItems(),
-          items = filterPersonalRows(open).filter((i) =>
+          items = open.filter((i) =>
             mwFilter === "quick"
               ? actionStatusKey(i.type) === "quick win"
               : mwFilter === "blocked"
                 ? i.blocked
-                : mwFilter === "week"
+                : mwFilter === "overdue"
+                  ? i.due && i.due.slice(0,10)<mwToday()
+                  : mwFilter === "week"
                   ? mwInWeek(i.due)
                   : true,
           );
@@ -11125,40 +11157,20 @@ const risk=db==="risks",bug=db==="bugs",gov=db==="governance";
                 : mwFilter === "week"
                   ? "No actions due this week."
                   : "No open actions linked to your account.";
-        const next = open.find((i) => i.due) || open[0],
-          link = mwEl("mw-next-title");
-        link.removeAttribute("href");
-        if (next) {
-          link.textContent = next.title;
-          try {
-            const u = new URL(next.url);
-            if (u.protocol === "https:") {
-              link.href = u.href;
-              link.target = "_blank";
-              link.rel = "noopener noreferrer";
-            }
-          } catch {}
-          mwEl("mw-next-label").textContent = next.due
-            ? next.due.slice(0, 10) < mwToday()
-              ? "Overdue"
-              : next.due.slice(0, 10) === mwToday()
-                ? "Today"
-                : "Coming up"
-            : "";
-          mwEl("mw-next-date").textContent = mwShortDate(next.due);
-          mwEl("mw-next-status").textContent = next.blocked
-            ? "Blocked"
-            : next.status;
-        } else {
-          link.textContent = "No upcoming actions";
-          mwEl("mw-next-label").textContent = "";
-          mwEl("mw-next-date").textContent = "";
-          mwEl("mw-next-status").textContent = "";
-        }
+        const overdue=open.filter(i=>i.due && i.due.slice(0,10)<mwToday());
+        const counts={week:open.filter(i=>mwInWeek(i.due)).length,blocked:open.filter(i=>i.blocked).length,quick:open.filter(i=>actionStatusKey(i.type)==="quick win").length,overdue:overdue.length};
+        document.querySelectorAll('[data-my-count]').forEach(el=>el.textContent=counts[el.dataset.myCount]);
+        const link=mwEl("mw-next-title");link.removeAttribute('href');
+        link.textContent=overdue.length+' '+(overdue.length===1?'task overdue':'tasks overdue');
+        link.setAttribute('role','button');link.tabIndex=0;link.onclick=()=>setMyWorkFilter('overdue');
+        link.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();link.click()}};
+        mwEl("mw-next-label").textContent=overdue.length?'Needs attention':'Up to date';
+        mwEl("mw-next-date").textContent=overdue.length?'Select to view your overdue work':'No overdue tasks';
+        mwEl("mw-next-status").textContent='';
       }
       function setMyWorkFilter(value) {
-        mwFilter = ["all", "week", "blocked", "quick"].includes(value)
-          ? value
+        mwFilter = ["all", "week", "blocked", "quick", "overdue"].includes(value)
+          ? (mwFilter===value?"all":value)
           : "all";
         renderMyWorkActions();
       }
